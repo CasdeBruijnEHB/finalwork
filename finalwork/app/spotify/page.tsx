@@ -1,46 +1,26 @@
-var client_id = "57c1daec36f24f40b21aa8b9dfe3e15b";
-var client_secret = "4b462df074a5417faa79cd92918e05dd";
-
-async function getToken() {
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      client_id: client_id,
-      client_secret: client_secret,
-      grant_type: "client_credentials",
-    }),
-  });
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-  return data.access_token;
+"use client";
+async function getData() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/");
+  return response.json();
 }
 
-async function getData() {
-  const access_token = await getToken();
-  const id = "3Sz7ZnJQBIHsXLUSo0OQtM";
-  console.log("accesstoken: " + access_token);
-
-  const res = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
-
-  return res.json();
+async function getSpotiData() {
+  const response = await fetch("http://localhost:3001/testPoint");
+  return response.json();
 }
 
 export default async function Spotify() {
-  const data = await getData();
-  console.log(data);
+  //const user = await fetch("http://localhost:3001/login");
+
+  async function handleButtonclick() {
+    console.log("Button click!");
+  }
   return (
     <>
-      <p>Spotifypage</p>
+      <div>Spotifypage</div>
+      <button onClick={handleButtonclick}>
+        <a href="http://localhost:3001/login">Button click handle</a>
+      </button>
     </>
   );
 }
