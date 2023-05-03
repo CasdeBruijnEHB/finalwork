@@ -113,7 +113,6 @@ app.get('/callback', function(req, res) {
 
       req.session.access_token = access_token;
       req.session.refresh_token = refresh_token;
-      
       /*
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -129,7 +128,7 @@ app.get('/callback', function(req, res) {
         */
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:3000/resultpage/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
