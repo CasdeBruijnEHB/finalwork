@@ -54,7 +54,7 @@ app.listen(port, () => {
 })
 
 app.get('/testPoint', (req, res) => {
-  res.send({"testdata":["data","test"]})
+ res.json({ username: 'Flavio' })
 })
 
 var stateKey = 'spotify_auth_state';
@@ -65,7 +65,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-top-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -113,19 +113,31 @@ app.get('/callback', function(req, res) {
 
       req.session.access_token = access_token;
       req.session.refresh_token = refresh_token;
-      /*
+      
+  
         var options = {
-          url: 'https://api.spotify.com/v1/me',
+          url: 'https://api.spotify.com/v1/me/top/tracks?limit=1',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
 
         // use the access token to access the Spotify Web API
-        
+        //console.log(options)
         request.get(options, function(error, response, body) {
           console.log(body);
+        if (error) {
+          console.error(error);
+          return;
+          }
+          if (response.statusCode !== 200) {
+          console.error('Invalid status code:', response.statusCode);
+          return;
+          }
+          console.log(JSON.stringify(body, null, 2))
         });
-        */
+        
+       
+      
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('http://localhost:3000/resultpage/#' +
@@ -167,3 +179,9 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+
+app.get('topTracks', function(req,res){
+
+
+  
+})
