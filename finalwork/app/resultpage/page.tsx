@@ -1,11 +1,24 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export default async function SpotifyResultPage() {
-  fetch("http://localhost:3001/testPoint")
-    .then((res) => res.json())
-    .then((json) => console.log(json));
+  console.log("resultpage");
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/data");
+        const json = await response.json();
+        console.log(json);
+        setData(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>

@@ -53,9 +53,12 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-app.get('/testPoint', (req, res) => {
- res.json({ username: 'Flavio' })
-})
+app.get('/data', (req, res) => {
+  const data = {
+    username: 'Flavio'
+  };
+  res.json(data);
+});
 
 var stateKey = 'spotify_auth_state';
 
@@ -77,9 +80,6 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/callback', function(req, res) {
-
-  // your application requests refresh and access tokens
-  // after checking the state parameter
 
   var code = req.query.code || null;
   var state = req.query.state || null;
@@ -121,7 +121,6 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-        // use the access token to access the Spotify Web API
         //console.log(options)
         request.get(options, function(error, response, body) {
           console.log(body);
@@ -137,9 +136,6 @@ app.get('/callback', function(req, res) {
         });
         
        
-      
-
-        // we can also pass the token to the browser to make requests from there
         res.redirect('http://localhost:3000/resultpage/#' +
           querystring.stringify({
             access_token: access_token,
@@ -157,7 +153,6 @@ app.get('/callback', function(req, res) {
 
 app.get('/refresh_token', function(req, res) {
 
-  // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
