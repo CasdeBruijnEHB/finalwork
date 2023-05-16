@@ -1,12 +1,24 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+"use client";
+import { createRoot } from "react-dom/client";
+import React, { useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import Floor from "@/components/floor";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p>Hello</p>
+    <main>
+      <div className="scene">
+        <Canvas
+          shadows
+          className="canvas"
+          camera={{
+            position: [-6, 7, 7],
+          }}
+        >
+          <ambientLight color={"white"} intensity={0.3} />
+          <Floor />
+        </Canvas>
+      </div>
     </main>
   );
 }
