@@ -11,6 +11,7 @@
   "author": "Cas de Bruijn",
   "license": "ISC",
   "dependencies": {
+    "@react-three/drei": "^9.68.3",
     "lerna": "^6.6.1"
   },
   "workspaces": [
