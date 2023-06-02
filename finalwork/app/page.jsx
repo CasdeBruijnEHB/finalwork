@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import { Stats, OrbitControls, Lightformer, useCursor } from "@react-three/drei";
 import { ComputerTwee } from "@/components/Scene";
 import { Overlay } from "@/components/overlay";
+import { useRouter } from 'next/navigation';
 
 //extend({ StartComputer });
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
              
             <gridHelper args={[10, 10, `white`, `gray`]} />
             <StartComputer/>
+            <StartKnop/>
             <Stats />
           </Suspense>
         </Canvas>
@@ -53,18 +55,39 @@ function StartComputer(){
    
 
 
-  const ref = useRef();
+ 
+  return (
+    <>
+    <group>
+      <group  >
+        
+         
+      {nodes && <primitive object={nodes.Scene} />}
+      {materials && Array.isArray(materials) && materials.map((material, index) => (
+        <primitive key={index} object={material}  />
+      ))}
+    </group>
+   </group>
+    </>
+  );
+}
+
+function StartKnop(){
+ const ref = useRef();
   const { camera } = useThree();
   const [buttonClick, setButtonClick] = useState(true);
+   const { push } = useRouter();
 
   console.log("render?")
 
   useEffect(() => {
     setButtonClick(true);
+    
   }, []);
 
   
   useFrame((state) => {
+    console.log("useframe")
     //camera.lookAt(0, 0, 0); // Keep the camera looking at the center of the scene
     if(buttonClick){
       state.camera.quaternion.slerp(arcadeCameraQ, 0.02);
@@ -72,8 +95,12 @@ function StartComputer(){
     }else{
       state.camera.quaternion.slerp(defaultCameraQ, 0.02);
       state.camera.position.lerp(new THREE.Vector3(5, 5, 5), 0.08);
-    }
+      setTimeout(
+        function() {
+          push('/spotify');
+        }, 80);
      
+    }
     state.camera.updateProjectionMatrix();
     return null;
   });
@@ -101,19 +128,14 @@ function StartComputer(){
     0
   );
     
-  return (
-    <>
-    <group>
-      <group  onClick={() => setButtonClick(!buttonClick)} >
-         <perspectiveCamera ref={ref} position={[-10, 7, 12]} />
-         
-      {nodes && <primitive object={nodes.Scene} />}
-      {materials && Array.isArray(materials) && materials.map((material, index) => (
-        <primitive key={index} object={material}  />
-      ))}
-    </group>
-   </group>
-    </>
-  );
-}
 
+  return (<>
+  <group>
+     <perspectiveCamera ref={ref} position={[-10, 7, 12]} />
+   <mesh onClick={() => setButtonClick(!buttonClick)}  position={[-10, 5, 5]}>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>
+  </group>
+  </>)
+}

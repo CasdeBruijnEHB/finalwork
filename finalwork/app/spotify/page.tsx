@@ -17,7 +17,11 @@ export default async function Spotify() {
   }
   return (
     <>
-      <div>Spotifypage</div>
+      <div>Connect to spotify page!</div>
+      <p>
+        Do you want to connect your own Spotify or want to generate a room based
+        on an existing playlist?
+      </p>
       <button onClick={handleButtonclick}>
         <a href="http://localhost:3001/login">Button click handle</a>
       </button>

@@ -5,7 +5,7 @@ const session = require('express-session');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-
+var accestokenVar="";
 const app = express()
 const port = 3001
 
@@ -54,10 +54,27 @@ app.listen(port, () => {
 })
 
 app.get('/data', (req, res) => {
-  const data = {
-    username: 'Flavio'
-  };
-  res.json(data);
+ console.log("get data requested...")
+
+ 
+  var options = {
+          url: 'https://api.spotify.com/v1/me/top/tracks?limit=1',
+          headers: { 'Authorization': 'Bearer ' + accestokenVar },
+          json: true
+        };
+        request.get(options, function(error, response, body) {
+        if (error) {
+          console.error(error);
+          return;
+          }
+          if (response.statusCode !== 200) {
+          console.error('Invalid status code:', response.statusCode);
+          return;
+          }
+          //res.send(JSON.stringify(body, null, 2))
+          res.json(body)
+        });
+        
 });
 
 var stateKey = 'spotify_auth_state';
@@ -113,6 +130,8 @@ app.get('/callback', function(req, res) {
 
       req.session.access_token = access_token;
       req.session.refresh_token = refresh_token;
+      accestokenVar=access_token;
+
       
   
         var options = {
@@ -121,9 +140,7 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-        //console.log(options)
         request.get(options, function(error, response, body) {
-          console.log(body);
         if (error) {
           console.error(error);
           return;
@@ -132,7 +149,6 @@ app.get('/callback', function(req, res) {
           console.error('Invalid status code:', response.statusCode);
           return;
           }
-          console.log(JSON.stringify(body, null, 2))
         });
         
        
