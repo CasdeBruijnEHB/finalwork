@@ -16,3 +16,19 @@
   }
 }
 
+
+body {
+margin: 0;
+}
+
+.scene{
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+
+.canvas {
+  background: #000;
+}
+
+
