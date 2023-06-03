@@ -103,10 +103,12 @@ function manageEra(dates){
 
 async function getDominantColors(images){
     let dominantColors=[];
-    await expressDominantColor();
+    console.log("image link send: ")
+    console.log(images[0].image)
+    await expressDominantColor(images[0].image);
     images.forEach((item) => {
         const imageUrl = item.image;
-        console.log(imageUrl);
+        //console.log(imageUrl);
        
     });
 
@@ -114,8 +116,10 @@ async function getDominantColors(images){
 }
 
 
-async function expressDominantColor() {
-  const res = await fetch("http://localhost:3001/dominantcolor");
+async function expressDominantColor(imageLink) {
+    //Encode imagelink so it can be send through as parm
+    const encodedUrl= encodeURIComponent(imageLink)
+    const res = await fetch(`http://localhost:3001/dominantcolor/${encodedUrl}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

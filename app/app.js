@@ -213,11 +213,12 @@ app.get('/refresh_token', function(req, res) {
 });
 
 
-app.get('/dominantcolor', (req, res) => {
+app.get('/dominantcolor/:imagelink', (req, res) => {
  try {
     console.log('Dominant color searched...');
 
-    const imageUrl = 'https://i.scdn.co/image/ab67616d0000b2736f578b21bce56056473da7e6';
+    const imageUrl = req.params.imagelink;
+    //const imageUrl = decodeURIComponent(req.params.imagelink);
 
     ColorThief.getColor(imageUrl)
       .then((color) => {
