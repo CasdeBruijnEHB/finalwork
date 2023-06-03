@@ -103,13 +103,9 @@ function manageEra(dates){
 
 async function getDominantColors(images){
     let dominantColors=[];
-    console.log("image link send: ")
-    console.log(images[0].image)
-    await expressDominantColor(images[0].image);
-    images.forEach((item) => {
+    images.forEach(async(item) => {
         const imageUrl = item.image;
-        //console.log(imageUrl);
-       
+        await expressDominantColor(imageUrl);
     });
 
     return ""
