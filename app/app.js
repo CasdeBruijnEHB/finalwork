@@ -53,12 +53,32 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-app.get('/data', (req, res) => {
- console.log("get data requested...")
-
- 
+app.get('/trackData', (req, res) => {
+ console.log("get track data requested...")
   var options = {
-          url: 'https://api.spotify.com/v1/me/top/tracks?limit=1',
+          url: 'https://api.spotify.com/v1/me/top/tracks?limit=2',
+          headers: { 'Authorization': 'Bearer ' + accestokenVar },
+          json: true
+        };
+        request.get(options, function(error, response, body) {
+        if (error) {
+          console.error(error);
+          return;
+          }
+          if (response.statusCode !== 200) {
+          console.error('Invalid status code:', response.statusCode);
+          return;
+          }
+          //res.send(JSON.stringify(body, null, 2))
+          res.json(body)
+        });
+        
+});
+
+app.get('/artistData', (req, res) => {
+ console.log("get artist data requested...")
+  var options = {
+          url: 'https://api.spotify.com/v1/me/top/artists?limit=2',
           headers: { 'Authorization': 'Bearer ' + accestokenVar },
           json: true
         };
@@ -191,8 +211,3 @@ app.get('/refresh_token', function(req, res) {
 });
 
 
-app.get('topTracks', function(req,res){
-
-
-  
-})

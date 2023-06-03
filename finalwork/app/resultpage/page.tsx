@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Room } from "@/components/Room";
 
 export default async function SpotifyResultPage() {
   console.log("resultpage");
@@ -25,8 +26,10 @@ export default async function SpotifyResultPage() {
   }, []);
   */
 
-  const dataa = await getData();
-  console.log(dataa);
+  const trackData = await getTrackData();
+  const artistData = await getArtistData();
+  console.log(trackData);
+  Room(trackData, artistData);
   return (
     <>
       <div>Spotify Result page!</div>
@@ -34,8 +37,18 @@ export default async function SpotifyResultPage() {
   );
 }
 
-async function getData() {
-  const res = await fetch("http://localhost:3001/data");
+async function getTrackData() {
+  const res = await fetch("http://localhost:3001/trackData");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+async function getArtistData() {
+  const res = await fetch("http://localhost:3001/artistData");
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
