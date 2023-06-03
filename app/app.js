@@ -56,7 +56,7 @@ app.listen(port, () => {
 app.get('/trackData', (req, res) => {
  console.log("get track data requested...")
   var options = {
-          url: 'https://api.spotify.com/v1/me/top/tracks?limit=2',
+          url: 'https://api.spotify.com/v1/me/top/tracks?limit=10',
           headers: { 'Authorization': 'Bearer ' + accestokenVar },
           json: true
         };
@@ -78,7 +78,7 @@ app.get('/trackData', (req, res) => {
 app.get('/artistData', (req, res) => {
  console.log("get artist data requested...")
   var options = {
-          url: 'https://api.spotify.com/v1/me/top/artists?limit=2',
+          url: 'https://api.spotify.com/v1/me/top/artists?limit=10',
           headers: { 'Authorization': 'Bearer ' + accestokenVar },
           json: true
         };
