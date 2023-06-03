@@ -8,6 +8,8 @@ var cookieParser = require('cookie-parser');
 var accestokenVar="";
 const app = express()
 const port = 3001
+const ColorThief = require('colorthief');
+const resolve= require('resolve');
 
 /************vars for Spotify*****************/
 var client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -210,4 +212,26 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+
+app.get('/dominantcolor', (req, res) => {
+ try {
+    console.log('Dominant color searched...');
+
+    const imageUrl = 'https://i.scdn.co/image/ab67616d0000b2736f578b21bce56056473da7e6';
+
+    ColorThief.getColor(imageUrl)
+      .then((color) => {
+        console.log('Dominant Color (RGB):', color);
+        //res.send(`Dominant Color (RGB): ${color}`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        //res.status(500).send('Error retrieving the dominant color');
+      });
+  } catch (error) {
+    console.error('Error:', error);
+    //res.status(500).send('Error retrieving the dominant color');
+  }
+
+})
 

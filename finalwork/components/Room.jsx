@@ -1,4 +1,5 @@
-
+import ColorThief from 'colorthief';
+import Image from 'next/image';
 
 export function Room(...props){
     console.log("generating room!")
@@ -66,10 +67,13 @@ function manageImages(images){
     });
     
     const sortedOccurrences = occurrences.sort((a, b) => b.count - a.count);
+    /*
     sortedOccurrences.forEach((item) => {
-    //console.log(`${item.image}: ${item.count}`);
+    console.log(`${item.image}: ${item.count}`);
     });
-
+    */
+   let dominantColors= getDominantColors(sortedOccurrences);
+    
 }
 
 function manageEra(dates){
@@ -96,3 +100,28 @@ function manageEra(dates){
     });
     
 }
+
+async function getDominantColors(images){
+    let dominantColors=[];
+    await expressDominantColor();
+    images.forEach((item) => {
+        const imageUrl = item.image;
+        console.log(imageUrl);
+       
+    });
+
+    return ""
+}
+
+
+async function expressDominantColor() {
+  const res = await fetch("http://localhost:3001/dominantcolor");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+
