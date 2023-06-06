@@ -2,6 +2,23 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Room } from "@/components/Room";
+import {
+  Stats,
+  OrbitControls,
+  Lightformer,
+  useCursor,
+} from "@react-three/drei";
+
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import {
+  Canvas,
+  useFrame,
+  useThree,
+  extend,
+  useLoader,
+} from "@react-three/fiber";
+import React, { useRef } from "react";
+import { Suspense } from "react";
 
 export default async function SpotifyResultPage() {
   console.log("resultpage");
@@ -29,10 +46,25 @@ export default async function SpotifyResultPage() {
   const trackData = await getTrackData();
   const artistData = await getArtistData();
   console.log(trackData);
-  Room(trackData, artistData);
+
   return (
     <>
-      <div>Spotify Result page!</div>
+      <div className="scene">
+        <Canvas shadows className="canvas">
+          <color attach="background" args={["#151520"]} />
+          <hemisphereLight intensity={0.5} />
+          <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
+
+          <Suspense fallback={null}>
+            <ambientLight color={"white"} intensity={0.5} />
+
+            <gridHelper args={[10, 10, `white`, `gray`]} />
+            <Room trackData={trackData} artistData={artistData} />
+            <OrbitControls />
+            <Stats />
+          </Suspense>
+        </Canvas>
+      </div>
     </>
   );
 }

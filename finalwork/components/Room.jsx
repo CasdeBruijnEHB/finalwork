@@ -1,19 +1,36 @@
 import ColorThief from 'colorthief';
 import Image from 'next/image';
+import React, { useRef } from 'react'
+import { useGLTF } from '@react-three/drei'
+import { Canvas, useFrame, useThree, extend, useLoader  } from "@react-three/fiber";
+import { Suspense } from "react";
+import { Stats, OrbitControls, Lightformer, useCursor } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-export function Room(...props){
+
+export function Room({ trackData, artistData }){
     console.log("generating room!")
     //console.log(props)
-    const trackdata= props[0]; //Get dates and images here - items[].album.release_date & items[].album.images[]
-    const artistdata=props[1]; //Get Genres out here - items[].genres[]
+    const trackdata= trackData; //Get dates and images here - items[].album.release_date & items[].album.images[]
+    const artistdata=artistData; //Get Genres out here - items[].genres[]
     //console.log(trackdata)
     //console.log(artistdata)
-    manageEra(props[0].items)
-    manageGenres(props[1].items)
-    manageImages(props[0].items)
+    manageEra(trackData.items)
+    manageGenres(artistData.items)
+    manageImages(trackData.items)
+
+    //Import scene
+      const gltf = useLoader(GLTFLoader, "/computer.glb");
+
+
     return(<>
-    
-    
+         <group>
+               <primitive
+                   
+                    object={gltf.scene}
+                />
+            </group>
+           
     
     </>)
 }
