@@ -8,7 +8,6 @@ import { Computer } from "@/components/computer";
 import { Environment, OrthographicCamera, useAnimations, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
 import { Stats, OrbitControls, Lightformer, useCursor } from "@react-three/drei";
-import { ComputerTwee } from "@/components/Scene";
 import { Overlay } from "@/components/overlay";
 import { useRouter } from 'next/navigation';
 

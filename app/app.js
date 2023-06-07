@@ -10,6 +10,18 @@ const app = express()
 const port = 3001
 const ColorThief = require('colorthief');
 const resolve= require('resolve');
+const { Configuration, OpenAIApi } = require("openai");
+
+
+
+/************vars for Openai*****************/
+var openAIkey= process.env.OPENAI_API_KEY;
+const apiEndpoint = 'https://api.openai.com/v1/';
+
+ const configuration = new Configuration({
+    apiKey: openAIkey,
+    });
+  const openai = new OpenAIApi(configuration);
 
 /************vars for Spotify*****************/
 var client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -236,3 +248,21 @@ app.get('/dominantcolor/:imagelink', (req, res) => {
 
 })
 
+app.get('/generateImage', async (req, res) => {
+  try {
+    // Request payload
+   // Create the image using the OpenAI API
+    const response = await openai.createImage({
+      prompt: 'A cute baby sea otter',
+      n: 2,
+      size: '1024x1024',
+    });
+
+    // Get the image URL from the API response
+    console.log( response.data.data[0].url);
+    
+  } catch (error) {
+    console.error('Error generating image:', error);
+    res.status(500).send('Error generating image');
+  }
+});

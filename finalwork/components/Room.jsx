@@ -6,6 +6,8 @@ import { Canvas, useFrame, useThree, extend, useLoader  } from "@react-three/fib
 import { Suspense } from "react";
 import { Stats, OrbitControls, Lightformer, useCursor } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+//import { RoomNew } from "@/components/Room60s70s_v6";
+import { Roomtwo } from "@/components/Roomtwo";
 
 
 export function Room({ trackData, artistData }){
@@ -17,7 +19,8 @@ export function Room({ trackData, artistData }){
     //console.log(artistdata)
     manageEra(trackData.items)
     manageGenres(artistData.items)
-    manageImages(trackData.items)
+    //let managedImages= manageImages(trackData.items)
+    
 
     //Import scene
       const gltf = useLoader(GLTFLoader, "/computer.glb");
@@ -25,10 +28,7 @@ export function Room({ trackData, artistData }){
 
     return(<>
          <group>
-               <primitive
-                   
-                    object={gltf.scene}
-                />
+             <Roomtwo imageData={manageImages(trackData.items)}/>
             </group>
            
     
@@ -90,7 +90,7 @@ function manageImages(images){
     });
     */
    let dominantColors= getDominantColors(sortedOccurrences);
-    
+    return sortedOccurrences;
 }
 
 function manageEra(dates){
