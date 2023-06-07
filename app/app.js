@@ -23,8 +23,8 @@ const apiEndpoint = 'https://api.openai.com/v1/';
     });
   const openai = new OpenAIApi(configuration);
 /************vars for Google Search API*****************/
-const API_KEY = 'AIzaSyC_ERbnSlQT0c9AQ6oora_WynlMFlujpX0';
-const SEARCH_ENGINE_ID = '22b91186c2fbd4ed2';
+const API_KEY = process.env.GOOGLE_API_KEY;
+const SEARCH_ENGINE_ID = process.env.GOOGLE_SEARCHENGINE_ID;
 
 /************vars for Spotify*****************/
 var client_id = process.env.SPOTIFY_CLIENT_ID;
