@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useLoader } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei'
@@ -8,9 +8,11 @@ import { useTexture } from '@react-three/drei';
 import * as THREE from "three";
 import { TextureLoader } from 'three';
 
-export function Roomtwo({ imageData }){
+export function Roomtwo({ imageData, genreData }){
     
     console.log("Room two activated with data")
+    console.log(genreData)
+    //console.log(genreData[1].genre)
     //console.log(imageData)
     /*
     const container = new THREE.Object3D();
@@ -20,7 +22,11 @@ export function Roomtwo({ imageData }){
     }
    */ 
   const postertexture = useLoader(THREE.TextureLoader, sampleimage.src);
-  console.log(imageData[0].image)
+  //console.log(imageData[0].image)
+  
+  console.log("create image now")
+  //let mostpopulargenre= genreData[1].genre;
+
 
     return(
         <>

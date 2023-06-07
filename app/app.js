@@ -248,18 +248,25 @@ app.get('/dominantcolor/:imagelink', (req, res) => {
 
 })
 
-app.get('/generateImage', async (req, res) => {
+app.get('/generateImage/:searchterm', async (req, res) => {
   try {
     // Request payload
    // Create the image using the OpenAI API
+   console.log("generated    post called...")
+    const searchterm = req.params.searchterm;
+      console.log(searchterm);
+
+
+
     const response = await openai.createImage({
-      prompt: 'A cute baby sea otter',
-      n: 2,
+      prompt: `Create an artwork based on the musicgenre ${searchterm}`,
+      n: 1,
       size: '1024x1024',
     });
 
     // Get the image URL from the API response
     console.log( response.data.data[0].url);
+    res.json(response.data.data[0].url)
     
   } catch (error) {
     console.error('Error generating image:', error);

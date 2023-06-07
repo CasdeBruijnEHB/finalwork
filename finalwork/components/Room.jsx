@@ -18,7 +18,7 @@ export function Room({ trackData, artistData }){
     //console.log(trackdata)
     //console.log(artistdata)
     manageEra(trackData.items)
-    manageGenres(artistData.items)
+    //manageGenres(artistData.items)
     //let managedImages= manageImages(trackData.items)
     
 
@@ -28,7 +28,7 @@ export function Room({ trackData, artistData }){
 
     return(<>
          <group>
-             <Roomtwo imageData={manageImages(trackData.items)}/>
+             <Roomtwo imageData={manageImages(trackData.items)} genreData={manageGenres(artistData.items)}/>
             </group>
            
     
@@ -36,7 +36,7 @@ export function Room({ trackData, artistData }){
 }
 
 
-function manageGenres(genres){
+async function manageGenres(genres){
     console.log("managing genres!")
     //Add all listened to genres to array
     let genresInstances=[];
@@ -59,6 +59,8 @@ function manageGenres(genres){
     sortedOccurrences.forEach((item) => {
     //console.log(`${item.genre}: ${item.count}`);
     });
+    //await createGenreImage(sortedOccurrences[1].genre)
+    return sortedOccurrences;
     
 
 }
@@ -140,5 +142,4 @@ async function expressDominantColor(imageLink) {
 
   return res.json();
 }
-
 
