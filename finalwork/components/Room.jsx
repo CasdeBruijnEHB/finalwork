@@ -59,7 +59,6 @@ async function manageGenres(genres){
     sortedOccurrences.forEach((item) => {
     //console.log(`${item.genre}: ${item.count}`);
     });
-    //await createGenreImage(sortedOccurrences[1].genre)
     return sortedOccurrences;
     
 

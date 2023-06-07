@@ -22,6 +22,9 @@ const apiEndpoint = 'https://api.openai.com/v1/';
     apiKey: openAIkey,
     });
   const openai = new OpenAIApi(configuration);
+/************vars for Google Search API*****************/
+const API_KEY = 'AIzaSyC_ERbnSlQT0c9AQ6oora_WynlMFlujpX0';
+const SEARCH_ENGINE_ID = '22b91186c2fbd4ed2';
 
 /************vars for Spotify*****************/
 var client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -272,4 +275,23 @@ app.get('/generateImage/:searchterm', async (req, res) => {
     console.error('Error generating image:', error);
     res.status(500).send('Error generating image');
   }
+});
+
+app.get('/scrape-images', (req, res) => {
+  //const query = req.query.query;
+  let query="basketball images"
+   const numImages = 2; // Default limit is 10 images
+  const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(query)}&searchType=image&num=${numImages}`;
+
+  request(searchUrl, (error, response, body) => {
+    if (error) {
+      res.status(500).send('Error scraping images from Google');
+      return;
+    }
+
+    const data = JSON.parse(body);
+    const imageUrls = data.items.map(item => item.link);
+    //console.log(imageUrls)
+    res.json(imageUrls);
+  });
 });

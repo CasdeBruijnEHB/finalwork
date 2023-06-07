@@ -46,8 +46,9 @@ export default async function SpotifyResultPage() {
 
   const trackData = await getTrackData();
   const artistData = await getArtistData();
-
-  console.log(trackData);
+  const getimages = await scrapeImages();
+  console.log(getimages);
+  //console.log(trackData);
 
   return (
     <>
@@ -96,6 +97,19 @@ async function createGenreImage(genre: any) {
   console.log("create genre image...");
   //console.log(genre)
   const res = await fetch(`http://localhost:3001/generateImage/${genre}`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+async function scrapeImages() {
+  //Encode imagelink so it can be send through as parm
+  console.log("scraping images");
+  //console.log(genre)
+  const res = await fetch(`http://localhost:3001/scrape-images`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
