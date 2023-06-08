@@ -11,6 +11,9 @@
   "author": "Cas de Bruijn",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-three/drei": "^9.68.3",
     "@react-three/fiber": "^8.13.0",
     "colorthief": "^2.4.0",

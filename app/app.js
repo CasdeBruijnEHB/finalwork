@@ -275,7 +275,7 @@ app.get('/generateImage/:searchterm', async (req, res) => {
     console.error('Error generating image:', error);
     res.status(500).send('Error generating image');
   }
-});
+});  
 
 app.get('/scrape-images', (req, res) => {
   //const query = req.query.query;
