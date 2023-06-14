@@ -7,14 +7,22 @@ import Floor from "@/components/floor";
 import { Computer } from "@/components/computer";
 import { Environment, OrthographicCamera, useAnimations, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
-import { Stats, OrbitControls, Lightformer, useCursor,Html } from "@react-three/drei";
+import { Stats, OrbitControls, Lightformer, useCursor,Html, Reflector } from "@react-three/drei";
 import { Overlay } from "@/components/overlay";
 import { Hamburgermenu } from "@/components/hamburgermenu";
+import { Navbar } from "@/components/navbar";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import img from '@/assets/logo/pom_groen.png'
+import img from '@/assets/logo/POM_wit.png'
+import fullLogo from '@/assets/logo/logoFull_wit.png'
+
+
 
 //extend({ StartComputer });
+/*
+<hemisphereLight intensity={0.5} />
+          <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
+*/
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180);
   return (
@@ -26,19 +34,34 @@ export default function Home() {
           className="canvas"
         >
          
+          <SkyLight/>
           
-          <color attach="background" args={["#151520"]} />
-          <hemisphereLight intensity={0.5} />
-          <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
+          
+          
 
       
           <Suspense fallback={null}>
+           < fog attach="fog" args={['lightpink', -10, 50]} />
+
             <ambientLight color={"white"} intensity={0.5} />
+            {/* Create the area light */}
+            <rectAreaLight
+              position={[0, 4, 0]}
+              width={10}
+              height={10}
+              intensity={10}
+              color={"white"}
+              exposure={2}
+              castShadow
+            />
              
             <gridHelper args={[10, 10, `white`, `gray`]} />
-            <StartComputer/>
+            <StartComputer receiveShadow castShadow/>
             <StartKnop/>
             <Stats />
+               
+             
+            <OrbitControls/>
           </Suspense>
         </Canvas>
         </div>
@@ -59,7 +82,26 @@ function StartComputer(){
     <group>
       <group rotation={[0.3,0,0]} position={[
         6, -2, -12]} >
-        
+
+         <Reflector
+              resolution={512}
+              args={[10, 10]} // Width, Height of the reflector plane
+              mirror={0.5} // Reflectiveness of the surface
+              mixBlur={8}
+              mixStrength={1}
+              rotation={[-Math.PI / 2, 0, 0]} // Rotate the reflector to lie horizontally
+              position={[0, -2, 0]} // Position the reflector slightly below the objects
+              blur={[300, 100]}
+              minDepthThreshold={0.4}
+          maxDepthThreshold={1.4}
+            >{(Material, props) => (
+            <Material
+              color="#7FB069" // Color of the reflective surface
+              metalness={0.9} // Reflectiveness properties
+              roughness={0.1}
+              {...props}
+            />
+          )}</Reflector>
          
       {nodes && <primitive object={nodes.Scene} />}
       {materials && Array.isArray(materials) && materials.map((material, index) => (
@@ -123,26 +165,41 @@ function StartKnop(){
   return (<>
   <group>
      <perspectiveCamera ref={ref} position={[-10, 7, 12]} />
-      <Html fullscreen className="left-0 top-0  ">
+      <Html fullscreen className="left-0 top-0 absolute ">
             <div className="bg-transparant z-30 ">
-              <nav className="mt-4 flex w-screen justify-between items-center">
-                <Image
-                src={img}
-                width={80}
-                height={80}
-                alt="Picture of the author"
-                className="ml-4"
-                />
-                <div className="text-white mr-4">
-                    <Hamburgermenu/>
-                </div>
-              </nav>
+              <Navbar/>
+              
+              <main>
+                <div className="mt-8 ml-[20%] w-3/12">
+                  <Image
+                    src={fullLogo}
+                    
+                    alt="Full Logo"
+                    className="-ml-4 w-full h-full mb-2"
+                    />
+                    
+                      <p className="text-white ml-[5%] mb-4">Experience your favorite music on a different level. Connect with your Spotify account to Pieces Of Me, and generate your own 3D environment based on your musical preferences. </p>
 
-              <div className="text-white">
-                    <p onClick={function(){setButtonClick(!buttonClick)}}>Start experience</p>
-                </div>
+                      <button className="w-fit text-lg ml-[5%] px-4 py-2 font-semibold font-sans bg-white rounded-md " onClick={function(){setButtonClick(!buttonClick)}}>Start experience</button>
+  
+                  </div>
+                </main>
+                    
+               
           </div>
           </Html>
   </group>
   </>)
 }
+
+
+function SkyLight() {
+  const { scene } = useThree();
+
+  // Create the skydome light
+  const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
+  scene.background = skyColor;
+
+  return null;
+}
+
