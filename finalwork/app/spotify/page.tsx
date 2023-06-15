@@ -31,7 +31,7 @@ export default async function Spotify() {
       <main>
         <div className=" bg-[#7FB069] absolute w-screen h-screen m-0 top-0 left-0">
           <div className=" mt-2 bg-[#0F1A20] mx-auto w-11/12 h-[95%] rounded-2xl   text-white">
-            <Navbar />
+            <Navbar color="dark" />
             <div className="p-10 text-[#7FB069]">
               <p className="p-1 pb-3">&gt; Connect to spotify page!</p>
               <p className="p-1 pb-3">

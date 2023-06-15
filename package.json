@@ -17,6 +17,7 @@
     "@next/font": "^13.4.5",
     "@react-three/drei": "^9.68.3",
     "@react-three/fiber": "^8.13.0",
+    "classnames": "^2.3.2",
     "colorthief": "^2.4.0",
     "cors": "^2.8.5",
     "express-session": "^1.17.3",
