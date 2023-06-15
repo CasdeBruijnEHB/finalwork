@@ -1,4 +1,5 @@
 "use client";
+
 import { Navbar } from "@/components/navbar";
 
 async function getData() {
@@ -11,29 +12,42 @@ async function getSpotiData() {
   return response.json();
 }
 
+import { Quicksand } from "@next/font/google";
+
+const quicksand = Quicksand({
+  weight: "400",
+  subsets: ["latin"],
+});
+
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
 
   async function handleButtonclick() {
     console.log("Button click!");
   }
+  //className={quicksand.className}
   return (
     <>
-      <div className="bg-[#7FB069] h-screen">
-        <Navbar />
-        <div className="bg-[#7FB069]">
-          <div className="bg-cyan-950 m-5 p-5 rounded-lg min-h-screen text-white">
-            <p>Connect to spotify page!</p>
-            <p>
-              Do you want to connect your own Spotify or want to generate a room
-              based on an existing playlist?
-            </p>
-            <button onClick={handleButtonclick}>
-              <a href="http://localhost:3001/login">Button click handle</a>
-            </button>
+      <main>
+        <div className=" bg-[#7FB069] absolute w-screen h-screen m-0 top-0 left-0">
+          <div className=" mt-2 bg-[#0F1A20] mx-auto w-11/12 h-[95%] rounded-2xl   text-white">
+            <Navbar />
+            <div className="p-10 text-[#7FB069]">
+              <p className="p-1 pb-3">&gt; Connect to spotify page!</p>
+              <p className="p-1 pb-3">
+                &gt; Do you want to connect your own Spotify or want to generate
+                a room based on an existing playlist?
+              </p>
+              <button
+                className=" w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
+                onClick={handleButtonclick}
+              >
+                <a href="http://localhost:3001/login">Connect to Spotify</a>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

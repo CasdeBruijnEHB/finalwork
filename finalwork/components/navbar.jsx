@@ -7,7 +7,7 @@ export function Navbar(){
 
   //<Hamburgermenu/> image ml-4
     return(<>
-              <nav className="">
+              <nav className="font-bold">
                  <div className="flex  text-center justify-center p-3 ">
                   <div className='drop-shadow-lg text-sm text-center bg-white text-[#7FB069] flex rounded-xl pl-10 pt-1.5 pb-1.5 pr-10 justify-between w-2/5'>
                   <p className="flex items-center">Home</p>
