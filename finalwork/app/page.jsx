@@ -25,8 +25,8 @@ import fullLogo from '@/assets/logo/logoFull_wit.png'
 */
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180);
-    const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
-
+  const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
+  
   return (
     <>
       <main>
@@ -38,19 +38,17 @@ export default function Home() {
           <SkyLight/>
           <Suspense fallback={null}>
            < fog attach="fog" args={[skyColor, -10, 90]} />
-
-            <ambientLight color={"white"} intensity={0.5} />
+            <ambientLight color={"#7FB069"} intensity={0.5} />
             {/* Create the area light */}
             <rectAreaLight
-              position={[0, 4, 0]}
+              position={[0, 10, 0]}
               width={10}
               height={10}
-              intensity={10}
+              intensity={6}
               color={"white"}
               exposure={2}
               castShadow
             />
-             
             <gridHelper args={[10, 10, `white`, `gray`]} />
             <StartComputer receiveShadow castShadow/>
             <StartKnop/>
@@ -82,7 +80,7 @@ function StartComputer(){
 
         <mesh  position={[
         0,-1.9, -2]} rotation={[(-85 * Math.PI) / 180,0,0]}>
-          <planeGeometry  args={[190, 190, 2]} />
+          <planeGeometry  args={[250, 250, 2]} />
           <MeshReflectorMaterial
             blur={[0, 0]} // Blur ground reflections (width, height), 0 skips blur
             mixBlur={0} // How much blur mixes with surface roughness (default = 1)
