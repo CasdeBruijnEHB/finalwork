@@ -1,46 +1,53 @@
-var client_id = "57c1daec36f24f40b21aa8b9dfe3e15b";
-var client_secret = "4b462df074a5417faa79cd92918e05dd";
+"use client";
 
-async function getToken() {
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      client_id: client_id,
-      client_secret: client_secret,
-      grant_type: "client_credentials",
-    }),
-  });
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-  return data.access_token;
-}
+import { Navbar } from "@/components/navbar";
 
 async function getData() {
-  const access_token = await getToken();
-  const id = "3Sz7ZnJQBIHsXLUSo0OQtM";
-  console.log("accesstoken: " + access_token);
-
-  const res = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
-
-  return res.json();
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/");
+  return response.json();
 }
 
+async function getSpotiData() {
+  const response = await fetch("http://localhost:3001/testPoint");
+  return response.json();
+}
+
+import { Quicksand } from "@next/font/google";
+
+const quicksand = Quicksand({
+  weight: "400",
+  subsets: ["latin"],
+});
+
 export default async function Spotify() {
-  const data = await getData();
-  console.log(data);
+  //const user = await fetch("http://localhost:3001/login");
+
+  async function handleButtonclick() {
+    console.log("Button click!");
+  }
+  //className={quicksand.className}
   return (
     <>
-      <p>Spotifypage</p>
+      <main>
+        <div className=" bg-[#7FB069] absolute w-screen h-screen m-0 top-0 left-0">
+          <div className=" mt-2 bg-[#0F1A20] mx-auto w-11/12 h-[95%] rounded-2xl   text-white">
+            <Navbar color="dark" />
+            <div className="p-10 text-[#7FB069]">
+              <p className="p-1 pb-3">&gt; Connect to spotify page!</p>
+              <p className="p-1 pb-3">
+                &gt; Do you want to connect your own Spotify or want to generate
+                a room based on an existing playlist?
+              </p>
+              <button
+                className=" w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
+                onClick={handleButtonclick}
+              >
+                <a href="http://localhost:3001/login">Connect to Spotify</a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </>
   );
 }
