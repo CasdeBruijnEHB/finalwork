@@ -2,16 +2,6 @@
 
 import { Navbar } from "@/components/navbar";
 
-async function getData() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos/");
-  return response.json();
-}
-
-async function getSpotiData() {
-  const response = await fetch("http://localhost:3001/testPoint");
-  return response.json();
-}
-
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
 
@@ -35,7 +25,7 @@ export default async function Spotify() {
                 className=" w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
                 onClick={handleButtonclick}
               >
-                <a href="http://localhost:3001/login">Connect to Spotify</a>
+                <a href="http://127.0.0.1:3001/login">Connect to Spotify</a>
               </button>
             </div>
           </div>
