@@ -12,20 +12,13 @@ async function getSpotiData() {
   return response.json();
 }
 
-import { Quicksand } from "@next/font/google";
-
-const quicksand = Quicksand({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
 
   async function handleButtonclick() {
     console.log("Button click!");
   }
-  //className={quicksand.className}
+
   return (
     <>
       <main>
