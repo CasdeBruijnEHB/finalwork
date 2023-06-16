@@ -7,6 +7,7 @@ import sampleimage from '@/assets/logo/stonessample.jpg';
 import { useTexture } from '@react-three/drei';
 import * as THREE from "three";
 import { TextureLoader } from 'three';
+import { Model } from "@/components/V1";
 
 export function Roomtwo({ imageData, genreData }){
     
@@ -21,17 +22,16 @@ export function Roomtwo({ imageData, genreData }){
             console.log(image.image)
     }
    */ 
-  const postertexture = useLoader(THREE.TextureLoader, sampleimage.src);
+ // const postertexture = useLoader(THREE.TextureLoader, sampleimage.src);
   //console.log(imageData[0].image)
   
   console.log("create image now")
   //let mostpopulargenre= genreData[1].genre;
 
+  /*
 
-    return(
-        <>
-        <group >
-             <mesh  position={[0, 0, 0]}>
+
+  <mesh  position={[0, 0, 0]}>
                 <meshStandardMaterial attach="material" map={useLoader(THREE.TextureLoader,imageData[0].image)} />
                 <boxGeometry args={[2, 2, 2]} />
             </mesh>
@@ -51,6 +51,13 @@ export function Roomtwo({ imageData, genreData }){
                 <meshStandardMaterial attach="material" map={useLoader(THREE.TextureLoader,imageData[4].image)} />
                 <boxGeometry args={[2, 2, 2]} />
             </mesh>
+
+            */
+
+    return(
+        <>
+        <group >
+             <Model/>
           </group>
         </>
     )

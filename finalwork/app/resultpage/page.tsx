@@ -46,8 +46,8 @@ export default async function SpotifyResultPage() {
 
   const trackData = await getTrackData();
   const artistData = await getArtistData();
-  const getimages = await scrapeImages();
-  console.log(getimages);
+  //const getimages = await scrapeImages();
+  //console.log(getimages);
   //console.log(trackData);
 
   return (

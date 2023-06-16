@@ -3,8 +3,6 @@ import { createRoot } from "react-dom/client";
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree, extend  } from "@react-three/fiber";
 import * as THREE from "three";
-import Floor from "@/components/floor";
-import { Computer } from "@/components/computer";
 import { Environment, OrthographicCamera, useAnimations, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
 import { Stats, OrbitControls, Lightformer, useCursor,Html, Reflector, MeshReflectorMaterial   } from "@react-three/drei";
@@ -15,6 +13,8 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import img from '@/assets/logo/POM_wit.png'
 import fullLogo from '@/assets/logo/logoFull_wit.png'
+import { Model } from "@/components/V1";
+
 
 
 

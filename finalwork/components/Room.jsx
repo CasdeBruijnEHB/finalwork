@@ -23,7 +23,7 @@ export function Room({ trackData, artistData }){
     
 
     //Import scene
-      const gltf = useLoader(GLTFLoader, "/computer.glb");
+     
 
 
     return(<>
