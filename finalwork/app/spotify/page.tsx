@@ -8,7 +8,9 @@ export default async function Spotify() {
   async function handleButtonclick() {
     console.log("Button click!");
   }
-
+  let fetchUrl = "http://localhost:3001";
+  //http://127.0.0.1:3001
+  //https://finalwork-26j6.onrender.com
   return (
     <>
       <main>
@@ -25,9 +27,7 @@ export default async function Spotify() {
                 className=" w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
                 onClick={handleButtonclick}
               >
-                <a href="https://finalwork-26j6.onrender.com/login">
-                  Connect to Spotify
-                </a>
+                <a href={`${fetchUrl}/login`}>Connect to Spotify</a>
               </button>
             </div>
           </div>

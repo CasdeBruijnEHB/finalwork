@@ -21,6 +21,9 @@ import {
 import React, { useRef } from "react";
 import { Suspense } from "react";
 
+let fetchURL = "http://localhost:3001";
+//https://finalwork-26j6.onrender.com
+
 export default async function SpotifyResultPage() {
   console.log("resultpage");
   /*
@@ -73,7 +76,7 @@ export default async function SpotifyResultPage() {
 }
 
 async function getTrackData() {
-  const res = await fetch("https://finalwork-26j6.onrender.com/trackData");
+  const res = await fetch(`${fetchURL}/trackData`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -83,7 +86,7 @@ async function getTrackData() {
 }
 
 async function getArtistData() {
-  const res = await fetch("https://finalwork-26j6.onrender.com/artistData");
+  const res = await fetch(`${fetchURL}/artistData`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -96,9 +99,7 @@ async function createGenreImage(genre: any) {
   //Encode imagelink so it can be send through as parm
   console.log("create genre image...");
   //console.log(genre)
-  const res = await fetch(
-    `https://finalwork-26j6.onrender.com/generateImage/${genre}`
-  );
+  const res = await fetch(`${fetchURL}/generateImage/${genre}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -111,7 +112,7 @@ async function scrapeImages() {
   //Encode imagelink so it can be send through as parm
   console.log("scraping images");
   //console.log(genre)
-  const res = await fetch(`https://finalwork-26j6.onrender.com/scrape-images`);
+  const res = await fetch(`${fetchURL}/scrape-images`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
