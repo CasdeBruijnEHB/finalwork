@@ -29,7 +29,7 @@ const SEARCH_ENGINE_ID = process.env.GOOGLE_SEARCHENGINE_ID;
 /************vars for Spotify*****************/
 var client_id = process.env.SPOTIFY_CLIENT_ID;
 var client_secret=  process.env.SPOTIFY_CLIENT_SECRET;
-var redirect_uri = `http://localhost:${port}/callback`;
+var redirect_uri = `https://finalwork-26j6.onrender.com/callback`;
 /*************authentication*****************/
 app.use(session({
     name: 'secretkeys Spotify',
@@ -189,7 +189,7 @@ app.get('/callback', function(req, res) {
         });
         
        
-        res.redirect('http://localhost:3000/resultpage/#' +
+        res.redirect('http://127.0.0.1:3000/resultpage/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token

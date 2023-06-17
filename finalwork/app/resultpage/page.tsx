@@ -73,7 +73,7 @@ export default async function SpotifyResultPage() {
 }
 
 async function getTrackData() {
-  const res = await fetch("http://localhost:3001/trackData");
+  const res = await fetch("https://finalwork-26j6.onrender.com/trackData");
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -83,7 +83,7 @@ async function getTrackData() {
 }
 
 async function getArtistData() {
-  const res = await fetch("http://localhost:3001/artistData");
+  const res = await fetch("https://finalwork-26j6.onrender.com/artistData");
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -96,7 +96,9 @@ async function createGenreImage(genre: any) {
   //Encode imagelink so it can be send through as parm
   console.log("create genre image...");
   //console.log(genre)
-  const res = await fetch(`http://localhost:3001/generateImage/${genre}`);
+  const res = await fetch(
+    `https://finalwork-26j6.onrender.com/generateImage/${genre}`
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -109,7 +111,7 @@ async function scrapeImages() {
   //Encode imagelink so it can be send through as parm
   console.log("scraping images");
   //console.log(genre)
-  const res = await fetch(`http://localhost:3001/scrape-images`);
+  const res = await fetch(`https://finalwork-26j6.onrender.com/scrape-images`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

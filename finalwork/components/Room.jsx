@@ -133,7 +133,7 @@ async function getDominantColors(images){
 async function expressDominantColor(imageLink) {
     //Encode imagelink so it can be send through as parm
     const encodedUrl= encodeURIComponent(imageLink)
-    const res = await fetch(`http://localhost:3001/dominantcolor/${encodedUrl}`);
+    const res = await fetch(`http://127.0.0.1:3001/dominantcolor/${encodedUrl}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
