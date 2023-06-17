@@ -2,14 +2,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Room } from "@/components/Room";
-
 import {
   Stats,
   OrbitControls,
   Lightformer,
   useCursor,
 } from "@react-three/drei";
-
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import {
   Canvas,
@@ -20,6 +18,7 @@ import {
 } from "@react-three/fiber";
 import React, { useRef } from "react";
 import { Suspense } from "react";
+import * as THREE from "three";
 
 let fetchURL = "http://localhost:3001";
 //https://finalwork-26j6.onrender.com
@@ -60,7 +59,7 @@ export default async function SpotifyResultPage() {
           <color attach="background" args={["#151520"]} />
           <hemisphereLight intensity={0.5} />
           <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
-
+          <SkyLight />
           <Suspense fallback={null}>
             <ambientLight color={"white"} intensity={0.5} />
 
@@ -119,4 +118,14 @@ async function scrapeImages() {
   }
 
   return res.json();
+}
+
+function SkyLight() {
+  const { scene } = useThree();
+
+  // Create the skydome light
+  const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
+  scene.background = skyColor;
+
+  return null;
 }

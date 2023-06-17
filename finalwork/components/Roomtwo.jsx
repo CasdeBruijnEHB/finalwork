@@ -57,7 +57,7 @@ export function Roomtwo({ imageData, genreData }){
     return(
         <>
         <group >
-             <Model/>
+             <Model imageData={imageData} scale={[20,20,20]}/>
           </group>
         </>
     )

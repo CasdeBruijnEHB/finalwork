@@ -8,8 +8,9 @@ import { useGLTF } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { TextureLoader } from 'three';
 
-export function Model(props) {
+export function Model({ props,imageData}) {
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 
@@ -19,14 +20,20 @@ export function Model(props) {
 
   const { nodes, materials } = gltf;
 
+  //let image=imageData[0].image;
+  const texture = useLoader(TextureLoader, imageData[3].image);
 
 
   return (
     <group {...props} dispose={null}>
       <group position={[-0.14, 0.12, 0.1]} rotation={[Math.PI / 2, 0, 0]} scale={[0.06, 0.11, 0.17]}>
         <group position={[-0.4, -1.07, 0.02]} rotation={[0, 0, 0.79]}>
-          <mesh geometry={nodes.Mesh004.geometry} material={materials.lambert2} />
-          <mesh geometry={nodes.Mesh004_1.geometry} material={materials.wooden} />
+          <mesh geometry={nodes.Mesh004.geometry} material={materials.lambert2}>
+             <meshStandardMaterial map={texture} />
+          </mesh>
+          <mesh geometry={nodes.Mesh004_1.geometry} material={materials.wooden}>
+            <meshStandardMaterial map={texture} />
+          </mesh>
         </group>
       </group>
       <group position={[-0.04, 0.07, 0.15]} rotation={[-Math.PI / 2, 0, 0]} scale={0}>
