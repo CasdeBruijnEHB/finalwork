@@ -25,7 +25,9 @@ export default async function Spotify() {
                 className=" w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
                 onClick={handleButtonclick}
               >
-                <a href="http://127.0.0.1:3001/login">Connect to Spotify</a>
+                <a href="https://finalwork-26j6.onrender.com/login">
+                  Connect to Spotify
+                </a>
               </button>
             </div>
           </div>
