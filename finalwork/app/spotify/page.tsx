@@ -4,7 +4,7 @@ import { Navbar } from "@/components/navbar";
 
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
-
+  console.log("Spotify page!");
   async function handleButtonclick() {
     console.log("Button click!");
   }

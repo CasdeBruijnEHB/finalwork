@@ -16,17 +16,10 @@ import fullLogo from '@/assets/logo/logoFull_wit.png'
 import { Model } from "@/components/V1";
 
 
-
-
-//extend({ StartComputer });
-/*
-<hemisphereLight intensity={0.5} />
-          <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
-*/
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180);
   const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
-  
+  console.log("Homepage!")
   return (
     <>
       <main>
@@ -170,7 +163,6 @@ function StartKnop(){
       <Html fullscreen className="left-0 top-0 absolute ">
             <div className="bg-transparant z-30 ">
               <Navbar/>
-              
               <main>
                 <div className="mt-8 ml-[20%] w-3/12">
                   <Image

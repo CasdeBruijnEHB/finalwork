@@ -8,30 +8,56 @@ import { Stats, OrbitControls, Lightformer, useCursor } from "@react-three/drei"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 //import { RoomNew } from "@/components/Room60s70s_v6";
 import { Roomtwo } from "@/components/Roomtwo";
+import { Model60s } from "@/components/V6_newRoom";
+import { Model80s } from "@/components/80s90s";
+
 
 
 export function Room({ trackData, artistData }){
     console.log("generating room!")
-    //console.log(props)
+    
     const trackdata= trackData; //Get dates and images here - items[].album.release_date & items[].album.images[]
     const artistdata=artistData; //Get Genres out here - items[].genres[]
-    //console.log(trackdata)
-    //console.log(artistdata)
-    manageEra(trackData.items)
-    //manageGenres(artistData.items)
-    //let managedImages= manageImages(trackData.items)
     
+    //manageEra(trackData.items)
+    let managedImages= manageImages(trackData.items)
+    //let dominantColors= getDominantColors(managedImages);
+    //let domcolor;
+    /*
+    getDominantColors(managedImages)
+    .then((dominantColors) => {
+        
+      return (dominantColors)
+    })
+    */
+    
+    
+    //console.log("dominant color images!")
+    //console.log(dominantColors)
 
-    //Import scene
+
+    // <Roomtwo imageData={managedImages} genreData={manageGenres(artistData.items)} dominantColor={dominantColors}/>
      
+    /*
+<Model60s imageData={managedImages} genreData={manageGenres(artistData.items)} 
+             dominantColor={getDominantColors(managedImages)
+        .then((dominantColors) => {
+            return (dominantColors)
+    })} scale={[20,20,20]}/>
+
+    */
 
 
     return(<>
          <group>
-             <Roomtwo imageData={manageImages(trackData.items)} genreData={manageGenres(artistData.items)}/>
+             
+
+         <Model60s imageData={managedImages} genreData={manageGenres(artistData.items)} 
+             dominantColor={getDominantColors(managedImages)
+        .then((dominantColors) => {
+            return (dominantColors)}
+            )} scale={[20,20,20]}/>
             </group>
-           
-    
     </>)
 }
 
@@ -90,7 +116,6 @@ function manageImages(images){
     console.log(`${item.image}: ${item.count}`);
     });
     */
-   let dominantColors= getDominantColors(sortedOccurrences);
     return sortedOccurrences;
 }
 
@@ -120,13 +145,19 @@ function manageEra(dates){
 }
 
 async function getDominantColors(images){
-    let dominantColors=[];
-    images.forEach(async(item) => {
-        const imageUrl = item.image;
-        await expressDominantColor(imageUrl);
-    });
+   
+   const dominantColors = await Promise.all(
+    images.map(async (item) => {
+      const imageUrl = item.image;
+      const colors = await expressDominantColor(imageUrl);
+      return colors.color;
+    })
+  );
 
-    return ""
+  //console.log('dominant color...');
+  //console.log(dominantColors);
+
+  return dominantColors;
 }
 
 

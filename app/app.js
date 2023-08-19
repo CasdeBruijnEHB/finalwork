@@ -240,8 +240,8 @@ app.get('/dominantcolor/:imagelink', (req, res) => {
 
     ColorThief.getColor(imageUrl)
       .then((color) => {
-        console.log('Dominant Color (RGB):', color);
-        //res.send(`Dominant Color (RGB): ${color}`);
+        //console.log('Dominant Color (RGB):', color);
+        res.json({color});
       })
       .catch((error) => {
         console.error('Error:', error);

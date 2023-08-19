@@ -7,12 +7,12 @@ import sampleimage from '@/assets/logo/stonessample.jpg';
 import { useTexture } from '@react-three/drei';
 import * as THREE from "three";
 import { TextureLoader } from 'three';
-import { Model } from "@/components/V1";
+import { Model } from "@/components/V6_newRoom";
 
-export function Roomtwo({ imageData, genreData }){
+export function Roomtwo({ imageData, genreData, dominantColor }){
     
     console.log("Room two activated with data")
-    console.log(genreData)
+    console.log(dominantColor)
     //console.log(genreData[1].genre)
     //console.log(imageData)
     /*
