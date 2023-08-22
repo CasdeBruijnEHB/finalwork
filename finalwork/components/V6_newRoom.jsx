@@ -14,12 +14,7 @@ import { MeshBasicMaterial } from 'three';
 
 
 export function Model60s({ props, imageData, genreData, dominantColor }) {
-  console.log("loading model... with data:")
- // console.log(imageData)
- // console.log(genreData)
-  //console.log(dominantColor)
-  
-
+  //THIS IS THE ACTUAL MODEL - Here we add textures to the model and generate the mesh
 
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');

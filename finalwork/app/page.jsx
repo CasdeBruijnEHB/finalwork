@@ -13,13 +13,21 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import img from '@/assets/logo/POM_wit.png'
 import fullLogo from '@/assets/logo/logoFull_wit.png'
-import { Model } from "@/components/V1";
+
 
 
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180);
   const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
   console.log("Homepage!")
+
+
+  useEffect(() => {
+    async function testJe(){
+      console.log("asynccccccc")
+    }
+    testJe()
+  }, []);
   return (
     <>
       <main>
@@ -32,7 +40,6 @@ export default function Home() {
           <Suspense fallback={null}>
            < fog attach="fog" args={[skyColor, -10, 90]} />
             <ambientLight color={"#7FB069"} intensity={0.5} />
-            {/* Create the area light */}
             <rectAreaLight
               position={[0, 10, 0]}
               width={10}

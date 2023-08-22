@@ -125,7 +125,8 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email user-top-read';
+  var scope = 'user-top-read streaming user-read-email user-read-private user-library-read user-library-modify user-read-playback-state user-modify-playback-state';
+
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -298,3 +299,9 @@ app.get('/scrape-images', (req, res) => {
     res.json(imageUrls);
   });
 });
+
+
+app.get('/getaccess',function(req,res){
+  console.log("getting access...")
+  res.send(accestokenVar)
+})

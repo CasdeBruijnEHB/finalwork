@@ -1,57 +1,22 @@
-import ColorThief from 'colorthief';
-import Image from 'next/image';
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { Canvas, useFrame, useThree, extend, useLoader  } from "@react-three/fiber";
-import { Suspense } from "react";
-import { Stats, OrbitControls, Lightformer, useCursor } from "@react-three/drei";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-//import { RoomNew } from "@/components/Room60s70s_v6";
-import { Roomtwo } from "@/components/Roomtwo";
+import React from 'react'
 import { Model60s } from "@/components/V6_newRoom";
-import { Model80s } from "@/components/80s90s";
+
 
 
 
 export function Room({ trackData, artistData }){
-    console.log("generating room!")
+    //Here we generate the room - we gather the data, and send it to the 3D model afterwards.
     
     const trackdata= trackData; //Get dates and images here - items[].album.release_date & items[].album.images[]
     const artistdata=artistData; //Get Genres out here - items[].genres[]
     
-    //manageEra(trackData.items)
+   
     let managedImages= manageImages(trackData.items)
-    //let dominantColors= getDominantColors(managedImages);
-    //let domcolor;
-    /*
-    getDominantColors(managedImages)
-    .then((dominantColors) => {
-        
-      return (dominantColors)
-    })
-    */
-    
-    
-    //console.log("dominant color images!")
-    //console.log(dominantColors)
-
-
-    // <Roomtwo imageData={managedImages} genreData={manageGenres(artistData.items)} dominantColor={dominantColors}/>
-     
-    /*
-<Model60s imageData={managedImages} genreData={manageGenres(artistData.items)} 
-             dominantColor={getDominantColors(managedImages)
-        .then((dominantColors) => {
-            return (dominantColors)
-    })} scale={[20,20,20]}/>
-
-    */
-
+   
 
     return(<>
          <group>
              
-
          <Model60s imageData={managedImages} genreData={manageGenres(artistData.items)} 
              dominantColor={getDominantColors(managedImages)
         .then((dominantColors) => {

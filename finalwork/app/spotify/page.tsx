@@ -1,16 +1,17 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/navbar";
 
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
   console.log("Spotify page!");
-  async function handleButtonclick() {
+  const [fetchUrl, setFetchUrl] = useState("http://localhost:3001");
+
+  const handleButtonclick = () => {
     console.log("Button click!");
-  }
-  let fetchUrl = "http://localhost:3001";
-  //http://127.0.0.1:3001
-  //https://finalwork-26j6.onrender.com
+    window.location.href = `${fetchUrl}/login`;
+  };
+
   return (
     <>
       <main>
@@ -27,7 +28,7 @@ export default async function Spotify() {
                 className=" w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
                 onClick={handleButtonclick}
               >
-                <a href={`${fetchUrl}/login`}>Connect to Spotify</a>
+                Connect to Spotify
               </button>
             </div>
           </div>
