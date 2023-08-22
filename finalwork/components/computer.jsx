@@ -12,8 +12,8 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 
 export function Computer(props) {
    //const { nodes, materials } = useLoader(GLTFLoader, '/suzanne.gltf')
-    const gltf = useGLTF('/computerV2_anim.glb')
-    const { nodes, materials, animations } = useGLTF("/computerV2_anim.glb");
+    const gltf = useGLTF('/glbs/computerV2_anim.glb')
+    const { nodes, materials, animations } = useGLTF("/glbs/computerV2_anim.glb");
     const { actions, names } = useAnimations(animations)
    
 

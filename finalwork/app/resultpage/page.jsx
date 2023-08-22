@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Room } from "@/components/Room";
+import { Room } from "@/components/scenes/Room";
 import {
   Stats,
   OrbitControls,
@@ -20,7 +20,7 @@ import { Suspense } from "react";
 import * as THREE from "three";
 import SpotifyPlayer from "react-spotify-web-playback";
 import SpotiPlayerComp  from "@/components/SpotiPlayer";
- 
+ import dynamic from 'next/dynamic';
 
 let fetchURL = "http://localhost:3001";
 //https://finalwork-26j6.onrender.com
@@ -36,6 +36,10 @@ export default function SpotifyResultPage() {
   const [favoriteTrackIDs,setFavoriteTrackIDs]=useState([])
 
 
+  const GradientBackground = dynamic(
+    () => import('@/components/gradientbackground'),
+    { ssr: false } 
+  );
 
    useEffect(() => {
             async function fetchData() {
@@ -118,8 +122,8 @@ const onPlaybackStatusChange = (status) => {
 
     // Create the skydome light
     const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559);
-    scene.background = skyColor;
-
+skyColor.a = 0.5; // Set the alpha component (opacity) to a value between 0 and 1
+scene.background = skyColor;
     return null;
   }
 
@@ -127,14 +131,13 @@ const onPlaybackStatusChange = (status) => {
   return (
     <>
       <div className="scene">
+        
         <Canvas shadows className="canvas">
-          <color attach="background" args={["#151520"]} />
           <hemisphereLight intensity={0.5} />
           <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
           <SkyLight />
           <Suspense fallback={null}>
             <ambientLight color={"white"} intensity={0.5} />
-           
            {loader ? (
             <Html>
               <p>Loading...</p>
@@ -142,9 +145,7 @@ const onPlaybackStatusChange = (status) => {
             ) : (
               <Room trackData={trackData} artistData={artistData} />
             )}
-           
             <gridHelper args={[10, 10, `white`, `gray`]} />
-
             <OrbitControls />
             <Stats />
           </Suspense>
@@ -156,6 +157,7 @@ const onPlaybackStatusChange = (status) => {
         favoriteTrackIDs={favoriteTrackIDs}
         onPlaybackStatusChange={onPlaybackStatusChange}
       />
+       
      
     </>
   );

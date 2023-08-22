@@ -1,5 +1,5 @@
 import React from 'react'
-import { Model60s } from "@/components/V6_newRoom";
+import { Model60s } from "@/components/models/V6_newRoom";
 
 
 

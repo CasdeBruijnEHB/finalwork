@@ -19,7 +19,7 @@ export function Model60s({ props, imageData, genreData, dominantColor }) {
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 
-  const gltf = useLoader(GLTFLoader, '/V6_newRoom-transformed.glb', (loader) => {
+  const gltf = useLoader(GLTFLoader, '/glbs/V6_newRoom-transformed.glb', (loader) => {
     loader.setDRACOLoader(dracoLoader);
   });
 
@@ -95,4 +95,4 @@ export function Model60s({ props, imageData, genreData, dominantColor }) {
   )
 }
 
-useGLTF.preload('/V6_newRoom-transformed.glb')
+useGLTF.preload('/glbs/V6_newRoom-transformed.glb')

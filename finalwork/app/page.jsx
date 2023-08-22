@@ -6,12 +6,9 @@ import * as THREE from "three";
 import { Environment, OrthographicCamera, useAnimations, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
 import { Stats, OrbitControls, Lightformer, useCursor,Html, Reflector, MeshReflectorMaterial   } from "@react-three/drei";
-import { Overlay } from "@/components/overlay";
-import { Hamburgermenu } from "@/components/hamburgermenu";
 import { Navbar } from "@/components/navbar";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import img from '@/assets/logo/POM_wit.png'
 import fullLogo from '@/assets/logo/logoFull_wit.png'
 
 
@@ -68,8 +65,8 @@ export default function Home() {
 
 function StartComputer(){
  //const { nodes, materials } = useLoader(GLTFLoader, '/suzanne.gltf')
-    const gltf = useGLTF('/computerV2_anim.glb')
-    const { nodes, materials, animations } = useGLTF("/computerV2_anim.glb");
+    const gltf = useGLTF('/glbs/computerV2_anim.glb')
+    const { nodes, materials, animations } = useGLTF("/glbs/computerV2_anim.glb");
     const { actions, names } = useAnimations(animations)
  
   return (
