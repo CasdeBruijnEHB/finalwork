@@ -42,14 +42,16 @@ export default function SpotifyResultPage() {
   );
 
    useEffect(() => {
+            //First off we need to fetch some data...
             async function fetchData() {
             try {
-            console.log("fetching data...");
+            //To start we are fetching the accesstoken
             const response = await fetch("http://localhost:3001/getaccess");
             const data = await response.text();
             setAccessToken(data);
             console.log("access code: ", data);
 
+            //Next we are fetching the trackdata (used to get dates, images, trackid's)
              await fetch(`${fetchURL}/trackData`)
               .then(result=>result.json())
               .then(data=>{
@@ -64,25 +66,14 @@ export default function SpotifyResultPage() {
                   }
                   setFavoriteTrackIDs(favoritesArr)
               })    
+            //Then we get the favorite artist data (used to get favorite genres)
+            await fetch(`${fetchURL}/artistData`)
+              .then(result=>result.json())
+              .then(data=>{
+                setArtistData(data);
 
-            //const trackDataResponse = await getTrackData();
-            //setTrackData(trackDataResponse);
-            //console.log("track dataaa: ", trackData.items);
-           // for(let item of trackData.items){
-            //  console.log(item)
-           // }
-            /*
-            for (let item of trackData.items){
-              console.log("item:", item)
-              console.log("id: ",item.id)
-                favoriteTrackIDs.push(item.id)
-            }
-            console.log("array: ", favoriteTrackIDs)
-            */
-
-            const artistDataResponse = await getArtistData();
-            setArtistData(artistDataResponse);
-            console.log("artist data: ", artistDataResponse);
+              })
+            //If it's all fetched we tell the app the loading is done.
             isLoading(false);
             } catch (error) {
             console.error("Error:", error);
@@ -157,8 +148,6 @@ scene.background = skyColor;
         favoriteTrackIDs={favoriteTrackIDs}
         onPlaybackStatusChange={onPlaybackStatusChange}
       />
-       
-     
     </>
   );
 }
