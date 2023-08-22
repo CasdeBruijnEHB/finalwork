@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Model60s } from '@/components/models/V6_newRoom'
+import { ModelDesk } from '@/components/models/RoomDeskNew'
 
 export function Room({ trackData, artistData }) {
   //const trackdata= trackData; //Get dates and images here - items[].album.release_date & items[].album.images[]
@@ -77,14 +78,22 @@ export function Room({ trackData, artistData }) {
     return dominantColors
   }
 
-  return (
-    <>
-      <group>
-        <Model60s
+  /*
+ <Model60s
           imageData={manageImages(trackData.items)}
           genreData={genres}
           dominantColor={domcolors}
           scale={[20, 20, 20]}
+        />
+
+  */
+  return (
+    <>
+      <group>
+        <ModelDesk
+          imageData={manageImages(trackData.items)}
+          genreData={genres}
+          dominantColor={domcolors}
         />
       </group>
     </>

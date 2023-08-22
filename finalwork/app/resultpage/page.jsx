@@ -21,6 +21,7 @@ import * as THREE from 'three'
 import SpotifyPlayer from 'react-spotify-web-playback'
 import SpotiPlayerComp from '@/components/SpotiPlayer'
 import dynamic from 'next/dynamic'
+import { ComputerHome } from '@/components/scenes/ComputerHome'
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -129,7 +130,15 @@ export default function SpotifyResultPage() {
                 <p>Loading...</p>
               </Html>
             ) : (
-              <Room trackData={trackData} artistData={artistData} />
+              <>
+                <ComputerHome
+                  scale={0.15}
+                  position={[0.5, -0.08, -0.8]}
+                  rotation={[0, 3, 0]}
+                  planeYesNo={false}
+                />
+                <Room trackData={trackData} artistData={artistData} />
+              </>
             )}
             <gridHelper args={[10, 10, `white`, `gray`]} />
             <OrbitControls />
