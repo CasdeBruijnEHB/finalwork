@@ -4,8 +4,9 @@
   "description": "Pieces of Me app",
   "main": "index.js",
   "scripts": {
-    
-    "validate": "npx lerna run lint"
+    "validate": "npx lerna run lint",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "author": "Cas de Bruijn",
   "license": "ISC",
@@ -31,6 +32,7 @@
     "finalwork"
   ],
   "devDependencies": {
-    "husky": "^8.0.3"
+    "husky": "^8.0.3",
+    "prettier": "^3.0.2"
   }
 }

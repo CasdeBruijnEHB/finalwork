@@ -1,16 +1,16 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Navbar } from "@/components/navbar";
+'use client'
+import { useState, useEffect } from 'react'
+import { Navbar } from '@/components/navbar'
 
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
-  console.log("Spotify page!");
-  const [fetchUrl, setFetchUrl] = useState("http://localhost:3001");
+  console.log('Spotify page!')
+  const [fetchUrl, setFetchUrl] = useState('http://localhost:3001')
 
   const handleButtonclick = () => {
-    console.log("Button click!");
-    window.location.href = `${fetchUrl}/login`;
-  };
+    console.log('Button click!')
+    window.location.href = `${fetchUrl}/login`
+  }
 
   return (
     <>
@@ -35,5 +35,5 @@ export default async function Spotify() {
         </div>
       </main>
     </>
-  );
+  )
 }
