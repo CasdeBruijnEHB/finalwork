@@ -6,7 +6,7 @@ import {
   OrbitControls,
   Lightformer,
   useCursor,
-  Html,
+  Html, useHelper 
 } from '@react-three/drei'
 import {
   Canvas,
@@ -22,6 +22,8 @@ import SpotifyPlayer from 'react-spotify-web-playback'
 import SpotiPlayerComp from '@/components/SpotiPlayer'
 import dynamic from 'next/dynamic'
 import { ComputerHome } from '@/components/scenes/ComputerHome'
+import { DirectionalLightHelper, PointLightHelper } from "three";
+
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -86,55 +88,39 @@ export default function SpotifyResultPage() {
     setIsPlaying(status.isPlaying)
   }
 
-  async function getTrackData() {
-    const res = await fetch(`${fetchURL}/trackData`)
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-
-    return res.json()
-  }
-
-  async function getArtistData() {
-    const res = await fetch(`${fetchURL}/artistData`)
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-
-    return res.json()
-  }
-
   function SkyLight() {
     const { scene } = useThree()
-
     // Create the skydome light
-    const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559)
-    skyColor.a = 0.5 // Set the alpha component (opacity) to a value between 0 and 1
+    //const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559) // this is the POM green
+    const skyColor = new THREE.Color().setHSL(37 / 360, 79 / 100, 84 / 100);
+    skyColor.a = 0.5 //
     scene.background = skyColor
     return null
   }
 
+  
+  
+   
+
+ 
+  // <hemisphereLight intensity={0.5} />
   return (
     <>
       <div className="scene">
-        <Canvas shadows className="canvas">
-          <hemisphereLight intensity={0.5} />
-          <directionalLight position={[0, 2, 5]} castShadow intensity={1} />
-          <SkyLight />
+        <Canvas shadowMap="pcfSoft" shadows className="canvas">
+      <Lights/>
+       <SkyLight />
           <Suspense fallback={null}>
-            <ambientLight color={'white'} intensity={0.5} />
             {loader ? (
               <Html>
                 <p>Loading...</p>
               </Html>
             ) : (
               <>
-                <ComputerHome
-                  scale={0.15}
-                  position={[0.5, -0.08, -0.8]}
-                  rotation={[0, 3, 0]}
+                <ComputerHome 
+                  scale={0.1}
+                  position={[-0.1, -0.5, 0.6]}
+                  rotation={[0,0.5, 0]}
                   planeYesNo={false}
                 />
                 <Room trackData={trackData} artistData={artistData} />
@@ -184,4 +170,18 @@ async function scrapeImages() {
   }
 
   return res.json()
+}
+
+function Lights(){
+const directionalLightPosition = [0, 2, 5];
+const directionalLight = useRef()
+useHelper(directionalLight, DirectionalLightHelper, "teal")
+const pointLight = useRef()
+useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
+//  <ambientLight color={'white'} intensity={0.5} />
+  return(<>
+        <pointLight ref={pointLight} color="red" position={[4, 4, 0]} intensity={1} castShadow />
+        <directionalLight ref={directionalLight} position={directionalLightPosition} castShadow intensity={0.5} />
+  </>)
+
 }

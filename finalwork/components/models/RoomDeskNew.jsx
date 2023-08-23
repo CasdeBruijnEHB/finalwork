@@ -10,7 +10,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 import * as THREE from 'three'
-import { MeshBasicMaterial } from 'three'
+import { MeshBasicMaterial, MeshStandardMaterial  } from 'three'
 
 export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
@@ -36,11 +36,28 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   //Next load in the genredata and use it to add certain meshes
   console.log('genredata:', genreData)
 
-  const color = new THREE.Color(1, 0, 0) // RGB values for red
-  const material = new MeshBasicMaterial({ color })
+  //const color = new THREE.Color(1, 0, 0) 
+ // const material = new MeshBasicMaterial({ color })
+ /*
+  let color = new THREE.Color("rgb(127, 103, 91)")
+  const brownmaterial = new MeshBasicMaterial({ color })
+  color = new THREE.Color("rgb(241, 227, 211)")
+  const beigematerial = new MeshBasicMaterial({ color})
+  color = new THREE.Color("rgb(202, 202, 170)")
+  const lightgreenish = new MeshBasicMaterial({ color})
+   color = new THREE.Color("rgb(64, 92, 66)")
+  const darkgreenish = new MeshBasicMaterial({ color})
+  */
+
+ //meshmaterial interacts with light - basis does not
+const brownmaterial = new MeshStandardMaterial({ color: 0x7F675B });
+const beigematerial = new MeshStandardMaterial({ color: 0xF1E3D3 });
+const lightgreenish = new MeshStandardMaterial({ color: 0xCACAAA });
+const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
+
 
   return (
-    <group scale={[0.1, 0.1, 0.1]} {...props} dispose={null}>
+    <group position={[0, -0.5, 0.1]} scale={[0.05, 0.05, 0.05]}  rotation={[0, 3.5, 0]} {...props} dispose={null}>
       <group rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
         <mesh
           geometry={nodes.Poster5.geometry}
@@ -100,14 +117,14 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
       </group>
       <mesh
         geometry={nodes.HOUSEHouse002.geometry}
-        material={material}
+        material={beigematerial}
         position={[0.01, 0.05, 0.11]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[0.01, 0.005, 0.01]}
       ></mesh>
       <mesh
         geometry={nodes.Tafel.geometry}
-        material={materials.lambert1}
+        material={brownmaterial}
         position={[0.01, 0.05, 0.06]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.01}
@@ -141,11 +158,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
       >
         <mesh
           geometry={nodes.Mesh008.geometry}
-          material={materials.standardSurface2}
+          material={lightgreenish}
         />
         <mesh
           geometry={nodes.Mesh008_1.geometry}
-          material={materials.standardSurface2}
+          material={darkgreenish}
         />
       </group>
       <group
@@ -155,11 +172,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
       >
         <mesh
           geometry={nodes.Mesh009.geometry}
-          material={materials.standardSurface2}
+          material={darkgreenish}
         />
         <mesh
           geometry={nodes.Mesh009_1.geometry}
-          material={materials.standardSurface2}
+          material={lightgreenish}
         />
       </group>
     </group>
