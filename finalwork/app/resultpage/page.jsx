@@ -98,18 +98,18 @@ export default function SpotifyResultPage() {
     return null
   }
 
-  
-  
-   
-
- 
-  // <hemisphereLight intensity={0.5} />
   return (
     <>
-      <div className="scene">
-        <Canvas shadowMap="pcfSoft" shadows className="canvas">
+        <Canvas shadows="soft" className="canvas"  style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: 'hsl(37, 79%, 84%)',
+      }}>
       <Lights/>
-       <SkyLight />
+       <SkyLight/>
           <Suspense fallback={null}>
             {loader ? (
               <Html>
@@ -131,7 +131,7 @@ export default function SpotifyResultPage() {
             <Stats />
           </Suspense>
         </Canvas>
-      </div>
+      
       <SpotiPlayerComp
         loader={loader}
         accessToken={accessToken}
@@ -173,15 +173,21 @@ async function scrapeImages() {
 }
 
 function Lights(){
+
+  //DirectionalLight + Helper --> Fel
 const directionalLightPosition = [0, 2, 5];
 const directionalLight = useRef()
 useHelper(directionalLight, DirectionalLightHelper, "teal")
+
+// Pointlight -- Sfeervol
+const pointlightpos = [-4, 4, 2];
 const pointLight = useRef()
 useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
-//  <ambientLight color={'white'} intensity={0.5} />
+
+//<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
   return(<>
-        <pointLight ref={pointLight} color="red" position={[4, 4, 0]} intensity={1} castShadow />
-        <directionalLight ref={directionalLight} position={directionalLightPosition} castShadow intensity={0.5} />
+        <pointLight ref={pointLight} color="red" position={pointlightpos} intensity={1} castShadow />
+        <ambientLight color={'white'} intensity={0.5} />
   </>)
 
 }

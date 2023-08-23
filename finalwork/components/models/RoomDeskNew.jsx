@@ -51,14 +51,17 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
 
  //meshmaterial interacts with light - basis does not
 const brownmaterial = new MeshStandardMaterial({ color: 0x7F675B });
+
 const beigematerial = new MeshStandardMaterial({ color: 0xF1E3D3 });
+
 const lightgreenish = new MeshStandardMaterial({ color: 0xCACAAA });
+
 const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
 
 
   return (
     <group position={[0, -0.5, 0.1]} scale={[0.05, 0.05, 0.05]}  rotation={[0, 3.5, 0]} {...props} dispose={null}>
-      <group rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
+      <group  rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
         <mesh
           geometry={nodes.Poster5.geometry}
           material={materials.standardSurface2}
@@ -121,12 +124,14 @@ const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
         position={[0.01, 0.05, 0.11]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[0.01, 0.005, 0.01]}
+        castShadow receiveShadow 
       ></mesh>
       <mesh
         geometry={nodes.Tafel.geometry}
         material={brownmaterial}
         position={[0.01, 0.05, 0.06]}
         rotation={[Math.PI / 2, 0, 0]}
+        castShadow receiveShadow 
         scale={0.01}
       />
       <group

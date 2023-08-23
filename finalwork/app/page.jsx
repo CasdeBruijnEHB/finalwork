@@ -41,7 +41,7 @@ export default function Home() {
     <>
       <main>
         <div className="scene">
-          <Canvas shadows className="canvas">
+          <Canvas  className="canvas">
             <SkyLight />
             <Suspense fallback={null}>
               <fog attach="fog" args={[skyColor, -10, 90]} />
