@@ -28,34 +28,21 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   const { nodes, materials } = gltf
 
   //Next Load in the imagedata and use them as textures
-  console.log('imagedata: ', imageData)
   const texture = useLoader(TextureLoader, imageData[3].image)
 
-  //console.log(texture)
+  
 
   //Next load in the genredata and use it to add certain meshes
-  console.log('genredata:', genreData)
+  //console.log('genredata:', genreData)
 
-  //const color = new THREE.Color(1, 0, 0) 
- // const material = new MeshBasicMaterial({ color })
- /*
-  let color = new THREE.Color("rgb(127, 103, 91)")
-  const brownmaterial = new MeshBasicMaterial({ color })
-  color = new THREE.Color("rgb(241, 227, 211)")
-  const beigematerial = new MeshBasicMaterial({ color})
-  color = new THREE.Color("rgb(202, 202, 170)")
-  const lightgreenish = new MeshBasicMaterial({ color})
-   color = new THREE.Color("rgb(64, 92, 66)")
-  const darkgreenish = new MeshBasicMaterial({ color})
-  */
+  //Get dominant color
+  //console.log("dominant color: ",dominantColor[1][0])
+
 
  //meshmaterial interacts with light - basis does not
 const brownmaterial = new MeshStandardMaterial({ color: 0x7F675B });
-
 const beigematerial = new MeshStandardMaterial({ color: 0xF1E3D3 });
-
 const lightgreenish = new MeshStandardMaterial({ color: 0xCACAAA });
-
 const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
 
 

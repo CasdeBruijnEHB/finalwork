@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Model60s } from '@/components/models/V6_newRoom'
 import { ModelDesk } from '@/components/models/RoomDeskNew'
 
-export function Room({ trackData, artistData }) {
+export function Room({ trackData, artistData, dominantColor }) {
   //const trackdata= trackData; //Get dates and images here - items[].album.release_date & items[].album.images[]
   //const artistdata=artistData; //Get Genres out here - items[].genres[]
   // let managedImages= manageImages(trackData.items)
 
   //Here we generate the room - we gather the data, and send it to the 3D model afterwards.
   const [genres, setGenres] = useState([])
-  const [domcolors, setDomColors] = useState([])
+  const [domcolors, setDomColors] = useState([dominantColor])
 
   useEffect(() => {
     async function fetchData() {
@@ -20,18 +20,7 @@ export function Room({ trackData, artistData }) {
       const genresData = await manageGenres(artistData.items)
       setGenres(genresData)
 
-      // Getting dominant color now...
-      const dominantColorsData = await getDominantColors(
-        manageImages(trackData.items),
-      )
-      setDomColors(dominantColorsData)
-
-      console.log(
-        'useEffect values: domcolors ',
-        dominantColorsData,
-        ' and genres: ',
-        genresData,
-      )
+      
     }
 
     fetchData()
@@ -63,21 +52,6 @@ export function Room({ trackData, artistData }) {
     return sortedOccurrences
   }
 
-  async function getDominantColors(images) {
-    const dominantColors = await Promise.all(
-      images.map(async (item) => {
-        const imageUrl = item.image
-        const colors = await expressDominantColor(imageUrl)
-        return colors.color
-      }),
-    )
-
-    //console.log('dominant color...');
-    //console.log(dominantColors);
-
-    return dominantColors
-  }
-
   /*
  <Model60s
           imageData={manageImages(trackData.items)}
@@ -101,7 +75,7 @@ export function Room({ trackData, artistData }) {
 }
 
 function manageImages(images) {
-  console.log('managing images!')
+  //console.log('managing images!')
   //Add all listened to genres to array
   let imagesInstances = []
   for (let items of images) {
@@ -151,14 +125,3 @@ function manageEra(dates) {
   })
 }
 
-async function expressDominantColor(imageLink) {
-  //Encode imagelink so it can be send through as parm
-  const encodedUrl = encodeURIComponent(imageLink)
-  const res = await fetch(`http://127.0.0.1:3001/dominantcolor/${encodedUrl}`)
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json()
-}
