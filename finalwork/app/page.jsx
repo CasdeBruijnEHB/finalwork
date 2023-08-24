@@ -17,13 +17,14 @@ import {
   useCursor,
   Html,
   Reflector,
-  MeshReflectorMaterial,
+  MeshReflectorMaterial,useHelper
 } from '@react-three/drei'
 import { Navbar } from '@/components/navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import fullLogo from '@/assets/logo/logoFull_wit.png'
-import { ComputerHome } from '@/components/scenes/ComputerHome'
+import { Computernew} from '@/components/scenes/Computernew'
+import { DirectionalLightHelper, PointLightHelper } from "three";
 
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180)
@@ -36,7 +37,28 @@ export default function Home() {
     }
     testJe()
   }, [])
-  //<StartComputer receiveShadow castShadow />
+  function Lights(){
+
+        //DirectionalLight + Helper --> Fel
+      const directionalLightPosition = [0, 2, 5];
+      const directionalLight = useRef()
+      useHelper(directionalLight, DirectionalLightHelper, "teal")
+
+      // Pointlight -- Sfeervol
+      const pointlightpos = [-4, 4, 2];
+      const pointLight = useRef()
+      useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
+
+      //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
+      //<ambientLight color={`white`} intensity={0.3} />
+        return(<>
+              <pointLight ref={pointLight} color="rgb(150, 187, 179)" position={pointlightpos} intensity={2} castShadow />
+              <ambientLight  color="rgb(150, 187, 179)" intensity={1} />
+              
+
+        </>)
+      }
+
   return (
     <>
       <main>
@@ -44,8 +66,9 @@ export default function Home() {
           <Canvas  className="canvas">
             <SkyLight />
             <Suspense fallback={null}>
-              <fog attach="fog" args={[skyColor, -10, 90]} />
-              <ambientLight color={'#7FB069'} intensity={0.5} />
+              <fog attach="fog" args={[skyColor, -5, 25]} />
+              
+             <Lights/>
               <rectAreaLight
                 position={[0, 10, 0]}
                 width={10}
@@ -56,16 +79,10 @@ export default function Home() {
                 castShadow
               />
               <gridHelper args={[10, 10, `white`, `gray`]} />
-
+              <Computernew planeYesNo={true}/>
               <StartKnop />
               <Stats />
-              <ComputerHome
-                position={[6, -2, -12]}
-                rotation={[0.3, 0, 0]}
-                planeYesNo={true}
-                receiveShadow
-                castShadow
-              />
+              
               <OrbitControls />
             </Suspense>
           </Canvas>
@@ -92,7 +109,7 @@ function StartKnop() {
     //camera.lookAt(0, 0, 0); // Keep the camera looking at the center of the scene
     if (buttonClick) {
       state.camera.quaternion.slerp(arcadeCameraQ, 0.02)
-      state.camera.position.lerp(new THREE.Vector3(0, 0, 0), 0.08)
+      state.camera.position.lerp(new THREE.Vector3(0.1, 0.15, 0.4), 0.05)
     } else {
       state.camera.quaternion.slerp(defaultCameraQ, 0.02)
       state.camera.position.lerp(new THREE.Vector3(5, 5, 5), 0.08)

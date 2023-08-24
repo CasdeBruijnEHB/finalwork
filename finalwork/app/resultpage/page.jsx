@@ -21,8 +21,8 @@ import * as THREE from 'three'
 import SpotifyPlayer from 'react-spotify-web-playback'
 import SpotiPlayerComp from '@/components/SpotiPlayer'
 import dynamic from 'next/dynamic'
-import { ComputerHome } from '@/components/scenes/ComputerHome'
 import { DirectionalLightHelper, PointLightHelper } from "three";
+import { Computernew} from '@/components/scenes/Computernew'
 
 
 let fetchURL = 'http://localhost:3001'
@@ -132,6 +132,7 @@ useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
     return dominantColors
   }
 
+
   return (
     <>
         <Canvas shadows="soft" className="canvas"  style={{
@@ -151,13 +152,8 @@ useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
             ) : (
               <>
                <Lights/>
-       <SkyLight/>
-                <ComputerHome 
-                  scale={0.1}
-                  position={[-0.1, -0.5, 0.6]}
-                  rotation={[0,0.5, 0]}
-                  planeYesNo={false}
-                />
+                <SkyLight/>
+                <Computernew rotation={[-0.03, 0.20, 0]} scale={4.7} position={[-0.65, -0.75, -0.070]} planeYesNo={false}/>
                 <Room trackData={trackData} artistData={artistData} dominantColor={domcolors}/>
               </>
             )}
