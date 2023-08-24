@@ -4,11 +4,12 @@ Command: npx gltfjsx@6.1.11 public/glbs/computerV2_anim.glb --transform
 */
 
 import React, { useRef } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import { useGLTF, useAnimations, useVideoTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
-
+import { VideoTexture } from 'three';
+import * as THREE from 'three'
 
 export function ComputerJSX(props) {
   const group = useRef()
@@ -25,12 +26,21 @@ export function ComputerJSX(props) {
   const { nodes, materials,animations } = gltf
 
   const { actions } = useAnimations(animations, group)
+
+   
+    const texture = useVideoTexture('/videotextures/V1screen.mp4')
+    // Flip video texture
+    texture.flipY = false 
+    //texture.needsUpdate = true
+
   return (
     <group scale={[0.02, 0.02, 0.02]} position={[0.1, 0.05, 0.15]} ref={group} {...props} dispose={null}>
       <group name="Scene">
         <group name="Top" position={[0, 0.02, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.03, 0.04, 0.03]}>
           <mesh castShadow receiveShadow  name="monitor" geometry={nodes.monitor.geometry} material={materials.GeneralComputerSurface} />
-          <mesh name="Screen" geometry={nodes.Screen.geometry} material={materials.screenIMG} position={[0, -0.65, 0]} />
+          <mesh name="Screen" geometry={nodes.Screen.geometry} position={[0, -0.65, 0]}>
+            <meshBasicMaterial map={texture} toneMapped={false} />
+            </mesh>
         </group>
         <group name="toetsen" position={[0, 0.01, 0.04]} rotation={[Math.PI / 2, 0, 0]} scale={[0.02, 0.02, 0.005]}>
           <mesh name="Toets_linksmidden" geometry={nodes.Toets_linksmidden.geometry} material={materials.knoppenSurface}  />

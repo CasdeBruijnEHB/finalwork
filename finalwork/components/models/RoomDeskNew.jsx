@@ -134,7 +134,7 @@ const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
           geometry={nodes.Mesh007_1.geometry}
           material={materials.standardSurface2}
         >
-          <meshStandardMaterial
+          <meshStandardMaterial flipY={true}
             map={useLoader(TextureLoader, imageData[4].image)}
           />
         </mesh>
