@@ -25,6 +25,7 @@ import { DirectionalLightHelper, PointLightHelper } from "three";
 import { Computernew} from '@/components/scenes/Computernew'
 
 
+
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
 
@@ -37,11 +38,13 @@ export default function SpotifyResultPage() {
   //This has to be a string since it has to be sent to the spotify API
   const [favoriteTrackIDs, setFavoriteTrackIDs] = useState([])
    const [domcolors, setDomColors] = useState([])
+   const [averageAmplitude, setAverageAmplitude] = useState(0);
 
-  const GradientBackground = dynamic(
-    () => import('@/components/gradientbackground'),
-    { ssr: false },
-  )
+    const handleAverageAmplitude = (avgAmp) => {
+    console.log('handling Amplitude:', avgAmp);
+    setAverageAmplitude(avgAmp);
+  };
+ 
 
   useEffect(() => {
     //First off we need to fetch some data...
@@ -102,24 +105,24 @@ export default function SpotifyResultPage() {
 
   function Lights(){
 
-  //DirectionalLight + Helper --> Fel
-const directionalLightPosition = [0, 2, 5];
-const directionalLight = useRef()
-useHelper(directionalLight, DirectionalLightHelper, "teal")
+      //DirectionalLight + Helper --> Fel
+    const directionalLightPosition = [0, 2, 5];
+    const directionalLight = useRef()
+    useHelper(directionalLight, DirectionalLightHelper, "teal")
 
-// Pointlight -- Sfeervol
-const pointlightpos = [-4, 4, 2];
-const pointLight = useRef()
-useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
+    // Pointlight -- Sfeervol
+    const pointlightpos = [-4, 4, 2];
+    const pointLight = useRef()
+    useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
 
-//<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
-  return(<>
-        <pointLight ref={pointLight} color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`} position={pointlightpos} intensity={2} castShadow />
-        <ambientLight color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`} intensity={0.2} />
-        <ambientLight color={`white`} intensity={0.3} />
+    //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
+      return(<>
+            <pointLight ref={pointLight} color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`} position={pointlightpos} intensity={2} castShadow />
+            <ambientLight color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`} intensity={0.2} />
+            <ambientLight color={`white`} intensity={0.3} />
 
-  </>)
-}
+      </>)
+    }
 
     async function getDominantColors(images) {
     const dominantColors = await Promise.all(
@@ -132,9 +135,13 @@ useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
     return dominantColors
   }
 
+    const DynAudioVisualization = dynamic(
+    () => import('@/components/p5/samplep5'),
+    { ssr: false } 
+  );
 
   return (
-    <>
+    <>  
         <Canvas shadows="soft" className="canvas"  style={{
         position: 'fixed',
         top: 0,
@@ -143,7 +150,6 @@ useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
         height: '100vh',
         background: 'hsl(37, 79%, 84%)',
       }}>
-     
           <Suspense fallback={null}>
             {loader ? (
               <Html>
@@ -154,7 +160,7 @@ useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
                <Lights/>
                 <SkyLight/>
                 <Computernew rotation={[-0.03, 0.20, 0]} scale={4.7} position={[-0.65, -0.75, -0.070]} planeYesNo={false}/>
-                <Room trackData={trackData} artistData={artistData} dominantColor={domcolors}/>
+                <Room trackData={trackData} artistData={artistData} dominantColor={domcolors} isplaying={isPlaying}/>
               </>
             )}
             <gridHelper args={[10, 10, `white`, `gray`]} />
@@ -162,13 +168,15 @@ useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
             <Stats />
           </Suspense>
         </Canvas>
-      
+     
+    <div className='z-31'>
       <SpotiPlayerComp
         loader={loader}
         accessToken={accessToken}
         favoriteTrackIDs={favoriteTrackIDs}
         onPlaybackStatusChange={onPlaybackStatusChange}
       />
+      </div>
     </>
   )
 }
@@ -239,3 +247,4 @@ async function expressDominantColor(imageLink) {
 
   return res.json()
 }
+
