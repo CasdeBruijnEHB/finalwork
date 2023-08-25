@@ -30,14 +30,22 @@ export function Magzines70({props,imagedata,genredata}) {
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group {...props} dispose={null}>
-      <group position={[-29.35, -15.11, -12.53]} rotation={[Math.PI / 2, 0, 0]} scale={9.26}>
+      <group position={[-10, -3.5, -8]} rotation={[Math.PI / 2, 0, 0]} scale={5}>
         <mesh geometry={nodes.boekjes_1.geometry}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[3].image)}
+            map={useLoader(TextureLoader, imagedata[0].image)}
           />
         </mesh>
-        <mesh geometry={nodes.boekjes_2.geometry} material={brownmaterial} />
-        <mesh geometry={nodes.boekjes_3.geometry} material={brownmaterial} />
+        <mesh geometry={nodes.boekjes_2.geometry} material={brownmaterial}>
+          <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[1].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.boekjes_3.geometry} material={brownmaterial}>
+          <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[2].image)}
+          />
+          </mesh>
       </group>
     </group>
   )

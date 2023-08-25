@@ -31,15 +31,27 @@ export function Vinyls({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[0, -100, -100]} rotation={[0, 0, 0]} scale={10}>
-        <mesh geometry={nodes.polySurface21.geometry} material={brownmaterial} position={[1.8, 14.81, 6.86]} />
+      <group position={[-30, 9, -50]} rotation={[1.5, 0, 0]} scale={2}>
+        <mesh geometry={nodes.polySurface21.geometry}   position={[2, 13, 6]}>
+            <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
         <mesh geometry={nodes.polySurface23.geometry} material={materials.Vinyl4Surface} position={[0.72, 15.29,6.94]}>
            <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[1].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.polySurface28.geometry} material={materials.Vinyl4Surface} position={[0.12, 15.98, 6.97]}>
+          <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[2].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.polySurface30.geometry} material={materials.Vinyl4Surface} position={[1.14, 15.15, 6.86]}>
+          <meshStandardMaterial
             map={useLoader(TextureLoader, imagedata[3].image)}
           />
           </mesh>
-        <mesh geometry={nodes.polySurface28.geometry} material={materials.Vinyl4Surface} position={[0.12, 15.98, 6.97]} />
-        <mesh geometry={nodes.polySurface30.geometry} material={materials.Vinyl4Surface} position={[1.14, 15.15, 6.86]} />
       </group>
     </group>
   )

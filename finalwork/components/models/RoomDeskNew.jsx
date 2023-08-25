@@ -1,14 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 import { MeshStandardMaterial } from 'three'
+import dynamic from 'next/dynamic';
+/*
 import { Magzines70 } from '@/components/models/70/Magazines'
 import { Vinyls } from '@/components/models/70/Vinyls'
 import { Vinylspeler } from '@/components/models/70/Vinylspeler'
 import { Tafeltje70 } from '@/components/models/70/Tafeltje70'
+
 import { Drumpad } from '@/components/models/90/Drumpad'
 import { Lavalamp } from '@/components/models/90/Lavalamp'
 import { Stoeltje } from '@/components/models/90/Stoeltje'
@@ -18,14 +21,17 @@ import { Dvd } from '@/components/models/10/Dvd'
 import { Tafeltje } from '@/components/models/90/Tafeltje'
 import { Tvs } from '@/components/models/10/Tvs'
 import { Tafeltje10 } from '@/components/models/10/Tafeltje10'
-
+*/
 
 
 
 export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
+ 
+  const [dynamicComponent, setDynamicComponent] = useState([]);;
+  const [modelType,setModelType]=useState(1)
 
-  //First load in the mesh.
+  //First load in the main mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -37,8 +43,27 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   )
   const { nodes, materials } = gltf
 
-  //Next Load in the imagedata and use them as textures
-  const texture = useLoader(TextureLoader, imageData[3].image)
+
+  useEffect(() => {
+    //Here we first check the genres and era of the music to choose the right meshes.
+    let loadedComponents = [];
+    if (modelType === 0) {
+      loadedComponents = [
+        dynamic(() => import('@/components/models/70/Magazines').then((mod) => mod.Magzines70)),
+        dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls))
+      ];
+    } else if (modelType === 1) {
+      loadedComponents = [
+        dynamic(() => import('@/components/models/70/Vinylspeler').then((mod) => mod.Vinylspeler)),
+        dynamic(() => import('@/components/models/70/Tafeltje70').then((mod) => mod.Tafeltje70))
+      ];
+    } else {
+      setDynamicComponent(null);
+    }
+
+    setDynamicComponent(loadedComponents);
+  }, [modelType, imageData]);
+
 
   //Next load in the genredata and use it to add certain meshes
   //console.log('genredata:', genreData)
@@ -60,13 +85,13 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
       {...props}
       dispose={null}
     >
+      
       <group>
-        <Magzines70 imagedata={imageData}/>
-        <Vinyls imagedata={imageData}/>
-        <Tafeltje70 imagedata={imageData}/>
-        <Vinylspeler imagedata={imageData} />
-        
+      {dynamicComponent.map((DynamicComponent, index) => (
+        <DynamicComponent  key={index}  imagedata={imageData}/>
+      ))}
       </group>
+
       <group rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
         <mesh
           geometry={nodes.Poster5.geometry}

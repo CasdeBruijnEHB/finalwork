@@ -30,7 +30,7 @@ export function Vinylspeler({props,imagedata,genredata}) {
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} position={[-28, -2, -28]} rotation={[0, 0, 0]} scale={0.85}>
       <mesh geometry={nodes.polySurface103001.geometry} material={materials.lambert28} position={[13.73, -26.08, -56.74]} rotation={[Math.PI / 2, 0, 0]} scale={3.67} />
     </group>
   )
