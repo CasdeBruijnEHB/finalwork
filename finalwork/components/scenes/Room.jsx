@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Model60s } from '@/components/models/V6_newRoom'
 import { ModelDesk } from '@/components/models/RoomDeskNew'
 
+
+
 export function Room({ trackData, artistData, dominantColor }) {
-  //const trackdata= trackData; //Get dates and images here - items[].album.release_date & items[].album.images[]
-  //const artistdata=artistData; //Get Genres out here - items[].genres[]
-  // let managedImages= manageImages(trackData.items)
 
   //Here we generate the room - we gather the data, and send it to the 3D model afterwards.
   const [genres, setGenres] = useState([])
   const [domcolors, setDomColors] = useState([dominantColor])
-
+  console.log("this data...")
+  console.log(trackData)
+  console.log(artistData)
   useEffect(() => {
     async function fetchData() {
       // First we are getting the imagedata out.
@@ -50,15 +50,6 @@ export function Room({ trackData, artistData, dominantColor }) {
     return sortedOccurrences
   }
 
-  /*
- <Model60s
-          imageData={manageImages(trackData.items)}
-          genreData={genres}
-          dominantColor={domcolors}
-          scale={[20, 20, 20]}
-        />
-
-  */
   return (
     <>
       <group>

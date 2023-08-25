@@ -149,4 +149,4 @@ export function ComputerJSX(props) {
   )
 }
 
-useGLTF.preload('/computerV2_anim-transformed.glb')
+useGLTF.preload('/glbs/computerV2_anim-transformed.glb')

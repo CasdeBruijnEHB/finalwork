@@ -24,6 +24,8 @@ import SpotiPlayerComp from '@/components/SpotiPlayer'
 import dynamic from 'next/dynamic'
 import { DirectionalLightHelper, PointLightHelper } from 'three'
 import { Computernew } from '@/components/scenes/Computernew'
+import Image from 'next/image'
+import { useQRCode } from 'next-qrcode';
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -38,7 +40,10 @@ export default function SpotifyResultPage() {
   const [favoriteTrackIDs, setFavoriteTrackIDs] = useState([])
   const [domcolors, setDomColors] = useState([])
   const [averageAmplitude, setAverageAmplitude] = useState(0)
+  const [screenshot,SetScreenshot]=useState(false);
+  const [screenshotURL,SetScreenshotUrl]=useState();
 
+ const canvasRef = useRef(null);
   const handleAverageAmplitude = (avgAmp) => {
     console.log('handling Amplitude:', avgAmp)
     setAverageAmplitude(avgAmp)
@@ -85,9 +90,25 @@ export default function SpotifyResultPage() {
         console.error('Error:', error)
         isLoading(false)
       }
+      
     }
     fetchData()
-  }, [])
+    //Handle screenshot
+    if (screenshot) {
+      const canvas = canvasRef.current;
+
+      if (canvas) {
+        const dataURL = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataURL;
+        console.log(dataURL)
+        SetScreenshotUrl(dataURL);
+        //a.download = 'screenshot.png';
+        //a.click();
+        SetScreenshot(false);
+      }
+    }
+  }, [screenshot])
 
   const onPlaybackStatusChange = (status) => {
     setIsPlaying(status.isPlaying)
@@ -144,14 +165,58 @@ export default function SpotifyResultPage() {
     return dominantColors
   }
 
+  //To get data according to the music playing (amp)
   const DynAudioVisualization = dynamic(
     () => import('@/components/p5/samplep5'),
     { ssr: false },
   )
 
+  const saveScreenshot=()=>{
+      console.log("saving screenshot...")
+      SetScreenshot(true)
+  }
+
+  const shareOnInstagramStory=()=>{
+    if (screenshotURL) {
+    const base64Image = encodeURIComponent(screenshotURL);
+      const deepLinkURL = `instagram://camera?openExternalApp=story&backgroundImage=${base64Image}`;
+      console.log(deepLinkURL)
+      //window.location.href = deepLinkURL;
+      }
+  }
+  const { SVG } = useQRCode();
+
   return (
     <>
-      <Canvas
+      <div className='absolute z-40'>
+      <p onClick={saveScreenshot}>Save screenshot</p>
+      {screenshotURL?(
+        <>
+         <Image
+            src={screenshotURL}
+            width={200}
+            height={200}
+            alt="Picture of the author"
+          />
+          <a href={screenshotURL} download="screenshot.png">Download image</a>
+          <button onClick={shareOnInstagramStory}>Share on Instagram Story</button>
+          <SVG
+            text={"www.google.be"}
+            options={{
+              margin: 2,
+              width: 100,
+              color: {
+                dark: '#010599FF',
+                light: '#FFBF60FF',
+              },
+            }}
+          />
+        </>
+      ):(
+        <p></p>
+      )}
+    </div>
+      <Canvas  ref={canvasRef} gl={{ preserveDrawingBuffer: true }}
         shadows="soft"
         className="canvas"
         style={{
