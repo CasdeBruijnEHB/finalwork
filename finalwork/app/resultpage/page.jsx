@@ -6,7 +6,8 @@ import {
   OrbitControls,
   Lightformer,
   useCursor,
-  Html, useHelper 
+  Html,
+  useHelper,
 } from '@react-three/drei'
 import {
   Canvas,
@@ -21,10 +22,8 @@ import * as THREE from 'three'
 import SpotifyPlayer from 'react-spotify-web-playback'
 import SpotiPlayerComp from '@/components/SpotiPlayer'
 import dynamic from 'next/dynamic'
-import { DirectionalLightHelper, PointLightHelper } from "three";
-import { Computernew} from '@/components/scenes/Computernew'
-
-
+import { DirectionalLightHelper, PointLightHelper } from 'three'
+import { Computernew } from '@/components/scenes/Computernew'
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -37,14 +36,13 @@ export default function SpotifyResultPage() {
   const [loader, isLoading] = useState(true)
   //This has to be a string since it has to be sent to the spotify API
   const [favoriteTrackIDs, setFavoriteTrackIDs] = useState([])
-   const [domcolors, setDomColors] = useState([])
-   const [averageAmplitude, setAverageAmplitude] = useState(0);
+  const [domcolors, setDomColors] = useState([])
+  const [averageAmplitude, setAverageAmplitude] = useState(0)
 
-    const handleAverageAmplitude = (avgAmp) => {
-    console.log('handling Amplitude:', avgAmp);
-    setAverageAmplitude(avgAmp);
-  };
- 
+  const handleAverageAmplitude = (avgAmp) => {
+    console.log('handling Amplitude:', avgAmp)
+    setAverageAmplitude(avgAmp)
+  }
 
   useEffect(() => {
     //First off we need to fetch some data...
@@ -57,20 +55,22 @@ export default function SpotifyResultPage() {
         console.log('access code: ', data)
 
         //Next we are fetching the trackdata (used to get dates, images, trackid's)
-          const res = await fetch(`${fetchURL}/trackData`);
-          const dat = await res.json();
+        const res = await fetch(`${fetchURL}/trackData`)
+        const dat = await res.json()
 
-          //First we add the favorite tracks to an array for the Music Player
-          let favoritesArr = []; 
-          setTrackData(dat);
-          for (let item of dat.items) {
-            favoritesArr.push(`spotify:track:${item.id}`);
-          }
-          setFavoriteTrackIDs(favoritesArr);
+        //First we add the favorite tracks to an array for the Music Player
+        let favoritesArr = []
+        setTrackData(dat)
+        for (let item of dat.items) {
+          favoritesArr.push(`spotify:track:${item.id}`)
+        }
+        setFavoriteTrackIDs(favoritesArr)
 
-          //Then we get the dominant colors to use in the scene (lighting, textures, etc.)
-          const dominantColorsData = await getDominantColors(manageImages(dat.items));
-          setDomColors(dominantColorsData);
+        //Then we get the dominant colors to use in the scene (lighting, textures, etc.)
+        const dominantColorsData = await getDominantColors(
+          manageImages(dat.items),
+        )
+        setDomColors(dominantColorsData)
 
         //Then we get the favorite artist data (used to get favorite genres)
         await fetch(`${fetchURL}/artistData`)
@@ -97,34 +97,43 @@ export default function SpotifyResultPage() {
     const { scene } = useThree()
     // Create the skydome light
     //const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559) // this is the POM green
-    const skyColor = new THREE.Color().setHSL(37 / 360, 79 / 100, 84 / 100);
+    const skyColor = new THREE.Color().setHSL(37 / 360, 79 / 100, 84 / 100)
     skyColor.a = 0.5 //
     scene.background = skyColor
     return null
   }
 
-  function Lights(){
-
-      //DirectionalLight + Helper --> Fel
-    const directionalLightPosition = [0, 2, 5];
+  function Lights() {
+    //DirectionalLight + Helper --> Fel
+    const directionalLightPosition = [0, 2, 5]
     const directionalLight = useRef()
-    useHelper(directionalLight, DirectionalLightHelper, "teal")
+    useHelper(directionalLight, DirectionalLightHelper, 'teal')
 
     // Pointlight -- Sfeervol
-    const pointlightpos = [-4, 4, 2];
+    const pointlightpos = [-4, 4, 2]
     const pointLight = useRef()
-    useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
+    useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
 
     //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
-      return(<>
-            <pointLight ref={pointLight} color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`} position={pointlightpos} intensity={2} castShadow />
-            <ambientLight color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`} intensity={0.2} />
-            <ambientLight color={`white`} intensity={0.3} />
+    return (
+      <>
+        <pointLight
+          ref={pointLight}
+          color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`}
+          position={pointlightpos}
+          intensity={2}
+          castShadow
+        />
+        <ambientLight
+          color={`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`}
+          intensity={0.2}
+        />
+        <ambientLight color={`white`} intensity={0.3} />
+      </>
+    )
+  }
 
-      </>)
-    }
-
-    async function getDominantColors(images) {
+  async function getDominantColors(images) {
     const dominantColors = await Promise.all(
       images.map(async (item) => {
         const imageUrl = item.image
@@ -135,47 +144,61 @@ export default function SpotifyResultPage() {
     return dominantColors
   }
 
-    const DynAudioVisualization = dynamic(
+  const DynAudioVisualization = dynamic(
     () => import('@/components/p5/samplep5'),
-    { ssr: false } 
-  );
+    { ssr: false },
+  )
 
   return (
-    <>  
-        <Canvas shadows="soft" className="canvas"  style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        background: 'hsl(37, 79%, 84%)',
-      }}>
-          <Suspense fallback={null}>
-            {loader ? (
-              <Html>
-                <p>Loading...</p>
-              </Html>
-            ) : (
-              <>
-               <Lights/>
-                <SkyLight/>
-                <Computernew rotation={[-0.03, 0.20, 0]} scale={4.7} position={[-0.65, -0.75, -0.070]} planeYesNo={false}/>
-                <Room trackData={trackData} artistData={artistData} dominantColor={domcolors} isplaying={isPlaying}/>
-              </>
-            )}
-            <gridHelper args={[10, 10, `white`, `gray`]} />
-            <OrbitControls />
-            <Stats />
-          </Suspense>
-        </Canvas>
-     
-    <div className='z-31'>
-      <SpotiPlayerComp
-        loader={loader}
-        accessToken={accessToken}
-        favoriteTrackIDs={favoriteTrackIDs}
-        onPlaybackStatusChange={onPlaybackStatusChange}
-      />
+    <>
+      <Canvas
+        shadows="soft"
+        className="canvas"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'hsl(37, 79%, 84%)',
+        }}
+      >
+        <Suspense fallback={null}>
+          {loader ? (
+            <Html>
+              <p>Loading...</p>
+            </Html>
+          ) : (
+            <>
+              <Lights />
+              <SkyLight />
+              <Computernew
+                rotation={[-0.03, 0.2, 0]}
+                scale={4.7}
+                position={[-0.65, -0.75, -0.07]}
+                planeYesNo={false}
+              />
+              <Room
+                trackData={trackData}
+                artistData={artistData}
+                dominantColor={domcolors}
+                isplaying={isPlaying}
+              />
+            </>
+          )}
+          <gridHelper args={[10, 10, `white`, `gray`]} />
+          <OrbitControls />
+          <Stats />
+        </Suspense>
+      </Canvas>
+
+      <div className="z-31">
+        <SpotiPlayerComp
+          loader={loader}
+          accessToken={accessToken}
+          favoriteTrackIDs={favoriteTrackIDs}
+          onPlaybackStatusChange={onPlaybackStatusChange}
+        />
       </div>
     </>
   )
@@ -211,8 +234,6 @@ async function scrapeImages() {
   return res.json()
 }
 
-
-
 function manageImages(images) {
   //Add all listened to genres to array
   let imagesInstances = []
@@ -231,10 +252,9 @@ function manageImages(images) {
   })
 
   const sortedOccurrences = occurrences.sort((a, b) => b.count - a.count)
-  
+
   return sortedOccurrences
 }
-
 
 async function expressDominantColor(imageLink) {
   //Encode imagelink so it can be send through as parm
@@ -247,4 +267,3 @@ async function expressDominantColor(imageLink) {
 
   return res.json()
 }
-

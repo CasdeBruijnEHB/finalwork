@@ -10,7 +10,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 import * as THREE from 'three'
-import { MeshBasicMaterial, MeshStandardMaterial  } from 'three'
+import { MeshBasicMaterial, MeshStandardMaterial } from 'three'
 
 export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
@@ -30,25 +30,27 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   //Next Load in the imagedata and use them as textures
   const texture = useLoader(TextureLoader, imageData[3].image)
 
-  
-
   //Next load in the genredata and use it to add certain meshes
   //console.log('genredata:', genreData)
 
   //Get dominant color
   //console.log("dominant color: ",dominantColor[1][0])
 
-
- //meshmaterial interacts with light - basis does not
-const brownmaterial = new MeshStandardMaterial({ color: 0x7F675B });
-const beigematerial = new MeshStandardMaterial({ color: 0xF1E3D3 });
-const lightgreenish = new MeshStandardMaterial({ color: 0xCACAAA });
-const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
-
+  //meshmaterial interacts with light - basis does not
+  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
+  const beigematerial = new MeshStandardMaterial({ color: 0xf1e3d3 })
+  const lightgreenish = new MeshStandardMaterial({ color: 0xcacaaa })
+  const darkgreenish = new MeshStandardMaterial({ color: 0x485c42 })
 
   return (
-    <group position={[0, -0.5, 0.1]} scale={[0.05, 0.05, 0.05]}  rotation={[0, 3.5, 0]} {...props} dispose={null}>
-      <group  rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
+    <group
+      position={[0, -0.5, 0.1]}
+      scale={[0.05, 0.05, 0.05]}
+      rotation={[0, 3.5, 0]}
+      {...props}
+      dispose={null}
+    >
+      <group rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
         <mesh
           geometry={nodes.Poster5.geometry}
           material={materials.standardSurface2}
@@ -111,14 +113,16 @@ const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
         position={[0.01, 0.05, 0.11]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[0.01, 0.005, 0.01]}
-        castShadow receiveShadow 
+        castShadow
+        receiveShadow
       ></mesh>
       <mesh
         geometry={nodes.Tafel.geometry}
         material={brownmaterial}
         position={[0.01, 0.05, 0.06]}
         rotation={[Math.PI / 2, 0, 0]}
-        castShadow receiveShadow 
+        castShadow
+        receiveShadow
         scale={0.01}
       />
       <group
@@ -134,7 +138,8 @@ const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
           geometry={nodes.Mesh007_1.geometry}
           material={materials.standardSurface2}
         >
-          <meshStandardMaterial flipY={true}
+          <meshStandardMaterial
+            flipY={true}
             map={useLoader(TextureLoader, imageData[4].image)}
           />
         </mesh>
@@ -148,28 +153,16 @@ const darkgreenish = new MeshStandardMaterial({ color: 0x485C42 });
         rotation={[Math.PI / 2, 0, 2.96]}
         scale={0.003}
       >
-        <mesh
-          geometry={nodes.Mesh008.geometry}
-          material={lightgreenish}
-        />
-        <mesh
-          geometry={nodes.Mesh008_1.geometry}
-          material={darkgreenish}
-        />
+        <mesh geometry={nodes.Mesh008.geometry} material={lightgreenish} />
+        <mesh geometry={nodes.Mesh008_1.geometry} material={darkgreenish} />
       </group>
       <group
         position={[0.02, 0.1, 0.14]}
         rotation={[Math.PI / 2, 0, 3.03]}
         scale={0.003}
       >
-        <mesh
-          geometry={nodes.Mesh009.geometry}
-          material={darkgreenish}
-        />
-        <mesh
-          geometry={nodes.Mesh009_1.geometry}
-          material={lightgreenish}
-        />
+        <mesh geometry={nodes.Mesh009.geometry} material={darkgreenish} />
+        <mesh geometry={nodes.Mesh009_1.geometry} material={lightgreenish} />
       </group>
     </group>
   )

@@ -11,10 +11,9 @@ const GradientBackground = () => {
   const draw = (p) => {
     p.background(0)
 
-    
     const gradient = p.drawingContext.createLinearGradient(0, 0, 0, p.height)
-    gradient.addColorStop(0, '#FF0000') 
-    gradient.addColorStop(1, '#0000FF') 
+    gradient.addColorStop(0, '#FF0000')
+    gradient.addColorStop(1, '#0000FF')
 
     p.drawingContext.fillStyle = gradient
     p.rect(0, 0, p.width, p.height)

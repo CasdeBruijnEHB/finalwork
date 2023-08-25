@@ -44,7 +44,7 @@ export function ComputerHome({ scale, position, rotation, planeYesNo }) {
           {materials &&
             Array.isArray(materials) &&
             materials.map((material, index) => (
-              <primitive  key={index} object={material} />
+              <primitive key={index} object={material} />
             ))}
         </group>
       </group>

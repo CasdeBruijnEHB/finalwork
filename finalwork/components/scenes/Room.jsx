@@ -19,8 +19,6 @@ export function Room({ trackData, artistData, dominantColor }) {
       // Then we are going to do genres.
       const genresData = await manageGenres(artistData.items)
       setGenres(genresData)
-
-      
     }
 
     fetchData()
@@ -124,4 +122,3 @@ function manageEra(dates) {
     //console.log(`${item.date}: ${item.count}`);
   })
 }
-

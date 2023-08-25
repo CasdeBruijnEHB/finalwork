@@ -1,60 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 const AudioVisualization = ({ playing, onAverageAmplitude }) => {
-  let audioContext;
-  let analyser;
-  let animationFrameId;
+  let audioContext
+  let analyser
+  let animationFrameId
 
   const startVisualization = () => {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
-    analyser.smoothingTimeConstant = 0.9;
+    audioContext = new (window.AudioContext || window.webkitAudioContext)()
+    analyser = audioContext.createAnalyser()
+    analyser.fftSize = 256
+    analyser.smoothingTimeConstant = 0.9
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then((stream) => {
-        let source = audioContext.createMediaStreamSource(stream);
-        source.connect(analyser);
-        analyser.connect(audioContext.destination);
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      let source = audioContext.createMediaStreamSource(stream)
+      source.connect(analyser)
+      analyser.connect(audioContext.destination)
 
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+      const bufferLength = analyser.frequencyBinCount
+      const dataArray = new Uint8Array(bufferLength)
 
-        const updateAudioData = () => {
-          analyser.getByteFrequencyData(dataArray);
-          let ampSum = dataArray.reduce((sum, value) => sum + value, 0);
-          const avgAmp = ampSum / bufferLength;
-          onAverageAmplitude(avgAmp);
+      const updateAudioData = () => {
+        analyser.getByteFrequencyData(dataArray)
+        let ampSum = dataArray.reduce((sum, value) => sum + value, 0)
+        const avgAmp = ampSum / bufferLength
+        onAverageAmplitude(avgAmp)
 
-          animationFrameId = requestAnimationFrame(updateAudioData);
-        };
+        animationFrameId = requestAnimationFrame(updateAudioData)
+      }
 
-        updateAudioData();
-      });
-  };
+      updateAudioData()
+    })
+  }
 
   const stopVisualization = () => {
     if (audioContext) {
-      audioContext.close();
+      audioContext.close()
     }
     if (animationFrameId) {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animationFrameId)
     }
-  };
+  }
 
   useEffect(() => {
     if (playing) {
-      startVisualization();
+      startVisualization()
     } else {
-      stopVisualization();
+      stopVisualization()
     }
 
     return () => {
-      stopVisualization();
-    };
-  }, [playing, onAverageAmplitude]);
+      stopVisualization()
+    }
+  }, [playing, onAverageAmplitude])
 
-  return null;
-};
+  return null
+}
 
-export default AudioVisualization;
+export default AudioVisualization

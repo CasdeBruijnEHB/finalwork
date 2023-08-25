@@ -17,14 +17,15 @@ import {
   useCursor,
   Html,
   Reflector,
-  MeshReflectorMaterial,useHelper
+  MeshReflectorMaterial,
+  useHelper,
 } from '@react-three/drei'
 import { Navbar } from '@/components/navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import fullLogo from '@/assets/logo/logoFull_wit.png'
-import { Computernew} from '@/components/scenes/Computernew'
-import { DirectionalLightHelper, PointLightHelper } from "three";
+import { Computernew } from '@/components/scenes/Computernew'
+import { DirectionalLightHelper, PointLightHelper } from 'three'
 
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180)
@@ -37,38 +38,43 @@ export default function Home() {
     }
     testJe()
   }, [])
-  function Lights(){
+  function Lights() {
+    //DirectionalLight + Helper --> Fel
+    const directionalLightPosition = [0, 2, 5]
+    const directionalLight = useRef()
+    useHelper(directionalLight, DirectionalLightHelper, 'teal')
 
-        //DirectionalLight + Helper --> Fel
-      const directionalLightPosition = [0, 2, 5];
-      const directionalLight = useRef()
-      useHelper(directionalLight, DirectionalLightHelper, "teal")
+    // Pointlight -- Sfeervol
+    const pointlightpos = [-4, 4, 2]
+    const pointLight = useRef()
+    useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
 
-      // Pointlight -- Sfeervol
-      const pointlightpos = [-4, 4, 2];
-      const pointLight = useRef()
-      useHelper(pointLight, PointLightHelper, 0.5, "hotpink")
-
-      //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
-      //<ambientLight color={`white`} intensity={0.3} />
-        return(<>
-              <pointLight ref={pointLight} color="rgb(150, 187, 179)" position={pointlightpos} intensity={2} castShadow />
-              <ambientLight  color="rgb(150, 187, 179)" intensity={1} />
-              
-
-        </>)
-      }
+    //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
+    //<ambientLight color={`white`} intensity={0.3} />
+    return (
+      <>
+        <pointLight
+          ref={pointLight}
+          color="rgb(150, 187, 179)"
+          position={pointlightpos}
+          intensity={2}
+          castShadow
+        />
+        <ambientLight color="rgb(150, 187, 179)" intensity={1} />
+      </>
+    )
+  }
 
   return (
     <>
       <main>
         <div className="scene">
-          <Canvas  className="canvas">
+          <Canvas className="canvas">
             <SkyLight />
             <Suspense fallback={null}>
               <fog attach="fog" args={[skyColor, -5, 25]} />
-              
-             <Lights/>
+
+              <Lights />
               <rectAreaLight
                 position={[0, 10, 0]}
                 width={10}
@@ -79,10 +85,10 @@ export default function Home() {
                 castShadow
               />
               <gridHelper args={[10, 10, `white`, `gray`]} />
-              <Computernew planeYesNo={true}/>
+              <Computernew planeYesNo={true} />
               <StartKnop />
               <Stats />
-              
+
               <OrbitControls />
             </Suspense>
           </Canvas>
