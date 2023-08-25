@@ -7,6 +7,20 @@ import { TextureLoader } from 'three'
 import { MeshStandardMaterial } from 'three'
 import { Magzines70 } from '@/components/models/70/Magazines'
 import { Vinyls } from '@/components/models/70/Vinyls'
+import { Vinylspeler } from '@/components/models/70/Vinylspeler'
+import { Tafeltje70 } from '@/components/models/70/Tafeltje70'
+import { Drumpad } from '@/components/models/90/Drumpad'
+import { Lavalamp } from '@/components/models/90/Lavalamp'
+import { Stoeltje } from '@/components/models/90/Stoeltje'
+import { Zetelke } from '@/components/models/90/Zetelke'
+import { Boekjes } from '@/components/models/10/Boekjes'
+import { Dvd } from '@/components/models/10/Dvd'
+import { Tafeltje } from '@/components/models/90/Tafeltje'
+import { Tvs } from '@/components/models/10/Tvs'
+import { Tafeltje10 } from '@/components/models/10/Tafeltje10'
+
+
+
 
 export function ModelDesk({ props, imageData, genreData, dominantColor }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
@@ -49,6 +63,9 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
       <group>
         <Magzines70 imagedata={imageData}/>
         <Vinyls imagedata={imageData}/>
+        <Tafeltje70 imagedata={imageData}/>
+        <Vinylspeler imagedata={imageData} />
+        
       </group>
       <group rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
         <mesh
