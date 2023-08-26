@@ -31,10 +31,22 @@ export function Boekjes({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[-14.02, -4.92, -14.62]} rotation={[Math.PI / 2, 0, 0]}>
-        <mesh geometry={nodes.Magazines_1.geometry} material={materials.aiStandardSurface9SG} />
-        <mesh geometry={nodes.Magazines_2.geometry} material={materials.aiStandardSurface9SG} />
-        <mesh geometry={nodes.Magazines_3.geometry} material={materials.aiStandardSurface9SG} />
+      <group position={[-55, -23.5, -50]} rotation={[Math.PI / 2, 0.1, 0]} scale={3}>
+        <mesh geometry={nodes.Magazines_1.geometry} position={[0, 0, 1.7]} rotation={[0, 0.1, 0]} material={materials.aiStandardSurface9SG}>
+           <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.Magazines_2.geometry} position={[1.6, -2, -1.4]} rotation={[0.1, 0, 0]} material={materials.aiStandardSurface9SG}>
+           <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.Magazines_3.geometry} position={[0.2, 2.2, -1.4]} rotation={[0, -0.1, 0]} material={materials.aiStandardSurface9SG}>
+           <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
       </group>
     </group>
   )

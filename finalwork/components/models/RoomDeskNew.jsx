@@ -47,15 +47,16 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
   useEffect(() => {
     //Here we first check the era of the music to choose the right meshes.
     console.log("here is our era data:" , eraData[0].era)
-    eraData[0].era=2000;
+    eraData[0].era=1970;
     let loadedComponents = [];
     if (eraData[0].era >=2010) {
       console.log("newest era! ",eraData[0].era )
-      loadedComponents = [
-        dynamic(() => import('@/components/models/70/Magazines').then((mod) => mod.Magzines70)),
-        dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls)),
-        dynamic(() => import('@/components/models/70/Vinylspeler').then((mod) => mod.Vinylspeler)),
-        dynamic(() => import('@/components/models/70/Tafeltje70').then((mod) => mod.Tafeltje70))
+     loadedComponents = [
+        dynamic(() => import('@/components/models/10/Boekjes').then((mod) => mod.Boekjes)),
+        dynamic(() => import('@/components/models/10/Dvd').then((mod) => mod.Dvd)),
+        dynamic(() => import('@/components/models/10/Tafeltje10').then((mod) => mod.Tafeltje10)),
+        dynamic(() => import('@/components/models/10/Tvs').then((mod) => mod.Tvs)),
+        dynamic(() => import('@/components/models/10/Chair10').then((mod) => mod.Chair10))
       ];
     } else if (eraData[0].era >=1990) {
       console.log("middle era! ", eraData[0].era)
@@ -67,20 +68,18 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
       ];
     } else {
       console.log("earliest era! ",eraData[0].era)
-      loadedComponents = [
-        dynamic(() => import('@/components/models/10/Boekjes').then((mod) => mod.Boekjes)),
-        dynamic(() => import('@/components/models/10/Dvd').then((mod) => mod.Dvd)),
-        dynamic(() => import('@/components/models/10/Tafeltje10').then((mod) => mod.Tafeltje10)),
-        dynamic(() => import('@/components/models/10/Tvs').then((mod) => mod.Tvs))
+       loadedComponents = [
+        dynamic(() => import('@/components/models/70/Magazines').then((mod) => mod.Magzines70)),
+        dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls)),
+        dynamic(() => import('@/components/models/70/Vinylspeler').then((mod) => mod.Vinylspeler)),
+        dynamic(() => import('@/components/models/70/Tafeltje70').then((mod) => mod.Tafeltje70)),
+        dynamic(() => import('@/components/models/70/Chair70s').then((mod) => mod.Chair70s))
       ];
+      
     }
 
     setDynamicComponent(loadedComponents);
   }, [modelType, imageData]);
-
-
-  //Next load in the genredata and use it to add certain meshes
-  //console.log('genredata:', genreData)
 
   //Get dominant color
   //console.log("dominant color: ",dominantColor[1][0])
@@ -90,6 +89,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
   const beigematerial = new MeshStandardMaterial({ color: 0xf1e3d3 })
   const lightgreenish = new MeshStandardMaterial({ color: 0xcacaaa })
   const darkgreenish = new MeshStandardMaterial({ color: 0x485c42 })
+
+  //Texture van het fotokader
+   const textureKader = useLoader(TextureLoader, imageData[4].image);
+   textureKader.flipY = false
+  textureKader.needsUpdate = true
 
   return (
     <group
@@ -195,8 +199,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           material={materials.standardSurface2}
         >
           <meshStandardMaterial
-            flipY={true}
-            map={useLoader(TextureLoader, imageData[4].image)}
+            map={textureKader}
           />
         </mesh>
         <mesh

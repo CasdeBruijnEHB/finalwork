@@ -30,10 +30,22 @@ export function Dvd({props,imagedata,genredata}) {
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group {...props} dispose={null}>
-      <group position={[1, -3.44, -10.22]} rotation={[Math.PI / 2, 0, 0]}>
-        <mesh geometry={nodes.DVDs_1.geometry} material={materials.aiStandardSurface11SG} />
-        <mesh geometry={nodes.DVDs_2.geometry} material={materials.aiStandardSurface11SG} />
-        <mesh geometry={nodes.DVDs_3.geometry} material={materials.aiStandardSurface11SG} />
+      <group scale={2.5} position={[-4, -10, -47]} rotation={[1.5, 0, 1.2]}>
+        <mesh geometry={nodes.DVDs_1.geometry} material={materials.aiStandardSurface11SG}>
+          <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.DVDs_2.geometry} material={materials.aiStandardSurface11SG}>
+          <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
+        <mesh geometry={nodes.DVDs_3.geometry} material={materials.aiStandardSurface11SG}>
+          <meshStandardMaterial
+            map={useLoader(TextureLoader, imagedata[0].image)}
+          />
+          </mesh>
       </group>
     </group>
   )

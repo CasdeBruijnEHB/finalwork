@@ -29,7 +29,7 @@ export function Tafeltje10({props,imagedata,genredata}) {
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group {...props} dispose={null}>
-      <group position={[-0.02, 0.31, 0]} rotation={[Math.PI / 2, 0, 0]} scale={0.53}>
+      <group position={[-31, -7, -20]} rotation={[Math.PI / 2, 0, 0]} scale={4}>
         <mesh geometry={nodes.Mesh.geometry} material={materials.wood} />
         <mesh geometry={nodes.Mesh_1.geometry} material={materials.wood} />
       </group>
