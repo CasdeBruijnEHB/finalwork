@@ -29,8 +29,8 @@ const dracoLoader = new DRACOLoader()
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.zetelke.geometry} material={materials.aiStandardSurface16SG} position={[-7.33, 0, -11]} rotation={[Math.PI / 2, 0, 0]} />
+    <group {...props} dispose={null} position={[28.8, -25, -8]} rotation={[0, 1.2, 0]} scale={2.6}> 
+      <mesh geometry={nodes.zetelke.geometry} material={brownmaterial} position={[-7.33, 0, -11]} rotation={[Math.PI / 2, 0, 0]} />
     </group>
   )
 }

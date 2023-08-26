@@ -62,12 +62,17 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
       loadedComponents = [
         dynamic(() => import('@/components/models/90/Drumpad').then((mod) => mod.Drumpad)),
         dynamic(() => import('@/components/models/90/Lavalamp').then((mod) => mod.Lavalamp)),
-        dynamic(() => import('@/components/models/90/Tafeltje').then((mod) => mod.Tafeltje)),
+        dynamic(() => import('@/components/models/90/Tafeltje90').then((mod) => mod.Tafeltje90)),
         dynamic(() => import('@/components/models/90/Zetelke').then((mod) => mod.Zetelke))
       ];
     } else {
       console.log("earliest era! ",eraData[0].era)
-      setDynamicComponent(null);
+      loadedComponents = [
+        dynamic(() => import('@/components/models/10/Boekjes').then((mod) => mod.Boekjes)),
+        dynamic(() => import('@/components/models/10/Dvd').then((mod) => mod.Dvd)),
+        dynamic(() => import('@/components/models/10/Tafeltje10').then((mod) => mod.Tafeltje10)),
+        dynamic(() => import('@/components/models/10/Tvs').then((mod) => mod.Tvs))
+      ];
     }
 
     setDynamicComponent(loadedComponents);
@@ -161,9 +166,9 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
       <mesh
         geometry={nodes.HOUSEHouse002.geometry}
         material={beigematerial}
-        position={[0.01, 0.05, 0.11]}
+        position={[2, 0.05, 0.11]}
         rotation={[Math.PI / 2, 0, 0]}
-        scale={[0.01, 0.005, 0.01]}
+        scale={[0.011, 0.006, 0.01]}
         castShadow
         receiveShadow
       ></mesh>

@@ -30,7 +30,7 @@ export function Lavalamp({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[0.09, 1.59, 1.8]} rotation={[Math.PI / 2, 0, 2.87]} scale={0.62}>
+      <group position={[-10, 2, -2]} rotation={[Math.PI / 2, 0, 2.87]} scale={2}>
         <mesh geometry={nodes.Mesh.geometry} material={materials['OBJlamp:defaultMaterialSG1']} />
         <mesh geometry={nodes.Mesh_1.geometry} material={materials['OBJlamp:defaultMaterialSG1']} />
         <mesh geometry={nodes.Mesh_2.geometry} material={materials['OBJlamp:defaultMaterial.005SG1']} />

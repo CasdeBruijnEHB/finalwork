@@ -29,7 +29,7 @@ const dracoLoader = new DRACOLoader()
 
   return (
     <group {...props} dispose={null}>
-      <group position={[-3.51, 2.22, -0.78]} rotation={[Math.PI / 2, 0, 0]}>
+      <group position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.01}>
         <mesh geometry={nodes.stoeltje_1.geometry} material={materials.aiStandardSurface18SG} />
         <mesh geometry={nodes.stoeltje_2.geometry} material={materials.aiStandardSurface18SG} />
       </group>
