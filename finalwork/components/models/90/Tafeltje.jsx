@@ -31,9 +31,9 @@ export function Tafeltje({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[0, -0.79, -3.64]} rotation={[Math.PI / 2, 0, 0]} scale={0.31}>
-        <mesh geometry={nodes.tafeltje_1.geometry} material={materials['tafeltje:aiStandardSurface1SG']} />
-        <mesh geometry={nodes.tafeltje_2.geometry} material={materials['tafeltje:aiStandardSurface1SG']} />
+      <group position={[1, 1,1]} rotation={[0, 0, 0]} scale={0.001}>
+        <mesh geometry={nodes.tafeltje_1.geometry} material={brownmaterial} />
+        <mesh geometry={nodes.tafeltje_2.geometry} material={brownmaterial} />
       </group>
     </group>
   )

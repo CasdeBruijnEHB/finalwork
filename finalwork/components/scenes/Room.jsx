@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ModelDesk } from '@/components/models/RoomDeskNew'
-
+import { Html} from '@react-three/drei'
 
 
 export function Room({ trackData, artistData, dominantColor }) {
@@ -9,6 +9,8 @@ export function Room({ trackData, artistData, dominantColor }) {
   const [genres, setGenres] = useState([])
   const [eraData,setEraData]=useState([]);
   const [domcolors, setDomColors] = useState([dominantColor])
+  const [loader, isLoading] = useState(true)
+
   useEffect(() => {
     async function fetchData() {
       // First we are getting the imagedata out.
@@ -22,6 +24,7 @@ export function Room({ trackData, artistData, dominantColor }) {
     }
 
     fetchData()
+    isLoading(false);
   }, [])
 
   async function manageGenres(genres) {
@@ -81,12 +84,18 @@ export function Room({ trackData, artistData, dominantColor }) {
   return (
     <>
       <group>
-        <ModelDesk
+         {loader ? (
+            <Html>
+              <p>Loading...</p>
+            </Html>
+          ) : (
+          <ModelDesk
           imageData={manageImages(trackData.items)}
           genreData={genres}
           dominantColor={domcolors}
           eraData={eraData}
         />
+          )}
       </group>
     </>
   )
