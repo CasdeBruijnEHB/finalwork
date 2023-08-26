@@ -46,11 +46,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
 
   useEffect(() => {
     //Here we first check the era of the music to choose the right meshes.
-    console.log("here is our era data:" , eraData[0].era)
-    eraData[0].era=1970;
+    //console.log("here is our era data:" , eraData[0].era)
+    //eraData[0].era=2000;
     let loadedComponents = [];
     if (eraData[0].era >=2010) {
-      console.log("newest era! ",eraData[0].era )
+      //console.log("newest era! ",eraData[0].era )
      loadedComponents = [
         dynamic(() => import('@/components/models/10/Boekjes').then((mod) => mod.Boekjes)),
         dynamic(() => import('@/components/models/10/Dvd').then((mod) => mod.Dvd)),
@@ -59,7 +59,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
         dynamic(() => import('@/components/models/10/Chair10').then((mod) => mod.Chair10))
       ];
     } else if (eraData[0].era >=1990) {
-      console.log("middle era! ", eraData[0].era)
+     // console.log("middle era! ", eraData[0].era)
       loadedComponents = [
         dynamic(() => import('@/components/models/90/Drumpad').then((mod) => mod.Drumpad)),
         dynamic(() => import('@/components/models/90/Lavalamp').then((mod) => mod.Lavalamp)),
@@ -67,7 +67,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
         dynamic(() => import('@/components/models/90/Zetelke').then((mod) => mod.Zetelke))
       ];
     } else {
-      console.log("earliest era! ",eraData[0].era)
+      //console.log("earliest era! ",eraData[0].era)
        loadedComponents = [
         dynamic(() => import('@/components/models/70/Magazines').then((mod) => mod.Magzines70)),
         dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls)),
@@ -76,6 +76,19 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
         dynamic(() => import('@/components/models/70/Chair70s').then((mod) => mod.Chair70s))
       ];
       
+    }
+    
+    //Here we check the favorite genres and add a mesh based on that
+    const genres_HH_ELECTRONIC = ['rap', 'hip hop', 'electronic', 'EDM', "pop", 'dance', 'r&b'];
+    const genres_CLASSICAL = ['classical', 'jazz'];
+    const genres_ACOUSTIC = ['rock', 'indie ', 'country'];
+    //genreData[0].genre = "frrr"
+    if(genres_HH_ELECTRONIC.some(genre => genreData[0].genre.includes(genre))){
+      loadedComponents.push(dynamic(() => import('@/components/models/HH/Shoes').then((mod) => mod.Shoes)));
+    }else if(genres_CLASSICAL.some(genre => genreData[0].genre.includes(genre))){
+      loadedComponents.push(dynamic(() => import('@/components/models/CLASSICAL/Violin').then((mod) => mod.Violin)));
+    }else{
+      loadedComponents.push(dynamic(() => import('@/components/models/ACOUSTIC/Guitar').then((mod) => mod.Guitar)));
     }
 
     setDynamicComponent(loadedComponents);
