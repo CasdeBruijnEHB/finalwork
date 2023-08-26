@@ -31,7 +31,7 @@ export function Drumpad({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[-1.65, 0.14, -0.94]} rotation={[Math.PI / 2, 0, 0]}>
+      <group scale={10} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.drumpad_1.geometry} material={materials['drumpad:Material_001']} />
         <mesh geometry={nodes.drumpad_2.geometry} material={materials['drumpad:Material_003']} />
         <mesh geometry={nodes.drumpad_3.geometry} material={materials['drumpad:Material_005']} />

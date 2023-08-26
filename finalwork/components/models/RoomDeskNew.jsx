@@ -25,7 +25,7 @@ import { Tafeltje10 } from '@/components/models/10/Tafeltje10'
 
 
 
-export function ModelDesk({ props, imageData, genreData, dominantColor }) {
+export function ModelDesk({ props, imageData, genreData, dominantColor, eraData }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
  
   const [dynamicComponent, setDynamicComponent] = useState([]);;
@@ -45,19 +45,28 @@ export function ModelDesk({ props, imageData, genreData, dominantColor }) {
 
 
   useEffect(() => {
-    //Here we first check the genres and era of the music to choose the right meshes.
+    //Here we first check the era of the music to choose the right meshes.
+    console.log("here is our era data:" , eraData[0].era)
+    eraData[0].era=2000;
     let loadedComponents = [];
-    if (modelType === 0) {
+    if (eraData[0].era >=2010) {
+      console.log("newest era! ",eraData[0].era )
       loadedComponents = [
         dynamic(() => import('@/components/models/70/Magazines').then((mod) => mod.Magzines70)),
-        dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls))
-      ];
-    } else if (modelType === 1) {
-      loadedComponents = [
+        dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls)),
         dynamic(() => import('@/components/models/70/Vinylspeler').then((mod) => mod.Vinylspeler)),
         dynamic(() => import('@/components/models/70/Tafeltje70').then((mod) => mod.Tafeltje70))
       ];
+    } else if (eraData[0].era >=1990) {
+      console.log("middle era! ", eraData[0].era)
+      loadedComponents = [
+        dynamic(() => import('@/components/models/90/Drumpad').then((mod) => mod.Drumpad)),
+        dynamic(() => import('@/components/models/90/Lavalamp').then((mod) => mod.Lavalamp)),
+        dynamic(() => import('@/components/models/90/Tafeltje').then((mod) => mod.Tafeltje)),
+        dynamic(() => import('@/components/models/90/Zetelke').then((mod) => mod.Zetelke))
+      ];
     } else {
+      console.log("earliest era! ",eraData[0].era)
       setDynamicComponent(null);
     }
 

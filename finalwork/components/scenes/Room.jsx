@@ -7,10 +7,8 @@ export function Room({ trackData, artistData, dominantColor }) {
 
   //Here we generate the room - we gather the data, and send it to the 3D model afterwards.
   const [genres, setGenres] = useState([])
+  const [eraData,setEraData]=useState([]);
   const [domcolors, setDomColors] = useState([dominantColor])
-  console.log("this data...")
-  console.log(trackData)
-  console.log(artistData)
   useEffect(() => {
     async function fetchData() {
       // First we are getting the imagedata out.
@@ -19,6 +17,8 @@ export function Room({ trackData, artistData, dominantColor }) {
       // Then we are going to do genres.
       const genresData = await manageGenres(artistData.items)
       setGenres(genresData)
+      const trackEras= await manageEras(trackData.items)
+      setEraData(trackEras);
     }
 
     fetchData()
@@ -50,6 +50,34 @@ export function Room({ trackData, artistData, dominantColor }) {
     return sortedOccurrences
   }
 
+  async function manageEras(trackdata){
+    console.log("managing eras...")
+    console.log(trackdata)
+     //Add all listened to eras to array
+    let erasInstances = []
+    for (let items of trackdata) {
+      //I only need the years, so will save these and put them in the array
+      let date= new Date(items.album.release_date);
+      erasInstances.push(date.getFullYear())
+    }
+
+    //Count how much each date occurs in the array and sort it
+    const occurrences = []
+    erasInstances.forEach((era) => {
+      const foundEra = occurrences.find((item) => item.era === era)
+      if (foundEra) {
+        foundEra.count++
+      } else {
+        occurrences.push({ era, count: 1 })
+      }
+    })
+    const sortedOccurrences = occurrences.sort((a, b) => b.count - a.count)
+    sortedOccurrences.forEach((item) => {
+      //console.log(`${item.era}: ${item.count}`);
+    })
+    return sortedOccurrences
+  }
+
   return (
     <>
       <group>
@@ -57,6 +85,7 @@ export function Room({ trackData, artistData, dominantColor }) {
           imageData={manageImages(trackData.items)}
           genreData={genres}
           dominantColor={domcolors}
+          eraData={eraData}
         />
       </group>
     </>
@@ -90,26 +119,4 @@ function manageImages(images) {
   return sortedOccurrences
 }
 
-function manageEra(dates) {
-  console.log('managing dates!')
-  //Add all listened to genres to array
-  let datesInstances = []
-  for (let items of dates) {
-    datesInstances.push(items.album.release_date.slice(0, 4))
-  }
 
-  //Count how much each date occurs in the array and sort it
-  const occurrences = []
-  datesInstances.forEach((date) => {
-    const foundDate = occurrences.find((item) => item.date === date)
-    if (foundDate) {
-      foundDate.count++
-    } else {
-      occurrences.push({ date, count: 1 })
-    }
-  })
-  const sortedOccurrences = occurrences.sort((a, b) => b.count - a.count)
-  sortedOccurrences.forEach((item) => {
-    //console.log(`${item.date}: ${item.count}`);
-  })
-}
