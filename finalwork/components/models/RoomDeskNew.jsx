@@ -1,35 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { GLTFLoader , Html } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 import { MeshStandardMaterial } from 'three'
 import dynamic from 'next/dynamic';
-/*
-import { Magzines70 } from '@/components/models/70/Magazines'
-import { Vinyls } from '@/components/models/70/Vinyls'
-import { Vinylspeler } from '@/components/models/70/Vinylspeler'
-import { Tafeltje70 } from '@/components/models/70/Tafeltje70'
 
-import { Drumpad } from '@/components/models/90/Drumpad'
-import { Lavalamp } from '@/components/models/90/Lavalamp'
-import { Stoeltje } from '@/components/models/90/Stoeltje'
-import { Zetelke } from '@/components/models/90/Zetelke'
-import { Boekjes } from '@/components/models/10/Boekjes'
-import { Dvd } from '@/components/models/10/Dvd'
-import { Tafeltje } from '@/components/models/90/Tafeltje'
-import { Tvs } from '@/components/models/10/Tvs'
-import { Tafeltje10 } from '@/components/models/10/Tafeltje10'
-*/
+import { Popup } from '@/components/popup'
 
 
-
-export function ModelDesk({ props, imageData, genreData, dominantColor, eraData }) {
+export function ModelDesk({ props, imageData, genreData, dominantColor, eraData, trackData }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
  
   const [dynamicComponent, setDynamicComponent] = useState([]);;
   const [modelType,setModelType]=useState(1)
+  const [trackInfo, setTrackInfo]=useState();
+
+  //Dit zijn enkele states voor de popup te regelen
+  const [meshClicker, setMeshClicker]=useState(true);
+  const [clickType, setClickType]=useState(); //Geef mee of het om 'era', 'track' of 'genre' gaat
+  const [clickData, setClickData]=useState(); //Geef de data die behandeld wordt
 
   //First load in the main mesh.
   const dracoLoader = new DRACOLoader()
@@ -47,7 +38,9 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
   useEffect(() => {
     //Here we first check the era of the music to choose the right meshes.
     //console.log("here is our era data:" , eraData[0].era)
-    //eraData[0].era=2000;
+    //eraData[0].era=1700;
+    console.log("this is the new imagedata:" ,imageData)
+    
     let loadedComponents = [];
     if (eraData[0].era >=2010) {
       //console.log("newest era! ",eraData[0].era )
@@ -82,7 +75,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
     const genres_HH_ELECTRONIC = ['rap', 'hip hop', 'electronic', 'EDM', "pop", 'dance', 'r&b'];
     const genres_CLASSICAL = ['classical', 'jazz'];
     const genres_ACOUSTIC = ['rock', 'indie ', 'country'];
-    //genreData[0].genre = "frrr"
+    //genreData[0].genre = "classical"
     if(genres_HH_ELECTRONIC.some(genre => genreData[0].genre.includes(genre))){
       loadedComponents.push(dynamic(() => import('@/components/models/HH/Shoes').then((mod) => mod.Shoes)));
     }else if(genres_CLASSICAL.some(genre => genreData[0].genre.includes(genre))){
@@ -104,10 +97,33 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
   const darkgreenish = new MeshStandardMaterial({ color: 0x485c42 })
 
   //Texture van het fotokader
-   const textureKader = useLoader(TextureLoader, imageData[4].image);
+   const textureKader = useLoader(TextureLoader, imageData[4].url);
    textureKader.flipY = false
   textureKader.needsUpdate = true
 
+  function meshClick(type){
+    //First check what type of data needs to be sent through
+    if(type.includes("genre")){
+        setClickType("genre");
+        setClickData(genreData)
+    }else if(type.includes("track")){
+      setClickType("track");  
+      setClickData(imageData)
+    }else{
+      //else it's era
+        setClickType("era");
+         setClickData(eraData)
+    }
+
+    //Activate the box! It opens the popup
+    setMeshClicker(!meshClicker);
+    if(meshClicker){
+      console.log("Open box!");
+    }else{
+      console.log("close box..")
+    }
+  }
+  
   return (
     <group
       position={[0, -0.5, 0.1]}
@@ -116,15 +132,21 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
       {...props}
       dispose={null}
     >
-      
-      <group>
+    <group>
       {dynamicComponent.map((DynamicComponent, index) => (
         <DynamicComponent  key={index}  imagedata={imageData}/>
       ))}
       </group>
+    {meshClicker ? (
+            <></>
+          ) : (
+             <Popup type={clickType} data={clickData} />
+          )}
+      
 
-      <group rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
+      <group onClick={(e)=> {meshClick(e.object.name)}} rotation={[0, 0, 0]} position={[3, 30, 3.8]}>
         <mesh
+        name='track_poster5'
           geometry={nodes.Poster5.geometry}
           material={materials.standardSurface2}
           position={[0.02, 0.15, 2.2]}
@@ -132,10 +154,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           scale={[-0.001, 0.05, -0.07]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imageData[0].image)}
+            map={useLoader(TextureLoader, imageData[0].url)}
           />
         </mesh>
         <mesh
+        name='track_poster4'
           geometry={nodes.Poster4.geometry}
           material={materials.standardSurface2}
           position={[4.05, 7.16, -1.16]}
@@ -143,10 +166,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           scale={[-0.001, 0.04, -0.05]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imageData[1].image)}
+            map={useLoader(TextureLoader, imageData[1].url)}
           />
         </mesh>
         <mesh
+        name='track_poster3'
           geometry={nodes.Poster3.geometry}
           material={materials.standardSurface2}
           position={[4.07, 4.13, 0.16]}
@@ -154,10 +178,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           scale={[-0.001, 0.04, -0.05]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imageData[2].image)}
+            map={useLoader(TextureLoader, imageData[2].url)}
           />
         </mesh>
-        <mesh
+        <mesh 
+        name='track_poster2'
           geometry={nodes.Poster2.geometry}
           material={materials.standardSurface2}
           position={[0.03, 1.17, -0.16]}
@@ -165,10 +190,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           scale={[-0.001, 0.04, -0.04]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imageData[3].image)}
+            map={useLoader(TextureLoader, imageData[3].url)}
           />
         </mesh>
         <mesh
+        name='track_poster1'
           geometry={nodes.Poster11.geometry}
           material={materials.standardSurface2}
           position={[5.03, 4.14, 0.15]}
@@ -176,7 +202,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           scale={[-0.001, 0.04, -0.05]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imageData[4].image)}
+            map={useLoader(TextureLoader, imageData[4].url)}
           />
         </mesh>
       </group>
@@ -208,13 +234,16 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData 
           material={materials.standardSurface2}
         />
         <mesh
+         name='genre_Kaderfoto'
           geometry={nodes.Mesh007_1.geometry}
           material={materials.standardSurface2}
+         onClick={(e)=> {meshClick(e.object.name)}}
         >
           <meshStandardMaterial
             map={textureKader}
           />
         </mesh>
+        
         <mesh
           geometry={nodes.Mesh007_2.geometry}
           material={materials.lambert1}

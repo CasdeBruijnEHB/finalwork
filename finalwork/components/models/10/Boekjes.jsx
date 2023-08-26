@@ -26,7 +26,7 @@ export function Boekjes({props,imagedata,genredata}) {
   )
   const { nodes, materials, animations } = gltf
   
-  const texture = useLoader(TextureLoader, imagedata[3].image)
+  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
@@ -34,17 +34,17 @@ export function Boekjes({props,imagedata,genredata}) {
       <group position={[-55, -23.5, -50]} rotation={[Math.PI / 2, 0.1, 0]} scale={3}>
         <mesh geometry={nodes.Magazines_1.geometry} position={[0, 0, 1.7]} rotation={[0, 0.1, 0]} material={materials.aiStandardSurface9SG}>
            <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
           </mesh>
         <mesh geometry={nodes.Magazines_2.geometry} position={[1.6, -2, -1.4]} rotation={[0.1, 0, 0]} material={materials.aiStandardSurface9SG}>
            <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
           </mesh>
         <mesh geometry={nodes.Magazines_3.geometry} position={[0.2, 2.2, -1.4]} rotation={[0, -0.1, 0]} material={materials.aiStandardSurface9SG}>
            <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
           </mesh>
       </group>

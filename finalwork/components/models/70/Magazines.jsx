@@ -26,24 +26,24 @@ export function Magzines70({props,imagedata,genredata}) {
   )
   const { nodes, materials, animations } = gltf
   
-  const texture = useLoader(TextureLoader, imagedata[3].image)
+  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group {...props} dispose={null}>
       <group position={[-10, -3.5, -8]} rotation={[Math.PI / 2, 0, 0]} scale={5}>
         <mesh geometry={nodes.boekjes_1.geometry}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
         </mesh>
         <mesh geometry={nodes.boekjes_2.geometry} material={brownmaterial}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[1].image)}
+            map={useLoader(TextureLoader, imagedata[1].url)}
           />
           </mesh>
         <mesh geometry={nodes.boekjes_3.geometry} material={brownmaterial}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[2].image)}
+            map={useLoader(TextureLoader, imagedata[2].url)}
           />
           </mesh>
       </group>

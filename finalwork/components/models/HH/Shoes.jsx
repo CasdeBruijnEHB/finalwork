@@ -26,7 +26,7 @@ export function Shoes({props,imagedata,genredata}) {
   )
   const { nodes, materials, animations } = gltf
   
-  const texture = useLoader(TextureLoader, imagedata[3].image)
+  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group {...props} dispose={null} position={[42, -17.5, 4]} rotation={[0, 2, 0]} scale={2.6}>

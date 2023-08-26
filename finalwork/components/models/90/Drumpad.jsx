@@ -26,7 +26,7 @@ export function Drumpad({props,imagedata,genredata}) {
   )
   const { nodes, materials, animations } = gltf
   
-  const texture = useLoader(TextureLoader, imagedata[3].image)
+  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (

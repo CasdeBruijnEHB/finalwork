@@ -25,7 +25,7 @@ export function Tvs({props,imagedata,genredata}) {
   )
   const { nodes, materials, animations } = gltf
   
-  const texture = useLoader(TextureLoader, imagedata[3].image)
+  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group scale={2.5} position={[-19, -15, -50]} rotation={[0, -1.5, 0]} {...props} dispose={null}>

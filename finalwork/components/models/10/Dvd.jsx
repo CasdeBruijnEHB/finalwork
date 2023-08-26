@@ -26,24 +26,24 @@ export function Dvd({props,imagedata,genredata}) {
   )
   const { nodes, materials, animations } = gltf
   
-  const texture = useLoader(TextureLoader, imagedata[3].image)
+  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group {...props} dispose={null}>
       <group scale={2.5} position={[-4, -10, -47]} rotation={[1.5, 0, 1.2]}>
         <mesh geometry={nodes.DVDs_1.geometry} material={materials.aiStandardSurface11SG}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
           </mesh>
         <mesh geometry={nodes.DVDs_2.geometry} material={materials.aiStandardSurface11SG}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
           </mesh>
         <mesh geometry={nodes.DVDs_3.geometry} material={materials.aiStandardSurface11SG}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].image)}
+            map={useLoader(TextureLoader, imagedata[0].url)}
           />
           </mesh>
       </group>

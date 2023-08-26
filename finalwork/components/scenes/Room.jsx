@@ -94,6 +94,7 @@ export function Room({ trackData, artistData, dominantColor }) {
           genreData={genres}
           dominantColor={domcolors}
           eraData={eraData}
+          trackData={trackData.items}
         />
           )}
       </group>
@@ -104,6 +105,7 @@ export function Room({ trackData, artistData, dominantColor }) {
 function manageImages(images) {
   //console.log('managing images!')
   //Add all listened to genres to array
+  /*
   let imagesInstances = []
   for (let items of images) {
     imagesInstances.push(items.album.images[0].url)
@@ -120,12 +122,22 @@ function manageImages(images) {
   })
 
   const sortedOccurrences = occurrences.sort((a, b) => b.count - a.count)
-  /*
     sortedOccurrences.forEach((item) => {
     console.log(`${item.image}: ${item.count}`);
     });
     */
-  return sortedOccurrences
+  let imagesInstances = [];
+ // console.log("TOT IMAGES:",images);
+  for (let item of images) {
+    imagesInstances.push({
+      url: item.album.images[0].url,
+      id: item.id,
+      trackname: item.name,
+      artistname: item.artists[0].name
+    });
+  }
+  console.log("new IMAGES", imagesInstances)
+  return imagesInstances
 }
 
 
