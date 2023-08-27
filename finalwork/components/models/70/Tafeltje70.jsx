@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Tafeltje70({props,onClick,imagedata,genredata}) {
+export function Tafeltje70({props,onClick,imagedata,genredata, colorData}) {
   //const { nodes, materials } = useGLTF('/Tafeltje70-transformed.glb')
 
    //First load in the mesh.
@@ -31,7 +31,7 @@ export function Tafeltje70({props,onClick,imagedata,genredata}) {
 
   return (
     <group onClick={() => onClick('era_tafeltje70')} {...props} scale={20} rotation={[0,1.5,0]} position={[-30,-18,-23]} dispose={null}>
-      <mesh geometry={nodes.OPM0032.geometry} material={brownmaterial} />
+      <mesh geometry={nodes.OPM0032.geometry} material={colorData[3]} />
     </group>
   )
 }

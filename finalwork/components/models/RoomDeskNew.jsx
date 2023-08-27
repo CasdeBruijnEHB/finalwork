@@ -6,21 +6,10 @@ import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 import { MeshStandardMaterial } from 'three'
 import dynamic from 'next/dynamic';
-
 import { Popup } from '@/components/popup'
 
 
 export function ModelDesk({ props, imageData, genreData, dominantColor, eraData, trackData }) {
-  //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
- 
-  const [dynamicComponent, setDynamicComponent] = useState([]);
-
-  //Dit zijn enkele states voor de popup te regelen
-  const [meshClicker, setMeshClicker]=useState(true);
-  const [clickType, setClickType]=useState(); //Geef mee of het om 'era', 'track' of 'genre' gaat
-  const [clickData, setClickData]=useState([]); //Geef de data die behandeld wordt
-
-  //First load in the main mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -31,17 +20,46 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     },
   )
   const { nodes, materials } = gltf
+  
+  console.log("initalized....", gltf)
+  
+  const [dynamicComponent, setDynamicComponent] = useState([]);
+  //Dit zijn enkele states voor de popup te regelen
+  const [meshClicker, setMeshClicker]=useState(true);
+  const [clickType, setClickType]=useState(); //Geef mee of het om 'era', 'track' of 'genre' gaat
+  const [clickData, setClickData]=useState([]); //Geef de data die behandeld wordt
+  const [colormaterials, setColormaterials]=useState([]);
+ const [textureKader,setTextureKader]=useState();
+  const [ isLoading] = useState(true)
+  
 
+  
+   //First load in the main mesh.
+  
 
+  
   useEffect(() => {
-    //Here we first check the era of the music to choose the right meshes.
-    //console.log("here is our era data:" , eraData[0].era)
-    eraData[0].era=2000;
-    console.log("this is the new imagedata:" ,imageData)
+    setTextures(dominantColor);
+    function setTextures(domcolor){
+      //We need HEX codes so let's use a transformer
+      const rgbToHex = (r, g, b) => {
+      return (r << 16) | (g << 8) | b;
+      };
+      let colorcodesArr=[];
     
+        for (let index=0;index<domcolor[0].length;index++){
+          colorcodesArr.push(new MeshStandardMaterial({color:(rgbToHex(domcolor[0][index][0],domcolor[0][index][1],domcolor[0][index][2]))}))
+        }
+        setColormaterials(colorcodesArr);
+        
+    
+    }
+    //Here we first check the era of the music to choose the right meshes.
+    eraData[0].era=1999;
+    console.log("loading in 2010s")
     let loadedComponents = [];
     if (eraData[0].era >=2010) {
-      //console.log("newest era! ",eraData[0].era )
+      console.log("loading in 2010s")
      loadedComponents = [
         dynamic(() => import('@/components/models/10/Boekjes').then((mod) => mod.Boekjes)),
         dynamic(() => import('@/components/models/10/Dvd').then((mod) => mod.Dvd)),
@@ -50,7 +68,6 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
         dynamic(() => import('@/components/models/10/Chair10').then((mod) => mod.Chair10))
       ];
     } else if (eraData[0].era >=1990) {
-     // console.log("middle era! ", eraData[0].era)
       loadedComponents = [
         dynamic(() => import('@/components/models/90/Drumpad').then((mod) => mod.Drumpad)),
         dynamic(() => import('@/components/models/90/Lavalamp').then((mod) => mod.Lavalamp)),
@@ -58,7 +75,6 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
         dynamic(() => import('@/components/models/90/Zetelke').then((mod) => mod.Zetelke))
       ];
     } else {
-      //console.log("earliest era! ",eraData[0].era)
        loadedComponents = [
         dynamic(() => import('@/components/models/70/Magazines').then((mod) => mod.Magzines70)),
         dynamic(() => import('@/components/models/70/Vinyls').then((mod) => mod.Vinyls)),
@@ -73,7 +89,9 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     const genres_HH_ELECTRONIC = ['rap', 'hip hop', 'electronic', 'EDM', "pop", 'dance', 'r&b'];
     const genres_CLASSICAL = ['classical', 'jazz'];
     const genres_ACOUSTIC = ['rock', 'indie ', 'country'];
-    //genreData[0].genre = "rock"
+    //genreData[0].genre = "classical"
+          console.log("setting genres")
+
     if(genres_HH_ELECTRONIC.some(genre => genreData[0].genre.includes(genre))){
       loadedComponents.push(dynamic(() => import('@/components/models/HH/Shoes').then((mod) => mod.Shoes)));
     }else if(genres_CLASSICAL.some(genre => genreData[0].genre.includes(genre))){
@@ -83,21 +101,12 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     }
 
     setDynamicComponent(loadedComponents);
-  }, [imageData, eraData, genreData]);
+    console.log("ending comps")
 
-  //Get dominant color
-  //console.log("dominant color: ",dominantColor[1][0])
+  }, [imageData, eraData, genreData, dominantColor]);
 
-  //meshmaterial interacts with light - basis does not
-  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
-  const beigematerial = new MeshStandardMaterial({ color: 0xf1e3d3 })
-  const lightgreenish = new MeshStandardMaterial({ color: 0xcacaaa })
-  const darkgreenish = new MeshStandardMaterial({ color: 0x485c42 })
 
-  //Texture van het fotokader
-   const textureKader = useLoader(TextureLoader, imageData[4].url);
-   textureKader.flipY = false
-  textureKader.needsUpdate = true
+
 
   function meshClick(type){
     /*
@@ -133,6 +142,8 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     }
   }
 
+   
+
   
   return (
     <group
@@ -145,7 +156,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     >
     <group >
       {dynamicComponent.map((DynamicComponent, index) => (
-        <DynamicComponent onClick={(name) => meshClick(name)}   key={index}  imagedata={imageData}/>
+        <DynamicComponent onClick={(name) => meshClick(name)} colorData={colormaterials} key={index} imagedata={imageData}/>
       ))}
       </group>
     {meshClicker ? (
@@ -219,7 +230,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
       </group>
       <mesh
         geometry={nodes.HOUSEHouse002.geometry}
-        material={beigematerial}
+        material={colormaterials[1]}
         position={[2, 0.05, 0.11]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[0.011, 0.006, 0.01]}
@@ -228,7 +239,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
       ></mesh>
       <mesh
         geometry={nodes.Tafel.geometry}
-        material={brownmaterial}
+        material={colormaterials[4]}
         position={[0.01, 0.05, 0.06]}
         rotation={[Math.PI / 2, 0, 0]}
         castShadow
@@ -251,7 +262,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
          onClick={(e)=> {meshClick(e.object.name)}}
         >
           <meshStandardMaterial
-            map={textureKader}
+            map={useLoader(TextureLoader, imageData[7].url)}
           />
         </mesh>
         
@@ -261,20 +272,22 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
         />
       </group>
       <group
+      name='boxlinks'
         position={[0.05, 0.1, 0.14]}
         rotation={[Math.PI / 2, 0, 2.96]}
         scale={0.003}
       >
-        <mesh geometry={nodes.Mesh008.geometry} material={lightgreenish} />
-        <mesh geometry={nodes.Mesh008_1.geometry} material={darkgreenish} />
+        <mesh geometry={nodes.Mesh008.geometry} material={colormaterials[2]} />
+        <mesh geometry={nodes.Mesh008_1.geometry} material={colormaterials[3]} />
       </group>
       <group
+       name='boxrechts'
         position={[0.02, 0.1, 0.14]}
         rotation={[Math.PI / 2, 0, 3.03]}
         scale={0.003}
       >
-        <mesh geometry={nodes.Mesh009.geometry} material={darkgreenish} />
-        <mesh geometry={nodes.Mesh009_1.geometry} material={lightgreenish} />
+        <mesh geometry={nodes.Mesh009.geometry} material={colormaterials[3]} />
+        <mesh geometry={nodes.Mesh009_1.geometry} material={colormaterials[2]} />
       </group>
     </group>
   )

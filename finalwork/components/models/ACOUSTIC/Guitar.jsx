@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Guitar({props,onClick, imagedata,genredata}) {
+export function Guitar({props,onClick, imagedata,genredata, colorData}) {
   //const { nodes, materials } = useGLTF('/guitar-transformed.glb')
 
   //First load in the mesh.
@@ -31,7 +31,7 @@ export function Guitar({props,onClick, imagedata,genredata}) {
 
   return (
     <group onClick={() => onClick('genre_guitar')} {...props} dispose={null} position={[40, -20, 4]} rotation={[0.2, -3, 0]} scale={2.6}>
-      <mesh geometry={nodes.Yamaha_F310_Lowpoly.geometry} material={brownmaterial} position={[-0.16, 0, 0.08]} rotation={[Math.PI / 2, 0, 0]} scale={0.09} />
+      <mesh geometry={nodes.Yamaha_F310_Lowpoly.geometry} material={colorData[5]} position={[-0.16, 0, 0.08]} rotation={[Math.PI / 2, 0, 0]} scale={0.09} />
     </group>
   )
 }

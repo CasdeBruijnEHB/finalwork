@@ -3,21 +3,11 @@ import { createRoot } from 'react-dom/client'
 import React, { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import * as THREE from 'three'
-import {
-  Environment,
-  OrthographicCamera,
-  useAnimations,
-  useGLTF,
-} from '@react-three/drei'
 import { Suspense } from 'react'
 import {
   Stats,
   OrbitControls,
-  Lightformer,
-  useCursor,
   Html,
-  Reflector,
-  MeshReflectorMaterial,
   useHelper,
 } from '@react-three/drei'
 import { Navbar } from '@/components/navbar'

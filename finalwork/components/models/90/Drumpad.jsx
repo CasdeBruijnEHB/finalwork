@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Drumpad({props,onClick, imagedata,genredata}) {
+export function Drumpad({props,onClick, imagedata,genredata, colorData}) {
   //const { nodes, materials } = useGLTF('/drumpad-transformed.glb')
 
 //First load in the mesh.
@@ -32,7 +32,7 @@ export function Drumpad({props,onClick, imagedata,genredata}) {
   return (
     <group  onClick={() => onClick('era_drumpad')} {...props} dispose={null}>
       <group scale={3.5} position={[-30, 1.3, -20]} rotation={[1.95, 0.90, -0.71]}>
-        <mesh geometry={nodes.drumpad_1.geometry} material={materials['drumpad:Material_001']} />
+        <mesh geometry={nodes.drumpad_1.geometry} material={colorData[8]} />
         <mesh geometry={nodes.drumpad_2.geometry} material={materials['drumpad:Material_003']} />
         <mesh geometry={nodes.drumpad_3.geometry} material={materials['drumpad:Material_005']} />
         <mesh geometry={nodes.drumpad_4.geometry} material={materials['drumpad:Material_007']} />

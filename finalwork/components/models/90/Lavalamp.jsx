@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Lavalamp({props,onClick, imagedata,genredata}) {
+export function Lavalamp({props,onClick, imagedata,genredata, colorData}) {
   //const { nodes, materials } = useGLTF('/lavalamp-transformed.glb')
 //First load in the mesh.
   const dracoLoader = new DRACOLoader()
@@ -31,7 +31,7 @@ export function Lavalamp({props,onClick, imagedata,genredata}) {
   return (
     <group  onClick={() => onClick('era_lavalamp')} {...props} dispose={null}>
       <group position={[-10, 2, -2]} rotation={[Math.PI / 2, 0, 2.87]} scale={2}>
-        <mesh geometry={nodes.Mesh.geometry} material={materials['OBJlamp:defaultMaterialSG1']} />
+        <mesh geometry={nodes.Mesh.geometry} material={colorData[7]} />
         <mesh geometry={nodes.Mesh_1.geometry} material={materials['OBJlamp:defaultMaterialSG1']} />
         <mesh geometry={nodes.Mesh_2.geometry} material={materials['OBJlamp:defaultMaterial.005SG1']} />
         <mesh geometry={nodes.Mesh_3.geometry} material={materials.glassLava} />

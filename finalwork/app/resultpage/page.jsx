@@ -4,29 +4,23 @@ import { Room } from '@/components/scenes/Room'
 import {
   Stats,
   OrbitControls,
-  Lightformer,
-  useCursor,
   Html,
   useHelper,
 } from '@react-three/drei'
 import {
   Canvas,
-  useFrame,
   useThree,
-  extend,
-  useLoader,
 } from '@react-three/fiber'
 import React, { useRef } from 'react'
 import { Suspense } from 'react'
 import * as THREE from 'three'
-import SpotifyPlayer from 'react-spotify-web-playback'
 import SpotiPlayerComp from '@/components/SpotiPlayer'
-import dynamic from 'next/dynamic'
 import { DirectionalLightHelper, PointLightHelper } from 'three'
 import { Computernew } from '@/components/scenes/Computernew'
 import Image from 'next/image'
 import { useQRCode } from 'next-qrcode';
-import { Navbar } from '@/components/navbar'
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
+
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -44,6 +38,7 @@ export default function SpotifyResultPage() {
   const [screenshot,SetScreenshot]=useState(false);
   const [screenshotURL,SetScreenshotUrl]=useState();
 
+  
  const canvasRef = useRef(null);
   const handleAverageAmplitude = (avgAmp) => {
     console.log('handling Amplitude:', avgAmp)
@@ -77,6 +72,7 @@ export default function SpotifyResultPage() {
           manageImages(dat.items),
         )
         setDomColors(dominantColorsData)
+       
 
         //Then we get the favorite artist data (used to get favorite genres)
         await fetch(`${fetchURL}/artistData`)
@@ -119,8 +115,7 @@ export default function SpotifyResultPage() {
     const { scene } = useThree()
     // Create the skydome light
     //const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559) // this is the POM green
-    const skyColor = new THREE.Color().setHSL(37 / 360, 79 / 100, 84 / 100)
-    skyColor.a = 0.5 //
+    const skyColor = new THREE.Color(`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`)
     scene.background = skyColor
     return null
   }
@@ -172,31 +167,6 @@ export default function SpotifyResultPage() {
       SetScreenshot(true)
   }
 
-  const shareOnInstagramStory=()=>{
-    if (screenshotURL) {
-    const base64Image = encodeURIComponent(screenshotURL);
-      const deepLinkURL = `instagram://camera?openExternalApp=story&backgroundImage=${base64Image}`;
-      console.log(deepLinkURL)
-      //window.location.href = deepLinkURL;
-      }
-  }
-  const { SVG } = useQRCode();
-  /*
- <button onClick={shareOnInstagramStory}>Share on Instagram Story</button>
-            <SVG
-              text={"www.google.be"}
-              options={{
-                margin: 2,
-                width: 100,
-                color: {
-                  dark: '#010599FF',
-                  light: '#FFBF60FF',
-                },
-              }}
-            />
-
-  */
-
   return (
     <>
       <div className='flex flex-col absolute z-40 drop-shadow-lg text-md bg-white text-[#7FB069] mt-[2%] ml-[2%] rounded-xl pl-10 pt-2.5 pb-2.5 pr-10 space-y-2.5 w-1/5'>
@@ -230,6 +200,7 @@ export default function SpotifyResultPage() {
           background: 'hsl(37, 79%, 84%)',
         }}
       >
+      
         <Suspense fallback={null}>
           {loader ? (
             <Html>
