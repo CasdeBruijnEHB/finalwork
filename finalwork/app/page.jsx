@@ -90,25 +90,19 @@ export default function Home() {
 
 function StartKnop() {
   const ref = useRef()
-  const { camera } = useThree()
   const [buttonClick, setButtonClick] = useState(true)
   const { push } = useRouter()
-
-  console.log('render?')
-
   useEffect(() => {
     setButtonClick(true)
   }, [])
 
   useFrame((state) => {
-    console.log('useframe')
-    //camera.lookAt(0, 0, 0); // Keep the camera looking at the center of the scene
     if (buttonClick) {
       state.camera.quaternion.slerp(arcadeCameraQ, 0.02)
       state.camera.position.lerp(new THREE.Vector3(0.1, 0.15, 0.4), 0.05)
     } else {
       state.camera.quaternion.slerp(defaultCameraQ, 0.02)
-      state.camera.position.lerp(new THREE.Vector3(5, 5, 5), 0.08)
+      state.camera.position.lerp(new THREE.Vector3(0.15, 0.22, 0.25), 0.025)
       setTimeout(function () {
         push('/spotify')
       }, 80)

@@ -252,6 +252,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
         scale={0.01}
       >
         <mesh
+        name='kaderstokje'
           geometry={nodes.Mesh007.geometry}
           material={materials.standardSurface2}
         />
