@@ -7,14 +7,10 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
-import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
-import { MeshStandardMaterial } from 'three'
 
-export function Drumpad({props,onClick, imagedata,genredata, colorData}) {
-  //const { nodes, materials } = useGLTF('/drumpad-transformed.glb')
-
-//First load in the mesh.
+export function Drumpad({ props, onClick, imagedata, genredata, colorData }) {
+  //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -25,20 +21,39 @@ export function Drumpad({props,onClick, imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
-  const texture = useLoader(TextureLoader, imagedata[3].url)
-  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group  onClick={() => onClick('era_drumpad')} {...props} dispose={null}>
-      <group scale={3.5} position={[-30, 1.3, -20]} rotation={[1.95, 0.90, -0.71]}>
+    <group onClick={() => onClick('era_drumpad')} {...props} dispose={null}>
+      <group
+        scale={3.5}
+        position={[-30, 1.3, -20]}
+        rotation={[1.95, 0.9, -0.71]}
+      >
         <mesh geometry={nodes.drumpad_1.geometry} material={colorData[8]} />
-        <mesh geometry={nodes.drumpad_2.geometry} material={materials['drumpad:Material_003']} />
-        <mesh geometry={nodes.drumpad_3.geometry} material={materials['drumpad:Material_005']} />
-        <mesh geometry={nodes.drumpad_4.geometry} material={materials['drumpad:Material_007']} />
-        <mesh geometry={nodes.drumpad_5.geometry} material={materials['drumpad:Material_009']} />
-        <mesh geometry={nodes.drumpad_6.geometry} material={materials['drumpad:Material_011']} />
-        <mesh geometry={nodes.drumpad_7.geometry} material={materials['drumpad:Material_013']} />
+        <mesh
+          geometry={nodes.drumpad_2.geometry}
+          material={materials['drumpad:Material_003']}
+        />
+        <mesh
+          geometry={nodes.drumpad_3.geometry}
+          material={materials['drumpad:Material_005']}
+        />
+        <mesh
+          geometry={nodes.drumpad_4.geometry}
+          material={materials['drumpad:Material_007']}
+        />
+        <mesh
+          geometry={nodes.drumpad_5.geometry}
+          material={materials['drumpad:Material_009']}
+        />
+        <mesh
+          geometry={nodes.drumpad_6.geometry}
+          material={materials['drumpad:Material_011']}
+        />
+        <mesh
+          geometry={nodes.drumpad_7.geometry}
+          material={materials['drumpad:Material_013']}
+        />
       </group>
     </group>
   )

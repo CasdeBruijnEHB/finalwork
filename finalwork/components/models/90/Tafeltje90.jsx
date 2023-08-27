@@ -7,13 +7,16 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
-import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
-import { MeshStandardMaterial } from 'three'
 
-export function Tafeltje90({props,onClick, imagedata,genredata,colorData}) {
-  //const { nodes, materials } = useGLTF('/Tafeltje90-transformed.glb')
 
+export function Tafeltje90({
+  props,
+  onClick,
+  imagedata,
+  genredata,
+  colorData,
+}) {
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -24,9 +27,6 @@ export function Tafeltje90({props,onClick, imagedata,genredata,colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
-  const texture = useLoader(TextureLoader, imagedata[3].url)
-  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
     <group onClick={() => onClick('era_tafeltje90')} {...props} dispose={null}>

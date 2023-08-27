@@ -1,15 +1,9 @@
 'use client'
-import { createRoot } from 'react-dom/client'
 import React, { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Suspense } from 'react'
-import {
-  Stats,
-  OrbitControls,
-  Html,
-  useHelper,
-} from '@react-three/drei'
+import {  OrbitControls, Html } from '@react-three/drei'
 import { Navbar } from '@/components/navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -18,29 +12,19 @@ import { Computernew } from '@/components/scenes/Computernew'
 import { DirectionalLightHelper, PointLightHelper } from 'three'
 
 export default function Home() {
-  const deg2rad = (degrees) => degrees * (Math.PI / 180)
   const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559)
-  console.log('Homepage!')
 
-  useEffect(() => {
-    async function testJe() {
-      console.log('asynccccccc')
-    }
-    testJe()
-  }, [])
   function Lights() {
     //DirectionalLight + Helper --> Fel
     const directionalLightPosition = [0, 2, 5]
     const directionalLight = useRef()
-    useHelper(directionalLight, DirectionalLightHelper, 'teal')
+    //useHelper(directionalLight, DirectionalLightHelper, 'teal')
 
     // Pointlight -- Sfeervol
     const pointlightpos = [-4, 4, 2]
     const pointLight = useRef()
-    useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
+    //useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
 
-    //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
-    //<ambientLight color={`white`} intensity={0.3} />
     return (
       <>
         <pointLight
@@ -74,10 +58,11 @@ export default function Home() {
                 exposure={2}
                 castShadow
               />
-              <gridHelper args={[10, 10, `white`, `gray`]} />
+
               <Computernew planeYesNo={true} />
               <StartKnop />
-              <Stats />
+              {/*<Stats />
+              <gridHelper args={[10, 10, `white`, `gray`]} />*/}
 
               <OrbitControls />
             </Suspense>
@@ -90,25 +75,19 @@ export default function Home() {
 
 function StartKnop() {
   const ref = useRef()
-  const { camera } = useThree()
   const [buttonClick, setButtonClick] = useState(true)
   const { push } = useRouter()
-
-  console.log('render?')
-
   useEffect(() => {
     setButtonClick(true)
   }, [])
 
   useFrame((state) => {
-    console.log('useframe')
-    //camera.lookAt(0, 0, 0); // Keep the camera looking at the center of the scene
     if (buttonClick) {
       state.camera.quaternion.slerp(arcadeCameraQ, 0.02)
       state.camera.position.lerp(new THREE.Vector3(0.1, 0.15, 0.4), 0.05)
     } else {
       state.camera.quaternion.slerp(defaultCameraQ, 0.02)
-      state.camera.position.lerp(new THREE.Vector3(5, 5, 5), 0.08)
+      state.camera.position.lerp(new THREE.Vector3(0.15, 0.22, 0.25), 0.025)
       setTimeout(function () {
         push('/spotify')
       }, 80)
