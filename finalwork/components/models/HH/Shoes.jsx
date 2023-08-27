@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Shoes({props,imagedata,genredata}) {
+export function Shoes({props,onClick, imagedata,genredata}) {
   //const { nodes, materials } = useGLTF('/shoes-transformed.glb')
 
  //First load in the mesh.
@@ -29,7 +29,7 @@ export function Shoes({props,imagedata,genredata}) {
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
-    <group {...props} dispose={null} position={[42, -17.5, 4]} rotation={[0, 2, 0]} scale={2.6}>
+    <group onClick={() => onClick('genre_shoes')} name='genre_shoes' {...props} dispose={null} position={[42, -17.5, 4]} rotation={[0, 2, 0]} scale={2.6}>
       <group position={[-0.6, 1.28, -0.15]} rotation={[Math.PI / 2, 0, 3.01]} scale={0.15}>
         <mesh geometry={nodes.Laces_L.geometry} material={materials.MAT_Laces_L} />
         <mesh geometry={nodes.Shoe_L.geometry} material={brownmaterial} />

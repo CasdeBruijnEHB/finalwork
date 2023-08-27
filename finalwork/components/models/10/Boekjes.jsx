@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Boekjes({props,imagedata,genredata}) {
+export function Boekjes({props,onClick, imagedata,genredata}) {
   //const { nodes, materials } = useGLTF('/boekjes-transformed.glb')
 
   //First load in the mesh.
@@ -30,7 +30,7 @@ export function Boekjes({props,imagedata,genredata}) {
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group {...props} dispose={null}>
+    <group  onClick={() => onClick('era_boekjes')} {...props} dispose={null}>
       <group position={[-55, -23.5, -50]} rotation={[Math.PI / 2, 0.1, 0]} scale={3}>
         <mesh geometry={nodes.Magazines_1.geometry} position={[0, 0, 1.7]} rotation={[0, 0.1, 0]} material={materials.aiStandardSurface9SG}>
            <meshStandardMaterial

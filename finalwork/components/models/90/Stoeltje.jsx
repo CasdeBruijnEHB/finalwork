@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Stoeltje({props,imagedata,genredata}) {
+export function Stoeltje({props, onCLick, imagedata,genredata}) {
   //const { nodes, materials } = useGLTF('/stoeltje-transformed.glb')
 const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
@@ -28,7 +28,7 @@ const dracoLoader = new DRACOLoader()
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group {...props} dispose={null}>
+    <group onClick={() => onClick('era_stoeltje')} {...props} dispose={null}>
       <group position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.01}>
         <mesh geometry={nodes.stoeltje_1.geometry} material={materials.aiStandardSurface18SG} />
         <mesh geometry={nodes.stoeltje_2.geometry} material={materials.aiStandardSurface18SG} />

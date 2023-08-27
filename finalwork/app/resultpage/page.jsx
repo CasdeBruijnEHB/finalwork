@@ -165,12 +165,7 @@ export default function SpotifyResultPage() {
     return dominantColors
   }
 
-  //To get data according to the music playing (amp)
-  const DynAudioVisualization = dynamic(
-    () => import('@/components/p5/samplep5'),
-    { ssr: false },
-  )
-
+ 
   const saveScreenshot=()=>{
       console.log("saving screenshot...")
       SetScreenshot(true)

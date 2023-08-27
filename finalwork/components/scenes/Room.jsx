@@ -25,7 +25,7 @@ export function Room({ trackData, artistData, dominantColor }) {
 
     fetchData()
     isLoading(false);
-  }, [])
+  }, [artistData, trackData])
 
   async function manageGenres(genres) {
     console.log('managing genres!')

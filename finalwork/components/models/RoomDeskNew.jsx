@@ -13,14 +13,12 @@ import { Popup } from '@/components/popup'
 export function ModelDesk({ props, imageData, genreData, dominantColor, eraData, trackData }) {
   //const { nodes, materials } = useGLTF('/glbs/RoomDeskNew-transformed.glb')
  
-  const [dynamicComponent, setDynamicComponent] = useState([]);;
-  const [modelType,setModelType]=useState(1)
-  const [trackInfo, setTrackInfo]=useState();
+  const [dynamicComponent, setDynamicComponent] = useState([]);
 
   //Dit zijn enkele states voor de popup te regelen
   const [meshClicker, setMeshClicker]=useState(true);
   const [clickType, setClickType]=useState(); //Geef mee of het om 'era', 'track' of 'genre' gaat
-  const [clickData, setClickData]=useState(); //Geef de data die behandeld wordt
+  const [clickData, setClickData]=useState([]); //Geef de data die behandeld wordt
 
   //First load in the main mesh.
   const dracoLoader = new DRACOLoader()
@@ -38,7 +36,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
   useEffect(() => {
     //Here we first check the era of the music to choose the right meshes.
     //console.log("here is our era data:" , eraData[0].era)
-    //eraData[0].era=1700;
+    eraData[0].era=2000;
     console.log("this is the new imagedata:" ,imageData)
     
     let loadedComponents = [];
@@ -75,7 +73,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     const genres_HH_ELECTRONIC = ['rap', 'hip hop', 'electronic', 'EDM', "pop", 'dance', 'r&b'];
     const genres_CLASSICAL = ['classical', 'jazz'];
     const genres_ACOUSTIC = ['rock', 'indie ', 'country'];
-    //genreData[0].genre = "classical"
+    //genreData[0].genre = "rock"
     if(genres_HH_ELECTRONIC.some(genre => genreData[0].genre.includes(genre))){
       loadedComponents.push(dynamic(() => import('@/components/models/HH/Shoes').then((mod) => mod.Shoes)));
     }else if(genres_CLASSICAL.some(genre => genreData[0].genre.includes(genre))){
@@ -85,7 +83,7 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
     }
 
     setDynamicComponent(loadedComponents);
-  }, [modelType, imageData]);
+  }, [imageData, eraData, genreData]);
 
   //Get dominant color
   //console.log("dominant color: ",dominantColor[1][0])
@@ -102,27 +100,39 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
   textureKader.needsUpdate = true
 
   function meshClick(type){
-    //First check what type of data needs to be sent through
-    if(type.includes("genre")){
-        setClickType("genre");
-        setClickData(genreData)
-    }else if(type.includes("track")){
-      setClickType("track");  
-      setClickData(imageData)
-    }else{
-      //else it's era
-        setClickType("era");
-         setClickData(eraData)
-    }
-
-    //Activate the box! It opens the popup
-    setMeshClicker(!meshClicker);
+    /*
+    Here we show some userdata when the user clicks a mesh.
+    The popup will show when a user clicks a certain 'special item'.
+    It's important that the user has the option to close the popup by clicking anywhere in the mesh.
+    That's why we check if the 'name' includes the word genre, track or era - these are special meshes. 
+    Otherwise the clicks will do nothing or close the popup if opened.
+    First check what type of data needs to be sent through.
+    */
     if(meshClicker){
-      console.log("Open box!");
+      //console.log("meshclick: ", type)
+        if(type.includes("genre")){
+            setClickType("genre");
+            setClickData(genreData)
+            setMeshClicker(!meshClicker);
+        }else if(type.includes("track")){
+          setClickType("track");  
+          setClickData(imageData)
+          setMeshClicker(!meshClicker);
+        }else if(type.includes("era")){
+          //else it's era
+            setClickType("era");
+            setClickData(eraData)
+            setMeshClicker(!meshClicker);
+        }else{
+            //Here we open nothing because a 'random' mesh is clicked.
+        }
+    
     }else{
+      setMeshClicker(!meshClicker);
       console.log("close box..")
     }
   }
+
   
   return (
     <group
@@ -131,10 +141,11 @@ export function ModelDesk({ props, imageData, genreData, dominantColor, eraData,
       rotation={[0, 3.5, 0]}
       {...props}
       dispose={null}
+      onClick={(e)=> {meshClick(e.object.name)}}
     >
-    <group>
+    <group >
       {dynamicComponent.map((DynamicComponent, index) => (
-        <DynamicComponent  key={index}  imagedata={imageData}/>
+        <DynamicComponent onClick={(name) => meshClick(name)}   key={index}  imagedata={imageData}/>
       ))}
       </group>
     {meshClicker ? (

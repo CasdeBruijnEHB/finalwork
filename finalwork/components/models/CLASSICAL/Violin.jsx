@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Violin({props,imagedata,genredata}) {
+export function Violin({props,onClick, imagedata,genredata}) {
   //const { nodes, materials } = useGLTF('/violin-transformed.glb')
 
   //First load in the mesh.
@@ -31,7 +31,7 @@ export function Violin({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[40, -4.5, 6]} rotation={[-Math.PI / 2, 0, -3]} scale={14}>
+      <group onClick={() => onClick('genre_violin')} position={[40, -4.5, 6]} rotation={[-Math.PI / 2, 0, -3]} scale={14}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <mesh geometry={nodes.defaultMaterial011.geometry} material={materials.main_body} />
           <mesh geometry={nodes.defaultMaterial015.geometry} material={materials.top_thingy} />

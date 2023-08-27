@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Vinyls({props,imagedata,genredata}) {
+export function Vinyls({props,onClick,imagedata,genredata}) {
   //const { nodes, materials } = useGLTF('/Vinyls-transformed.glb')
 
    //First load in the mesh.
@@ -31,7 +31,7 @@ export function Vinyls({props,imagedata,genredata}) {
 
   return (
     <group {...props} dispose={null}>
-      <group position={[-30, 9, -50]} rotation={[1.5, 0, 0]} scale={2}>
+      <group onClick={() => onClick('era_vinyls')} position={[-30, 9, -50]} rotation={[1.5, 0, 0]} scale={2}>
         <mesh geometry={nodes.polySurface21.geometry}   position={[2, 13, 6]}>
             <meshStandardMaterial
             map={useLoader(TextureLoader, imagedata[0].url)}
