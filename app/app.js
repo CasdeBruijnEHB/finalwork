@@ -194,7 +194,7 @@ app.get('/callback', function (req, res) {
 
         //http://127.0.0.1:3000/resultpage/#
         res.redirect(
-          'https://finalwork-finalwork.vercel.app/#' +
+          'https://finalwork-finalwork.vercel.app/resultpage/#' +
             querystring.stringify({
               access_token: access_token,
               refresh_token: refresh_token,
