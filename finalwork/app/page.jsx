@@ -4,12 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Suspense } from 'react'
-import {
-  Stats,
-  OrbitControls,
-  Html,
-  useHelper,
-} from '@react-three/drei'
+import { Stats, OrbitControls, Html, useHelper } from '@react-three/drei'
 import { Navbar } from '@/components/navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -20,14 +15,7 @@ import { DirectionalLightHelper, PointLightHelper } from 'three'
 export default function Home() {
   const deg2rad = (degrees) => degrees * (Math.PI / 180)
   const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559)
-  console.log('Homepage!')
 
-  useEffect(() => {
-    async function testJe() {
-      console.log('asynccccccc')
-    }
-    testJe()
-  }, [])
   function Lights() {
     //DirectionalLight + Helper --> Fel
     const directionalLightPosition = [0, 2, 5]

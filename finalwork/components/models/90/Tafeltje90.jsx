@@ -11,7 +11,13 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Tafeltje90({props,onClick, imagedata,genredata,colorData}) {
+export function Tafeltje90({
+  props,
+  onClick,
+  imagedata,
+  genredata,
+  colorData,
+}) {
   //const { nodes, materials } = useGLTF('/Tafeltje90-transformed.glb')
 
   const dracoLoader = new DRACOLoader()
@@ -24,7 +30,7 @@ export function Tafeltje90({props,onClick, imagedata,genredata,colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 

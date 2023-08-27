@@ -11,10 +11,10 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Chair10({props,onClick,imagedata,genredata, colorData}) {
+export function Chair10({ props, onClick, imagedata, genredata, colorData }) {
   //const { nodes, materials } = useGLTF('/chair10-transformed.glb')
 
-   //First load in the mesh.
+  //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -25,13 +25,13 @@ export function Chair10({props,onClick,imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group  onClick={() => onClick('era_chair10')} {...props} dispose={null}>
-      <group position={[20,-18,-30]} rotation={[-1.6, 0, -0.5]} scale={20}>
+    <group onClick={() => onClick('era_chair10')} {...props} dispose={null}>
+      <group position={[20, -18, -30]} rotation={[-1.6, 0, -0.5]} scale={20}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <mesh geometry={nodes.Object_4.geometry} material={colorData[7]} />
           <mesh geometry={nodes.Object_5.geometry} material={colorData[8]} />

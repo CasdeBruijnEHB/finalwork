@@ -5,8 +5,6 @@ import { ModelDesk } from '@/components/models/RoomDeskNew'
 import { MeshReflectorMaterial } from '@react-three/drei'
 
 export function Computernew({ scale, position, rotation, planeYesNo }) {
-  console.log('getting computer...')
-
   return (
     <>
       <group scale={scale} rotation={rotation} position={position}>

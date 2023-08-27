@@ -11,10 +11,10 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Vinyls({props,onClick,imagedata,genredata}) {
+export function Vinyls({ props, onClick, imagedata, genredata }) {
   //const { nodes, materials } = useGLTF('/Vinyls-transformed.glb')
 
-   //First load in the mesh.
+  //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -25,33 +25,50 @@ export function Vinyls({props,onClick,imagedata,genredata}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
     <group {...props} dispose={null}>
-      <group onClick={() => onClick('era_vinyls')} position={[-30, 9, -50]} rotation={[1.5, 0, 0]} scale={2}>
-        <mesh geometry={nodes.polySurface21.geometry}   position={[2, 13, 6]}>
-            <meshStandardMaterial
+      <group
+        onClick={() => onClick('era_vinyls')}
+        position={[-30, 9, -50]}
+        rotation={[1.5, 0, 0]}
+        scale={2}
+      >
+        <mesh geometry={nodes.polySurface21.geometry} position={[2, 13, 6]}>
+          <meshStandardMaterial
             map={useLoader(TextureLoader, imagedata[0].url)}
           />
-          </mesh>
-        <mesh geometry={nodes.polySurface23.geometry} material={materials.Vinyl4Surface} position={[0.72, 15.29,6.94]}>
-           <meshStandardMaterial
+        </mesh>
+        <mesh
+          geometry={nodes.polySurface23.geometry}
+          material={materials.Vinyl4Surface}
+          position={[0.72, 15.29, 6.94]}
+        >
+          <meshStandardMaterial
             map={useLoader(TextureLoader, imagedata[1].url)}
           />
-          </mesh>
-        <mesh geometry={nodes.polySurface28.geometry} material={materials.Vinyl4Surface} position={[0.12, 15.98, 6.97]}>
+        </mesh>
+        <mesh
+          geometry={nodes.polySurface28.geometry}
+          material={materials.Vinyl4Surface}
+          position={[0.12, 15.98, 6.97]}
+        >
           <meshStandardMaterial
             map={useLoader(TextureLoader, imagedata[2].url)}
           />
-          </mesh>
-        <mesh geometry={nodes.polySurface30.geometry} material={materials.Vinyl4Surface} position={[1.14, 15.15, 6.86]}>
+        </mesh>
+        <mesh
+          geometry={nodes.polySurface30.geometry}
+          material={materials.Vinyl4Surface}
+          position={[1.14, 15.15, 6.86]}
+        >
           <meshStandardMaterial
             map={useLoader(TextureLoader, imagedata[3].url)}
           />
-          </mesh>
+        </mesh>
       </group>
     </group>
   )

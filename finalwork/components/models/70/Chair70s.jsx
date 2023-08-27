@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Chair70s({props,onClick,imagedata,genredata, colorData}) {
+export function Chair70s({ props, onClick, imagedata, genredata, colorData }) {
   //const { nodes, materials } = useGLTF('/chair70s-transformed.glb')
 
   //First load in the mesh.
@@ -25,15 +25,21 @@ export function Chair70s({props,onClick,imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group onClick={() => onClick('era_chair70')} {...props} dispose={null}>
-        <group position={[20,-9,-30]} rotation={[-1.6, 0, -0.5]} scale={20}>
-          <mesh geometry={nodes.defaultMaterial.geometry} material={colorData[6]} />
-          <mesh geometry={nodes.defaultMaterial001.geometry} material={colorData[7]} />
-        </group>
+      <group position={[20, -9, -30]} rotation={[-1.6, 0, -0.5]} scale={20}>
+        <mesh
+          geometry={nodes.defaultMaterial.geometry}
+          material={colorData[6]}
+        />
+        <mesh
+          geometry={nodes.defaultMaterial001.geometry}
+          material={colorData[7]}
+        />
+      </group>
     </group>
   )
 }

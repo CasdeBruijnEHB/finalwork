@@ -11,10 +11,10 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Zetelke({props,onClick, imagedata,genredata, colorData}) {
+export function Zetelke({ props, onClick, imagedata, genredata, colorData }) {
   //const { nodes, materials } = useGLTF('/zetelke-transformed.glb')
 
-const dracoLoader = new DRACOLoader()
+  const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
     GLTFLoader,
@@ -24,13 +24,25 @@ const dracoLoader = new DRACOLoader()
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group onClick={() => onClick('era_zetel')} {...props} dispose={null} position={[28.8, -25, -8]} rotation={[0, 1.2, 0]} scale={2.6}> 
-      <mesh geometry={nodes.zetelke.geometry} material={colorData[3]} position={[-7.33, 0, -11]} rotation={[Math.PI / 2, 0, 0]} />
+    <group
+      onClick={() => onClick('era_zetel')}
+      {...props}
+      dispose={null}
+      position={[28.8, -25, -8]}
+      rotation={[0, 1.2, 0]}
+      scale={2.6}
+    >
+      <mesh
+        geometry={nodes.zetelke.geometry}
+        material={colorData[3]}
+        position={[-7.33, 0, -11]}
+        rotation={[Math.PI / 2, 0, 0]}
+      />
     </group>
   )
 }

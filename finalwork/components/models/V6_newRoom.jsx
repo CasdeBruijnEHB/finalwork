@@ -28,14 +28,11 @@ export function Model60s({ props, imageData, genreData, dominantColor }) {
   const { nodes, materials } = gltf
 
   //Next Load in the imagedata and use them as textures
-  //console.log('imagedata: ', imageData)
   const texture = useLoader(TextureLoader, imageData[3].image)
 
   //Next load in the genredata and use it to add certain meshes
-  //console.log('genredata:', genreData)
 
   //Get the dominant color and set it in the mesh
-  console.log('dominant colordata:', dominantColor)
   const color = new THREE.Color(1, 0, 0) // RGB values for red
   const material = new MeshBasicMaterial({ color })
 

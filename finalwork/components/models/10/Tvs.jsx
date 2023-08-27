@@ -11,7 +11,7 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Tvs({props,onClick,imagedata,genredata, colorData}) {
+export function Tvs({ props, onClick, imagedata, genredata, colorData }) {
   //const { nodes, materials } = useGLTF('/tvs-transformed.glb')
   //First load in the mesh.
   const dracoLoader = new DRACOLoader()
@@ -24,12 +24,25 @@ export function Tvs({props,onClick,imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
-    <group  onClick={() => onClick('era_tvs')} scale={2.5} position={[-19, -15, -50]} rotation={[0, -1.5, 0]} {...props} dispose={null}>
-      <mesh geometry={nodes.TV.geometry} material={colorData[3]} position={[0, 0, -6.57]} rotation={[Math.PI / 2, 0, 0]} scale={0.8} />
+    <group
+      onClick={() => onClick('era_tvs')}
+      scale={2.5}
+      position={[-19, -15, -50]}
+      rotation={[0, -1.5, 0]}
+      {...props}
+      dispose={null}
+    >
+      <mesh
+        geometry={nodes.TV.geometry}
+        material={colorData[3]}
+        position={[0, 0, -6.57]}
+        rotation={[Math.PI / 2, 0, 0]}
+        scale={0.8}
+      />
     </group>
   )
 }

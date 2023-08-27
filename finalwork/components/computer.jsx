@@ -19,8 +19,6 @@ export function Computer(props) {
   const { camera } = useThree()
   const [buttonClick, setButtonClick] = useState(true)
 
-  console.log('render?')
-
   useEffect(() => {
     setButtonClick(true)
   }, [])
@@ -38,13 +36,6 @@ export function Computer(props) {
     state.camera.updateProjectionMatrix()
     return null
   })
-
-  /*
-  const handleClick = () => {
-    console.log("click!")
-    ref.current.position.lerp(0, 0, -10); // Set the new position of the camera
-  };
-  */
 
   // DEFAULT CAMERA QUATERNION
   let defaultCameraQ = new THREE.Quaternion(0, 0, 0, 0)

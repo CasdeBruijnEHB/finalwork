@@ -284,10 +284,11 @@ app.get('/generateImage/:searchterm', async (req, res) => {
 })
 
 app.get('/scrape-images', (req, res) => {
+  let apikeyyy = 'AIzaSyDTRz1vsSx6-bGBvUWjWSyvVjMOgO-5sV8'
   //const query = req.query.query;
   let query = 'basketball images'
   const numImages = 2 // Default limit is 10 images
-  const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(
+  const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${apikeyyy}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(
     query,
   )}&searchType=image&num=${numImages}`
 
@@ -298,9 +299,9 @@ app.get('/scrape-images', (req, res) => {
     }
 
     const data = JSON.parse(body)
-    const imageUrls = data.items.map((item) => item.link)
+    //const imageUrls = data.items.map((item) => item.link)
     //console.log(imageUrls)
-    res.json(imageUrls)
+    res.json(data)
   })
 })
 

@@ -6,11 +6,9 @@ import React, { Suspense } from 'react'
 
 export default async function Spotify() {
   //const user = await fetch("http://localhost:3001/login");
-  console.log('Spotify page!')
   const [fetchUrl, setFetchUrl] = useState('http://localhost:3001')
 
   const handleButtonclick = () => {
-    console.log('Button click!')
     window.location.href = `${fetchUrl}/login`
   }
 

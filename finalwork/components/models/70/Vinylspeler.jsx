@@ -11,7 +11,13 @@ import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
-export function Vinylspeler({props,onClick,imagedata,genredata, colorData}) {
+export function Vinylspeler({
+  props,
+  onClick,
+  imagedata,
+  genredata,
+  colorData,
+}) {
   //const { nodes, materials } = useGLTF('/vinylspeler-transformed.glb')
 
   //First load in the mesh.
@@ -25,13 +31,26 @@ export function Vinylspeler({props,onClick,imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
+
   const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group onClick={() => onClick('era_vinyspeler')} {...props} dispose={null} position={[-28, -2, -28]} rotation={[0, 0, 0]} scale={0.85}>
-      <mesh geometry={nodes.polySurface103001.geometry} material={colorData[6]} position={[13.73, -26.08, -56.74]} rotation={[Math.PI / 2, 0, 0]} scale={3.67} />
+    <group
+      onClick={() => onClick('era_vinyspeler')}
+      {...props}
+      dispose={null}
+      position={[-28, -2, -28]}
+      rotation={[0, 0, 0]}
+      scale={0.85}
+    >
+      <mesh
+        geometry={nodes.polySurface103001.geometry}
+        material={colorData[6]}
+        position={[13.73, -26.08, -56.74]}
+        rotation={[Math.PI / 2, 0, 0]}
+        scale={3.67}
+      />
     </group>
   )
 }
