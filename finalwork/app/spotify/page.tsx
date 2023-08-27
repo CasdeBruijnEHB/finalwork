@@ -5,7 +5,10 @@ import { TypingEffect } from '@/components/typewriter'
 import React from 'react'
 
 export default async function Spotify() {
-  const [fetchUrl, setFetchUrl] = useState('http://localhost:3001')
+  //http://localhost:3001
+  const [fetchUrl, setFetchUrl] = useState(
+    'https://finalwork-26j6.onrender.com/',
+  )
 
   const handleButtonclick = () => {
     window.location.href = `${fetchUrl}/login`

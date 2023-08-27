@@ -11,8 +11,8 @@ import { DirectionalLightHelper, PointLightHelper } from 'three'
 import { Computernew } from '@/components/scenes/Computernew'
 import Image from 'next/image'
 
-
-let fetchURL = 'http://localhost:3001'
+let fetchURL = 'https://finalwork-26j6.onrender.com'
+//let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
 
 export default function SpotifyResultPage() {
@@ -36,7 +36,8 @@ export default function SpotifyResultPage() {
     async function fetchData() {
       try {
         //To start we are fetching the accesstoken
-        const response = await fetch('http://localhost:3001/getaccess')
+        
+        const response = await fetch(`${fetchURL}/getaccess`)
         const data = await response.text()
         setAccessToken(data)
         //Next we are fetching the trackdata (used to get dates, images, trackid's)
@@ -270,7 +271,7 @@ function manageImages(images) {
 async function expressDominantColor(imageLink) {
   //Encode imagelink so it can be send through as parm
   const encodedUrl = encodeURIComponent(imageLink)
-  const res = await fetch(`http://127.0.0.1:3001/dominantcolor/${encodedUrl}`)
+  const res = await fetch(`${fetchURL}/dominantcolor/${encodedUrl}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')

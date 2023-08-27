@@ -27,7 +27,8 @@ const SEARCH_ENGINE_ID = process.env.GOOGLE_SEARCHENGINE_ID
 /************vars for Spotify*****************/
 var client_id = process.env.SPOTIFY_CLIENT_ID
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET
-let fetchurl = `http://localhost:${port}`
+//let fetchurl = `http://localhost:${port}`
+let fetchurl = `https://finalwork-26j6.onrender.com`
 //http://127.0.0.1:${port}
 //https://finalwork-26j6.onrender.com
 var redirect_uri = `${fetchurl}/callback`
@@ -90,7 +91,6 @@ app.get('/trackData', (req, res) => {
       console.error('Invalid status code:', response.statusCode)
       return
     }
-    //res.send(JSON.stringify(body, null, 2))
     res.json(body)
   })
 })
@@ -111,7 +111,6 @@ app.get('/artistData', (req, res) => {
       console.error('Invalid status code:', response.statusCode)
       return
     }
-    //res.send(JSON.stringify(body, null, 2))
     res.json(body)
   })
 })
@@ -193,8 +192,9 @@ app.get('/callback', function (req, res) {
           }
         })
 
+        //http://127.0.0.1:3000/resultpage/#
         res.redirect(
-          'http://127.0.0.1:3000/resultpage/#' +
+          'https://finalwork-finalwork.vercel.app/#' +
             querystring.stringify({
               access_token: access_token,
               refresh_token: refresh_token,
@@ -243,30 +243,23 @@ app.get('/dominantcolor/:imagelink', (req, res) => {
     console.log('Dominant color searched...')
 
     const imageUrl = req.params.imagelink
-    //const imageUrl = decodeURIComponent(req.params.imagelink);
 
     ColorThief.getColor(imageUrl)
       .then((color) => {
-        //console.log('Dominant Color (RGB):', color);
         res.json({ color })
       })
       .catch((error) => {
         console.error('Error:', error)
-        //res.status(500).send('Error retrieving the dominant color');
       })
   } catch (error) {
     console.error('Error:', error)
-    //res.status(500).send('Error retrieving the dominant color');
   }
 })
 
 app.get('/generateImage/:searchterm', async (req, res) => {
   try {
-    // Request payload
     // Create the image using the OpenAI API
-    console.log('generated    post called...')
     const searchterm = req.params.searchterm
-    console.log(searchterm)
 
     const response = await openai.createImage({
       prompt: `Create an artwork based on the musicgenre ${searchterm}`,
@@ -275,7 +268,6 @@ app.get('/generateImage/:searchterm', async (req, res) => {
     })
 
     // Get the image URL from the API response
-    console.log(response.data.data[0].url)
     res.json(response.data.data[0].url)
   } catch (error) {
     console.error('Error generating image:', error)
@@ -284,11 +276,10 @@ app.get('/generateImage/:searchterm', async (req, res) => {
 })
 
 app.get('/scrape-images', (req, res) => {
-  let apikeyyy = 'AIzaSyDTRz1vsSx6-bGBvUWjWSyvVjMOgO-5sV8'
   //const query = req.query.query;
   let query = 'basketball images'
   const numImages = 2 // Default limit is 10 images
-  const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${apikeyyy}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(
+  const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(
     query,
   )}&searchType=image&num=${numImages}`
 
@@ -299,13 +290,10 @@ app.get('/scrape-images', (req, res) => {
     }
 
     const data = JSON.parse(body)
-    //const imageUrls = data.items.map((item) => item.link)
-    //console.log(imageUrls)
     res.json(data)
   })
 })
 
 app.get('/getaccess', function (req, res) {
-  console.log('getting access...')
   res.send(accestokenVar)
 })
