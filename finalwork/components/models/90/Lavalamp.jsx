@@ -7,13 +7,10 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
-import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
-import { MeshStandardMaterial } from 'three'
 
-export function Lavalamp({props,onClick, imagedata,genredata, colorData}) {
-  //const { nodes, materials } = useGLTF('/lavalamp-transformed.glb')
-//First load in the mesh.
+export function Lavalamp({ props, onClick, imagedata, genredata, colorData }) {
+  //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -24,18 +21,28 @@ export function Lavalamp({props,onClick, imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
-  const texture = useLoader(TextureLoader, imagedata[3].url)
-  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
 
   return (
-    <group  onClick={() => onClick('era_lavalamp')} {...props} dispose={null}>
-      <group position={[-10, 2, -2]} rotation={[Math.PI / 2, 0, 2.87]} scale={2}>
+    <group onClick={() => onClick('era_lavalamp')} {...props} dispose={null}>
+      <group
+        position={[-10, 2, -2]}
+        rotation={[Math.PI / 2, 0, 2.87]}
+        scale={2}
+      >
         <mesh geometry={nodes.Mesh.geometry} material={colorData[7]} />
-        <mesh geometry={nodes.Mesh_1.geometry} material={materials['OBJlamp:defaultMaterialSG1']} />
-        <mesh geometry={nodes.Mesh_2.geometry} material={materials['OBJlamp:defaultMaterial.005SG1']} />
+        <mesh
+          geometry={nodes.Mesh_1.geometry}
+          material={materials['OBJlamp:defaultMaterialSG1']}
+        />
+        <mesh
+          geometry={nodes.Mesh_2.geometry}
+          material={materials['OBJlamp:defaultMaterial.005SG1']}
+        />
         <mesh geometry={nodes.Mesh_3.geometry} material={materials.glassLava} />
-        <mesh geometry={nodes.Mesh_4.geometry} material={materials['OBJlamp:defaultMaterial.005SG1']} />
+        <mesh
+          geometry={nodes.Mesh_4.geometry}
+          material={materials['OBJlamp:defaultMaterial.005SG1']}
+        />
       </group>
     </group>
   )

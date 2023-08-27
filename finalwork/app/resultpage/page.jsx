@@ -1,16 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Room } from '@/components/scenes/Room'
-import {
-  Stats,
-  OrbitControls,
-  Html,
-  useHelper,
-} from '@react-three/drei'
-import {
-  Canvas,
-  useThree,
-} from '@react-three/fiber'
+import { Stats, OrbitControls, Html, useHelper } from '@react-three/drei'
+import { Canvas, useThree } from '@react-three/fiber'
 import React, { useRef } from 'react'
 import { Suspense } from 'react'
 import * as THREE from 'three'
@@ -18,11 +10,9 @@ import SpotiPlayerComp from '@/components/SpotiPlayer'
 import { DirectionalLightHelper, PointLightHelper } from 'three'
 import { Computernew } from '@/components/scenes/Computernew'
 import Image from 'next/image'
-import { useQRCode } from 'next-qrcode';
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
 
-
-let fetchURL = 'http://localhost:3001'
+let fetchURL = 'https://finalwork-26j6.onrender.com'
+//let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
 
 export default function SpotifyResultPage() {
@@ -35,26 +25,21 @@ export default function SpotifyResultPage() {
   const [favoriteTrackIDs, setFavoriteTrackIDs] = useState([])
   const [domcolors, setDomColors] = useState([])
   const [averageAmplitude, setAverageAmplitude] = useState(0)
-  const [screenshot,SetScreenshot]=useState(false);
-  const [screenshotURL,SetScreenshotUrl]=useState();
+  const [screenshot, SetScreenshot] = useState(false)
+  const [screenshotURL, SetScreenshotUrl] = useState()
+  const [scrapedIMGS, setScrapedIMGS] = useState([])
 
-  
- const canvasRef = useRef(null);
-  const handleAverageAmplitude = (avgAmp) => {
-    console.log('handling Amplitude:', avgAmp)
-    setAverageAmplitude(avgAmp)
-  }
+  const canvasRef = useRef(null)
 
   useEffect(() => {
     //First off we need to fetch some data...
     async function fetchData() {
       try {
         //To start we are fetching the accesstoken
-        const response = await fetch('http://localhost:3001/getaccess')
+        
+        const response = await fetch(`${fetchURL}/getaccess`)
         const data = await response.text()
         setAccessToken(data)
-        console.log('access code: ', data)
-
         //Next we are fetching the trackdata (used to get dates, images, trackid's)
         const res = await fetch(`${fetchURL}/trackData`)
         const dat = await res.json()
@@ -72,7 +57,6 @@ export default function SpotifyResultPage() {
           manageImages(dat.items),
         )
         setDomColors(dominantColorsData)
-       
 
         //Then we get the favorite artist data (used to get favorite genres)
         await fetch(`${fetchURL}/artistData`)
@@ -81,28 +65,30 @@ export default function SpotifyResultPage() {
             setArtistData(data)
           })
 
+        /*
+        const resScrape = await fetch(`${fetchURL}/scrape-images`)
+        const dataScrape = await resScrape.json()
+        setScrapedIMGS(dataScrape)
+        console.log('scrapedimgs: ', dataScrape)
+            */
         //If it's all fetched we tell the app the loading is done.
         isLoading(false)
       } catch (error) {
         console.error('Error:', error)
         isLoading(false)
       }
-      
     }
     fetchData()
     //Handle screenshot
     if (screenshot) {
-      const canvas = canvasRef.current;
+      const canvas = canvasRef.current
 
       if (canvas) {
-        const dataURL = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataURL;
-        console.log(dataURL)
-        SetScreenshotUrl(dataURL);
-        //a.download = 'screenshot.png';
-        //a.click();
-        SetScreenshot(false);
+        const dataURL = canvas.toDataURL('image/png')
+        const a = document.createElement('a')
+        a.href = dataURL
+        SetScreenshotUrl(dataURL)
+        SetScreenshot(false)
       }
     }
   }, [screenshot])
@@ -113,25 +99,27 @@ export default function SpotifyResultPage() {
 
   function SkyLight() {
     const { scene } = useThree()
-    // Create the skydome light
-    //const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559) // this is the POM green
-    const skyColor = new THREE.Color(`rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`)
+    const skyColor = new THREE.Color(
+      `rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`,
+    )
     scene.background = skyColor
     return null
   }
 
   function Lights() {
+    /*There are a lot of helpers in here that are turned off now.
+    Can be turned on again if want to move lights. */
+    
     //DirectionalLight + Helper --> Fel
     const directionalLightPosition = [0, 2, 5]
     const directionalLight = useRef()
-    useHelper(directionalLight, DirectionalLightHelper, 'teal')
+    //useHelper(directionalLight, DirectionalLightHelper, 'teal')
 
     // Pointlight -- Sfeervol
     const pointlightpos = [-4, 4, 2]
     const pointLight = useRef()
-    useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
+    //useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
 
-    //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
     return (
       <>
         <pointLight
@@ -161,34 +149,49 @@ export default function SpotifyResultPage() {
     return dominantColors
   }
 
- 
-  const saveScreenshot=()=>{
-      console.log("saving screenshot...")
-      SetScreenshot(true)
+  const saveScreenshot = () => {
+    SetScreenshot(true)
   }
 
   return (
     <>
-      <div className='flex flex-col absolute z-40 drop-shadow-lg text-md bg-white text-[#7FB069] mt-[2%] ml-[2%] rounded-xl pl-10 pt-2.5 pb-2.5 pr-10 space-y-2.5 w-1/5'>
-        {screenshotURL?(
+      <div className="flex flex-col absolute z-40 drop-shadow-lg text-md bg-white text-[#7FB069] mt-[2%] ml-[2%] rounded-xl pl-10 pt-2.5 pb-2.5 pr-10 space-y-2.5 w-1/5">
+        {screenshotURL ? (
           <>
-          <p className=' w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md ' onClick={saveScreenshot}>Take a new photo.</p>
-          <Image
+            <p
+              className=" w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md "
+              onClick={saveScreenshot}
+            >
+              Take a new photo.
+            </p>
+            <Image
               src={screenshotURL}
               width={400}
               height={400}
               alt="Picture of the author"
             />
-            <a className='w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md'  href={screenshotURL} download="screenshot.png">Download image</a>
-            <p className='w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md'  onClick={()=>SetScreenshotUrl()}>Close</p>
+            <a
+              className="w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md"
+              href={screenshotURL}
+              download="screenshot.png"
+            >
+              Download image
+            </a>
+            <p
+              className="w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md"
+              onClick={() => SetScreenshotUrl()}
+            >
+              Close
+            </p>
           </>
-        ):(
+        ) : (
           <p onClick={saveScreenshot}>Take a photo!</p>
         )}
-    </div>
+      </div>
 
-
-      <Canvas  ref={canvasRef} gl={{ preserveDrawingBuffer: true }}
+      <Canvas
+        ref={canvasRef}
+        gl={{ preserveDrawingBuffer: true }}
         shadows="soft"
         className="canvas"
         style={{
@@ -200,7 +203,6 @@ export default function SpotifyResultPage() {
           background: 'hsl(37, 79%, 84%)',
         }}
       >
-      
         <Suspense fallback={null}>
           {loader ? (
             <Html>
@@ -224,9 +226,11 @@ export default function SpotifyResultPage() {
               />
             </>
           )}
-          <gridHelper args={[10, 10, `white`, `gray`]} />
           <OrbitControls />
+          {/* 
+          <gridHelper args={[10, 10, `white`, `gray`]} />
           <Stats />
+           */}
         </Suspense>
       </Canvas>
 
@@ -240,36 +244,6 @@ export default function SpotifyResultPage() {
       </div>
     </>
   )
-}
-
-async function createGenreImage(genre) {
-  try {
-    console.log('create genre image...')
-    //console.log(genre)
-    const res = await fetch(`${fetchURL}/generateImage/${genre}`)
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-
-    return res.json()
-  } catch (error) {
-    console.error('Error:', error)
-    return null
-  }
-}
-
-async function scrapeImages() {
-  //Encode imagelink so it can be send through as parm
-  console.log('scraping images')
-  //console.log(genre)
-  const res = await fetch(`${fetchURL}/scrape-images`)
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json()
 }
 
 function manageImages(images) {
@@ -297,7 +271,7 @@ function manageImages(images) {
 async function expressDominantColor(imageLink) {
   //Encode imagelink so it can be send through as parm
   const encodedUrl = encodeURIComponent(imageLink)
-  const res = await fetch(`http://127.0.0.1:3001/dominantcolor/${encodedUrl}`)
+  const res = await fetch(`${fetchURL}/dominantcolor/${encodedUrl}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')

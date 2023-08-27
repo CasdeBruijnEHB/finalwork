@@ -7,14 +7,17 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
-import { TextureLoader } from 'three'
 import { useLoader } from '@react-three/fiber'
-import { MeshStandardMaterial } from 'three'
 
-export function Tafeltje70({props,onClick,imagedata,genredata, colorData}) {
-  //const { nodes, materials } = useGLTF('/Tafeltje70-transformed.glb')
 
-   //First load in the mesh.
+export function Tafeltje70({
+  props,
+  onClick,
+  imagedata,
+  genredata,
+  colorData,
+}) {
+  //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -25,12 +28,17 @@ export function Tafeltje70({props,onClick,imagedata,genredata, colorData}) {
     },
   )
   const { nodes, materials, animations } = gltf
-  
-  const texture = useLoader(TextureLoader, imagedata[3].url)
-  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
+
 
   return (
-    <group onClick={() => onClick('era_tafeltje70')} {...props} scale={20} rotation={[0,1.5,0]} position={[-30,-18,-23]} dispose={null}>
+    <group
+      onClick={() => onClick('era_tafeltje70')}
+      {...props}
+      scale={20}
+      rotation={[0, 1.5, 0]}
+      position={[-30, -18, -23]}
+      dispose={null}
+    >
       <mesh geometry={nodes.OPM0032.geometry} material={colorData[3]} />
     </group>
   )

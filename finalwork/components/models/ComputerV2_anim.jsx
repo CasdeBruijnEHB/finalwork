@@ -25,12 +25,10 @@ export function ComputerJSX(props) {
   )
   const { nodes, materials, animations } = gltf
 
-  const { actions } = useAnimations(animations, group)
+  
 
   const texture = useVideoTexture('/videotextures/V1screen.mp4')
-  // Flip video texture
   texture.flipY = false
-  //texture.needsUpdate = true
 
   return (
     <group
