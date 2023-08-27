@@ -1,10 +1,9 @@
 'use client'
-import { createRoot } from 'react-dom/client'
 import React, { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Suspense } from 'react'
-import { Stats, OrbitControls, Html, useHelper } from '@react-three/drei'
+import {  OrbitControls, Html } from '@react-three/drei'
 import { Navbar } from '@/components/navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -13,22 +12,19 @@ import { Computernew } from '@/components/scenes/Computernew'
 import { DirectionalLightHelper, PointLightHelper } from 'three'
 
 export default function Home() {
-  const deg2rad = (degrees) => degrees * (Math.PI / 180)
   const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559)
 
   function Lights() {
     //DirectionalLight + Helper --> Fel
     const directionalLightPosition = [0, 2, 5]
     const directionalLight = useRef()
-    useHelper(directionalLight, DirectionalLightHelper, 'teal')
+    //useHelper(directionalLight, DirectionalLightHelper, 'teal')
 
     // Pointlight -- Sfeervol
     const pointlightpos = [-4, 4, 2]
     const pointLight = useRef()
-    useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
+    //useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
 
-    //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
-    //<ambientLight color={`white`} intensity={0.3} />
     return (
       <>
         <pointLight
@@ -62,10 +58,11 @@ export default function Home() {
                 exposure={2}
                 castShadow
               />
-              <gridHelper args={[10, 10, `white`, `gray`]} />
+
               <Computernew planeYesNo={true} />
               <StartKnop />
-              <Stats />
+              {/*<Stats />
+              <gridHelper args={[10, 10, `white`, `gray`]} />*/}
 
               <OrbitControls />
             </Suspense>

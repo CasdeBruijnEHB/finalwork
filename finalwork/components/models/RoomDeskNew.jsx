@@ -33,8 +33,8 @@ export function ModelDesk({
   const [clickType, setClickType] = useState() //Geef mee of het om 'era', 'track' of 'genre' gaat
   const [clickData, setClickData] = useState([]) //Geef de data die behandeld wordt
   const [colormaterials, setColormaterials] = useState([])
-  const [textureKader, setTextureKader] = useState()
-  const [isLoading] = useState(true)
+
+  
 
   //First load in the main mesh.
 
@@ -61,7 +61,6 @@ export function ModelDesk({
       setColormaterials(colorcodesArr)
     }
     //Here we first check the era of the music to choose the right meshes.
-    eraData[0].era = 1999
     let loadedComponents = []
     if (eraData[0].era >= 2010) {
       loadedComponents = [
@@ -138,8 +137,6 @@ export function ModelDesk({
     ]
     const genres_CLASSICAL = ['classical', 'jazz']
     const genres_ACOUSTIC = ['rock', 'indie ', 'country']
-    //genreData[0].genre = "classical"
-
     if (
       genres_HH_ELECTRONIC.some((genre) => genreData[0].genre.includes(genre))
     ) {

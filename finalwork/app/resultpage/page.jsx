@@ -10,14 +10,7 @@ import SpotiPlayerComp from '@/components/SpotiPlayer'
 import { DirectionalLightHelper, PointLightHelper } from 'three'
 import { Computernew } from '@/components/scenes/Computernew'
 import Image from 'next/image'
-import { useQRCode } from 'next-qrcode'
-import {
-  Bloom,
-  DepthOfField,
-  EffectComposer,
-  Noise,
-  Vignette,
-} from '@react-three/postprocessing'
+
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -94,8 +87,6 @@ export default function SpotifyResultPage() {
         const a = document.createElement('a')
         a.href = dataURL
         SetScreenshotUrl(dataURL)
-        //a.download = 'screenshot.png';
-        //a.click();
         SetScreenshot(false)
       }
     }
@@ -107,8 +98,6 @@ export default function SpotifyResultPage() {
 
   function SkyLight() {
     const { scene } = useThree()
-    // Create the skydome light
-    //const skyColor = new THREE.Color().setHSL(94.251, 0.578, 0.559) // this is the POM green
     const skyColor = new THREE.Color(
       `rgb(${domcolors[0][0]}, ${domcolors[0][1]}, ${domcolors[0][2]})`,
     )
@@ -117,17 +106,19 @@ export default function SpotifyResultPage() {
   }
 
   function Lights() {
+    /*There are a lot of helpers in here that are turned off now.
+    Can be turned on again if want to move lights. */
+    
     //DirectionalLight + Helper --> Fel
     const directionalLightPosition = [0, 2, 5]
     const directionalLight = useRef()
-    useHelper(directionalLight, DirectionalLightHelper, 'teal')
+    //useHelper(directionalLight, DirectionalLightHelper, 'teal')
 
     // Pointlight -- Sfeervol
     const pointlightpos = [-4, 4, 2]
     const pointLight = useRef()
-    useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
+    //useHelper(pointLight, PointLightHelper, 0.5, 'hotpink')
 
-    //<directionalLight  ref={directionalLight} position={directionalLightPosition} castShadowintensity={1} />
     return (
       <>
         <pointLight
@@ -234,9 +225,11 @@ export default function SpotifyResultPage() {
               />
             </>
           )}
-          <gridHelper args={[10, 10, `white`, `gray`]} />
           <OrbitControls />
+          {/* 
+          <gridHelper args={[10, 10, `white`, `gray`]} />
           <Stats />
+           */}
         </Suspense>
       </Canvas>
 

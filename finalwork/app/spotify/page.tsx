@@ -2,10 +2,9 @@
 import { useState } from 'react'
 import { Navbar } from '@/components/navbar'
 import { TypingEffect } from '@/components/typewriter'
-import React, { Suspense } from 'react'
+import React from 'react'
 
 export default async function Spotify() {
-  //const user = await fetch("http://localhost:3001/login");
   const [fetchUrl, setFetchUrl] = useState('http://localhost:3001')
 
   const handleButtonclick = () => {
@@ -32,7 +31,7 @@ export default async function Spotify() {
                 outro={outro}
               />
 
-              <div className="w-screen h-screen">
+              <div className="w-full h-full">
                 <button
                   className="bottom-[40%] absolute flex justify-center items-center w-fit text-lg ml-[1%] px-4 py-2 font-bold  text-[#0F1A20] bg-[#7FB069] rounded-md "
                   onClick={handleButtonclick}

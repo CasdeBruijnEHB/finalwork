@@ -12,8 +12,6 @@ import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
 export function Dvd({ props, onClick, imagedata, genredata }) {
-  //const { nodes, materials } = useGLTF('/dvd-transformed.glb')
-
   //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
@@ -26,8 +24,6 @@ export function Dvd({ props, onClick, imagedata, genredata }) {
   )
   const { nodes, materials, animations } = gltf
 
-  const texture = useLoader(TextureLoader, imagedata[3].url)
-  const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group onClick={() => onClick('era_dvd')} {...props} dispose={null}>
       <group scale={2.5} position={[-4, -10, -47]} rotation={[1.5, 0, 1.2]}>

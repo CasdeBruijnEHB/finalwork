@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import logoGroen from '@/assets/logo/pom_groen.png'
 import logoWit from '@/assets/logo/POM_wit.png'
-import { Hamburgermenu } from '@/components/hamburgermenu'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -126,9 +125,65 @@ export function Navbar({ color = 'light' }) {
               </button>
             </div>
             <div className="font-sans text-align p-2">
-              <p>
-                Piece Of Me strictly uses your data for generating the room.
-              </p>
+              <h1 className='font-semibold pb-b1'>Privacy statement</h1>
+              <div className="pb-1">
+                <h3 className='font-semibold pb-b1'>Pieces Of Me: Generating 3D Meshes Using Spotify Data</h3>
+                <p>
+                  At Pieces Of Me, we are committed to protecting your privacy
+                  and ensuring the security of your personal data. This Privacy
+                  Statement outlines how we collect, use, and handle the data
+                  gathered when you connect your Spotify account to our website
+                  to generate 3D meshes.
+                </p>
+              </div>
+              <div className="pb-1">
+                <h3 className='font-semibold pb-b1'>Data Collection and Usage</h3>
+                <p>
+                  When you log in and connect your Spotify account to Pieces Of
+                  Me, we collect and use the following data:
+                </p>
+                <ul>
+                  <li>
+                    Top Streaming Data: We retrieve information about your top
+                    streamed tracks and artists from your Spotify account. This
+                    data is used solely for generating personalized 3D meshes
+                    based on your musical preferences.
+                  </li>
+                  <li>
+                    Email Address: We access your email address from your
+                    Spotify account for user authentication and identification
+                    purposes. We do not share or use your email address for any
+                    other purpose.
+                  </li>
+                  <li>
+                    Right to Modify Spotify App: We request the right to modify
+                    your Spotify app for the sole purpose of allowing you to
+                    play and listen to music directly within the browser
+                    environment. This ensures that you can enjoy the generated
+                    3D environment while experiencing your music in real time.
+                  </li>
+                </ul>
+              </div>
+              <div className="pb-1">
+                <h3 className='font-semibold pb-b1'>Data Security and Retention</h3>
+                <p>
+                  We prioritize the security of your data. All the data we
+                  collect, including your top streaming data and email address,
+                  is used exclusively for the duration of your session on the
+                  website. Once you log out or your session ends, this data is
+                  immediately discarded and not stored or retained in any way.
+                </p>
+              </div>
+              <div className="pb-1">
+                <h3 className='font-semibold pb-b1'>Your Control and Consent</h3>
+                <p>
+                  Your privacy matters to us. We seek your consent to access and
+                  use the specific data required to create the personalized 3D
+                  meshes. By connecting your Spotify account and using our
+                  website, you agree to the collection and usage of this data as
+                  outlined in this Privacy Statement.
+                </p>
+              </div>
             </div>
           </div>
         </div>

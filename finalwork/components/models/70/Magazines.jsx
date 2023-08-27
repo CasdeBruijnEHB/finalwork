@@ -12,8 +12,6 @@ import { useLoader } from '@react-three/fiber'
 import { MeshStandardMaterial } from 'three'
 
 export function Magzines70({ props, onClick, imagedata, genredata }) {
-  //const { nodes, materials } = useGLTF('/70/magazines.glb')
-
   //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
@@ -22,7 +20,6 @@ export function Magzines70({ props, onClick, imagedata, genredata }) {
   })
   const { nodes, materials, animations } = gltf
 
-  const texture = useLoader(TextureLoader, imagedata[3].url)
   const brownmaterial = new MeshStandardMaterial({ color: 0x7f675b })
   return (
     <group onClick={() => onClick('era_magazines')} {...props} dispose={null}>
