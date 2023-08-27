@@ -26,6 +26,7 @@ import { DirectionalLightHelper, PointLightHelper } from 'three'
 import { Computernew } from '@/components/scenes/Computernew'
 import Image from 'next/image'
 import { useQRCode } from 'next-qrcode';
+import { Navbar } from '@/components/navbar'
 
 let fetchURL = 'http://localhost:3001'
 //https://finalwork-26j6.onrender.com
@@ -180,37 +181,43 @@ export default function SpotifyResultPage() {
       }
   }
   const { SVG } = useQRCode();
+  /*
+ <button onClick={shareOnInstagramStory}>Share on Instagram Story</button>
+            <SVG
+              text={"www.google.be"}
+              options={{
+                margin: 2,
+                width: 100,
+                color: {
+                  dark: '#010599FF',
+                  light: '#FFBF60FF',
+                },
+              }}
+            />
+
+  */
 
   return (
     <>
-      <div className='absolute z-40'>
-      <p onClick={saveScreenshot}>Save screenshot</p>
-      {screenshotURL?(
-        <>
-         <Image
-            src={screenshotURL}
-            width={200}
-            height={200}
-            alt="Picture of the author"
-          />
-          <a href={screenshotURL} download="screenshot.png">Download image</a>
-          <button onClick={shareOnInstagramStory}>Share on Instagram Story</button>
-          <SVG
-            text={"www.google.be"}
-            options={{
-              margin: 2,
-              width: 100,
-              color: {
-                dark: '#010599FF',
-                light: '#FFBF60FF',
-              },
-            }}
-          />
-        </>
-      ):(
-        <p></p>
-      )}
+      <div className='flex flex-col absolute z-40 drop-shadow-lg text-md bg-white text-[#7FB069] mt-[2%] ml-[2%] rounded-xl pl-10 pt-2.5 pb-2.5 pr-10 space-y-2.5 w-1/5'>
+        {screenshotURL?(
+          <>
+          <p className=' w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md ' onClick={saveScreenshot}>Take a new photo.</p>
+          <Image
+              src={screenshotURL}
+              width={400}
+              height={400}
+              alt="Picture of the author"
+            />
+            <a className='w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md'  href={screenshotURL} download="screenshot.png">Download image</a>
+            <p className='w-fit text-md px-4 py-2 text-[#0F1A20] bg-[#7FB069] rounded-md'  onClick={()=>SetScreenshotUrl()}>Close</p>
+          </>
+        ):(
+          <p onClick={saveScreenshot}>Take a photo!</p>
+        )}
     </div>
+
+
       <Canvas  ref={canvasRef} gl={{ preserveDrawingBuffer: true }}
         shadows="soft"
         className="canvas"

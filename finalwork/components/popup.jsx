@@ -42,7 +42,7 @@ export function Popup({type,data}) {
   
     return(<>
     <Html fullscreen>
-      <div className="flex left-0 top-0 absolute w-64 h-64 z-50 bg-black text-white p-4 ">
+      <div className="drop-shadow-lg text-md bg-[#7FB069] text-[#0F1A20]  mt-[3%] ml-[35%] flex rounded-xl top-5 pl-10 pt-2.5 pb-2.5 pr-10 justify-between w-[30%]">
         {textState}
       </div>
     </Html>
