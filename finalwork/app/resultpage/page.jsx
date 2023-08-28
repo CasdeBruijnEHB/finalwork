@@ -68,8 +68,12 @@ export default function SpotifyResultPage() {
 
           async function activateScraper(dataScraper){
               console.log("scraper activated...")
-              console.log(dataScraper)
-              //let scrapedata= dataScraper.items[0].album.
+              console.log(dataScraper.items[0].genres[0])
+              let scrapedata= dataScraper.items[0].genres[0];
+              const resScrape = await fetch(`${fetchURL}/scrape-images/${scrapedata}`)
+              const dataScrape = await resScrape.json()
+              setScrapedIMGS(dataScrape)
+              console.log('scrapedimgs: ', dataScrape)
           }
         /*
         const resScrape = await fetch(`${fetchURL}/scrape-images/hiphop`)
