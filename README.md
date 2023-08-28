@@ -1,4 +1,7 @@
 # Finalwork
+Website: https://finalwork-finalwork.vercel.app/
+www.piecesofme.be
+Backend: https://finalwork-26j6.onrender.com
 
 For the Final Work of my Multimedia & Creative Technologies study at the Erasmushogeschool Brussels, I created Pieces Of Me. Pieces Of Me, or POM, is a website with which you can generate a 3D environment based on your favorite music. The user has to connect with their Spotify account first, afterwards POM will take your musical habits and create a personalized room based on your favorite tracks, artists, genres and era of music.
 
