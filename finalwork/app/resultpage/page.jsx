@@ -63,7 +63,7 @@ export default function SpotifyResultPage() {
           .then((result) => result.json())
           .then((data) => {
             setArtistData(data)
-            activateScraper(data);
+           // activateScraper(data);
           })
 
           /*
