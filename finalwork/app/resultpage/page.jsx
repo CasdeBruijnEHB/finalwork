@@ -47,7 +47,6 @@ export default function SpotifyResultPage() {
         //First we add the favorite tracks to an array for the Music Player
         let favoritesArr = []
         setTrackData(dat);
-        activateScraper(dat);
         for (let item of dat.items) {
           favoritesArr.push(`spotify:track:${item.id}`)
         }
@@ -64,11 +63,13 @@ export default function SpotifyResultPage() {
           .then((result) => result.json())
           .then((data) => {
             setArtistData(data)
+            activateScraper(data);
           })
 
           async function activateScraper(dataScraper){
               console.log("scraper activated...")
               console.log(dataScraper)
+              //let scrapedata= dataScraper.items[0].album.
           }
         /*
         const resScrape = await fetch(`${fetchURL}/scrape-images/hiphop`)
