@@ -34,7 +34,7 @@ export function Vinyls({ props, onClick, imagedata, genredata }) {
       >
         <mesh geometry={nodes.polySurface21.geometry} position={[2, 13, 6]}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[5].url)}
           />
         </mesh>
         <mesh
@@ -43,7 +43,7 @@ export function Vinyls({ props, onClick, imagedata, genredata }) {
           position={[0.72, 15.29, 6.94]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[1].url)}
+            map={useLoader(TextureLoader, imagedata[6].url)}
           />
         </mesh>
         <mesh
@@ -52,7 +52,7 @@ export function Vinyls({ props, onClick, imagedata, genredata }) {
           position={[0.12, 15.98, 6.97]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[2].url)}
+            map={useLoader(TextureLoader, imagedata[7].url)}
           />
         </mesh>
         <mesh
@@ -61,7 +61,7 @@ export function Vinyls({ props, onClick, imagedata, genredata }) {
           position={[1.14, 15.15, 6.86]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[3].url)}
+            map={useLoader(TextureLoader, imagedata[8].url)}
           />
         </mesh>
       </group>

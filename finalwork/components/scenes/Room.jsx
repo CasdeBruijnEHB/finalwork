@@ -9,7 +9,8 @@ export function Room({ trackData, artistData, dominantColor }) {
   const [domcolors, setDomColors] = useState([dominantColor])
   const [loader, isLoading] = useState(true)
   //http://localhost:3001
-  let fetchURL = 'https://finalwork-26j6.onrender.com/'
+  //https://finalwork-26j6.onrender.com/
+  let fetchURL = 'https://finalwork-26j6.onrender.com'
 
   useEffect(() => {
     async function fetchData() {

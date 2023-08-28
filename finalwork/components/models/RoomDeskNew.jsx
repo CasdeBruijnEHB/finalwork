@@ -62,6 +62,7 @@ export function ModelDesk({
     }
     //Here we first check the era of the music to choose the right meshes.
     let loadedComponents = []
+    eraData[0].era=1700;
     if (eraData[0].era >= 2010) {
       loadedComponents = [
         dynamic(() =>

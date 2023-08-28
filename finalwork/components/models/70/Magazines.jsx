@@ -30,17 +30,17 @@ export function Magzines70({ props, onClick, imagedata, genredata }) {
       >
         <mesh geometry={nodes.boekjes_1.geometry}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[8].url)}
           />
         </mesh>
         <mesh geometry={nodes.boekjes_2.geometry} material={brownmaterial}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[1].url)}
+            map={useLoader(TextureLoader, imagedata[6].url)}
           />
         </mesh>
         <mesh geometry={nodes.boekjes_3.geometry} material={brownmaterial}>
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[2].url)}
+            map={useLoader(TextureLoader, imagedata[7].url)}
           />
         </mesh>
       </group>
