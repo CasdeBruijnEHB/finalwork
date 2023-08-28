@@ -20,8 +20,7 @@ export function Guitar({ props, onClick, imagedata, genredata, colorData }) {
       loader.setDRACOLoader(dracoLoader)
     },
   )
-  const { nodes} = gltf
-
+  const { nodes } = gltf
 
   return (
     <group

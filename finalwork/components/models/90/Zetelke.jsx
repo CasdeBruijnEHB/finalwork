@@ -9,9 +9,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 
-
 export function Zetelke({ props, onClick, imagedata, genredata, colorData }) {
-    const dracoLoader = new DRACOLoader()
+  const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
     GLTFLoader,

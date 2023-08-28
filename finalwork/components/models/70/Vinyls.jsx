@@ -23,7 +23,6 @@ export function Vinyls({ props, onClick, imagedata, genredata }) {
   )
   const { nodes, materials, animations } = gltf
 
-
   return (
     <group {...props} dispose={null}>
       <group

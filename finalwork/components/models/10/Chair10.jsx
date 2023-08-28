@@ -9,7 +9,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 
-
 export function Chair10({ props, onClick, imagedata, genredata, colorData }) {
   //First load in the mesh.
   const dracoLoader = new DRACOLoader()
@@ -22,7 +21,6 @@ export function Chair10({ props, onClick, imagedata, genredata, colorData }) {
     },
   )
   const { nodes, materials, animations } = gltf
-
 
   return (
     <group onClick={() => onClick('era_chair10')} {...props} dispose={null}>

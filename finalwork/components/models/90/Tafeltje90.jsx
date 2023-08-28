@@ -9,7 +9,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 
-
 export function Tafeltje90({
   props,
   onClick,

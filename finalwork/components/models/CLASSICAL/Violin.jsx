@@ -22,7 +22,6 @@ export function Violin({ props, onClick, imagedata, genredata, colorData }) {
   )
   const { nodes, materials, animations } = gltf
 
-
   return (
     <group {...props} dispose={null}>
       <group

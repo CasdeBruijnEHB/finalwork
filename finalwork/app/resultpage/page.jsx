@@ -36,7 +36,7 @@ export default function SpotifyResultPage() {
     async function fetchData() {
       try {
         //To start we are fetching the accesstoken
-        
+
         const response = await fetch(`${fetchURL}/getaccess`)
         const data = await response.text()
         setAccessToken(data)
@@ -109,7 +109,7 @@ export default function SpotifyResultPage() {
   function Lights() {
     /*There are a lot of helpers in here that are turned off now.
     Can be turned on again if want to move lights. */
-    
+
     //DirectionalLight + Helper --> Fel
     const directionalLightPosition = [0, 2, 5]
     const directionalLight = useRef()

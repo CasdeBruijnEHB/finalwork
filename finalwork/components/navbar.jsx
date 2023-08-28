@@ -125,9 +125,11 @@ export function Navbar({ color = 'light' }) {
               </button>
             </div>
             <div className="font-sans text-align p-2">
-              <h1 className='font-semibold pb-b1'>Privacy statement</h1>
+              <h1 className="font-semibold pb-b1">Privacy statement</h1>
               <div className="pb-1">
-                <h3 className='font-semibold pb-b1'>Pieces Of Me: Generating 3D Meshes Using Spotify Data</h3>
+                <h3 className="font-semibold pb-b1">
+                  Pieces Of Me: Generating 3D Meshes Using Spotify Data
+                </h3>
                 <p>
                   At Pieces Of Me, we are committed to protecting your privacy
                   and ensuring the security of your personal data. This Privacy
@@ -137,7 +139,9 @@ export function Navbar({ color = 'light' }) {
                 </p>
               </div>
               <div className="pb-1">
-                <h3 className='font-semibold pb-b1'>Data Collection and Usage</h3>
+                <h3 className="font-semibold pb-b1">
+                  Data Collection and Usage
+                </h3>
                 <p>
                   When you log in and connect your Spotify account to Pieces Of
                   Me, we collect and use the following data:
@@ -165,7 +169,9 @@ export function Navbar({ color = 'light' }) {
                 </ul>
               </div>
               <div className="pb-1">
-                <h3 className='font-semibold pb-b1'>Data Security and Retention</h3>
+                <h3 className="font-semibold pb-b1">
+                  Data Security and Retention
+                </h3>
                 <p>
                   We prioritize the security of your data. All the data we
                   collect, including your top streaming data and email address,
@@ -175,7 +181,9 @@ export function Navbar({ color = 'light' }) {
                 </p>
               </div>
               <div className="pb-1">
-                <h3 className='font-semibold pb-b1'>Your Control and Consent</h3>
+                <h3 className="font-semibold pb-b1">
+                  Your Control and Consent
+                </h3>
                 <p>
                   Your privacy matters to us. We seek your consent to access and
                   use the specific data required to create the personalized 3D

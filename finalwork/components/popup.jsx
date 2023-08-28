@@ -21,8 +21,8 @@ export function Popup({ type, data }) {
               <br />
               <br />
               Each era you hold dear has left its imprint shaping your musical
-              identity and enriching your experiences. Whether you&apos;re grooving
-              to the tunes of the{' '}
+              identity and enriching your experiences. Whether you&apos;re
+              grooving to the tunes of the{' '}
               <span className="font-semibold">{data[1].era}</span> or getting
               lost in the sounds of the{' '}
               <span className="font-semibold">{data[2].era}</span>, your love
@@ -30,10 +30,12 @@ export function Popup({ type, data }) {
               timeless magic of music. <br />
               <br />
               But you continue to explore new eras and generations of music. You
-              don&apos;t stick to what you know but keep discovering. Some might be
-              your favorite, but this didn&apos;t hold you back listening to sounds
-              from <span className="font-semibold">{data[2].era}</span> or{' '}
-              <span className="font-semibold">{data[0].era}</span>.
+              don&apos;t stick to what you know but keep discovering. Some might
+              be your favorite, but this didn&apos;t hold you back listening to
+              sounds from <span className="font-semibold">
+                {data[2].era}
+              </span>{' '}
+              or <span className="font-semibold">{data[0].era}</span>.
             </p>
           </>,
         )
@@ -94,8 +96,9 @@ export function Popup({ type, data }) {
         setTextState(
           <>
             <p>
-              I can already tell I wouldn&apos;t regret the decision of handing you
-              the aux at a party. You have a broad musical taste and can enjoy
+              I can already tell I wouldn&apos;t regret the decision of handing
+              you the aux at a party. You have a broad musical taste and can
+              enjoy
               <span className="font-semibold"> {data[1].genre} </span> to{' '}
               <span className="font-semibold"> {data[2].genre} </span> to
               <span className="font-semibold"> {data[3].genre} </span>. <br />

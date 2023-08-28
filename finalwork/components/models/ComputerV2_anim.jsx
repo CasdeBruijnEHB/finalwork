@@ -25,8 +25,6 @@ export function ComputerJSX(props) {
   )
   const { nodes, materials, animations } = gltf
 
-  
-
   const texture = useVideoTexture('/videotextures/V1screen.mp4')
   texture.flipY = false
 

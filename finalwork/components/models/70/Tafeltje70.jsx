@@ -9,7 +9,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 
-
 export function Tafeltje70({
   props,
   onClick,
@@ -28,7 +27,6 @@ export function Tafeltje70({
     },
   )
   const { nodes, materials, animations } = gltf
-
 
   return (
     <group

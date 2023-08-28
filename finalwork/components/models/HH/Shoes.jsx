@@ -10,7 +10,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { useLoader } from '@react-three/fiber'
 
 export function Shoes({ props, onClick, imagedata, genredata, colorData }) {
-   //First load in the mesh.
+  //First load in the mesh.
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
   const gltf = useLoader(
@@ -41,17 +41,14 @@ export function Shoes({ props, onClick, imagedata, genredata, colorData }) {
       rotation={[0, 2, 0]}
       scale={2.6}
     >
-      <CircleMesh />
+    
       <group
         position={[-0.6, 1.28, -0.15]}
         rotation={[Math.PI / 2, 0, 3.01]}
         scale={0.15}
       >
         <mesh geometry={nodes.Laces_L.geometry} material={colorData[1]} />
-        <mesh
-          geometry={nodes.Shoe_L.geometry}
-          material={colorData[5]}
-        ></mesh>
+        <mesh geometry={nodes.Shoe_L.geometry} material={colorData[5]}></mesh>
         <mesh geometry={nodes.Sole_L.geometry} material={colorData[0]} />
       </group>
       <group

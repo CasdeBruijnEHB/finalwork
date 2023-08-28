@@ -21,7 +21,6 @@ export function Stoeltje({ props, onCLick, imagedata, genredata, colorData }) {
   )
   const { nodes, materials, animations } = gltf
 
-
   return (
     <group onClick={() => onClick('era_stoeltje')} {...props} dispose={null}>
       <group position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.01}>
