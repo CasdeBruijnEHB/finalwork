@@ -275,12 +275,12 @@ app.get('/generateImage/:searchterm', async (req, res) => {
   }
 })
 
-app.get('/scrape-images', (req, res) => {
-  //const query = req.query.query;
-  let query = 'basketball images'
+app.get('/scrape-images/:searchterm', (req, res) => {
+  const searchterm = req.params.searchterm;
+  //let query = 'basketball images'
   const numImages = 2 // Default limit is 10 images
   const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(
-    query,
+    searchterm,
   )}&searchType=image&num=${numImages}`
 
   request(searchUrl, (error, response, body) => {

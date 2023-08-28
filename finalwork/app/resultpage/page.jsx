@@ -64,13 +64,13 @@ export default function SpotifyResultPage() {
           .then((data) => {
             setArtistData(data)
           })
-
-        /*
-        const resScrape = await fetch(`${fetchURL}/scrape-images`)
+          console.log(trackData)
+        
+        const resScrape = await fetch(`${fetchURL}/scrape-images/hiphop`)
         const dataScrape = await resScrape.json()
         setScrapedIMGS(dataScrape)
         console.log('scrapedimgs: ', dataScrape)
-            */
+            
         //If it's all fetched we tell the app the loading is done.
         isLoading(false)
       } catch (error) {
