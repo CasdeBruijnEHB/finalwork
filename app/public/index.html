@@ -7,6 +7,45 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Ello to the backend</h1>
+    <h1>Endpoints</h1>
+    <ul>
+      <li>
+      GET '/'
+      Returns: "Hello World" as a test response.
+      </li>
+      <li>
+      GET '/trackData'
+      Returns: User's top 10 tracks.
+      </li>
+      <li>
+      GET '/artistData'
+      Returns: User's top 10 artists.
+      </li>
+      <li>
+      GET '/login'
+      Description: Redirects to the Spotify login page for authentication.
+      </li>
+      <li>
+      GET '/callback'
+      Description: Handles the Spotify login callback and redirects the user back to the application.
+      </li>
+      <li>
+      GET '/refresh_token'
+      Description: Used to refresh the Spotify access token.
+      </li>
+      <li>
+      GET '/generateImage/:searchterm'
+      Parameters: searchterm - Search term for generating an OpenAI image.
+      Returns: An artwork generated using OpenAI.
+      </li>
+      <li>
+      GET '/scrape-images'
+      Description: Scrapes Google for images and returns 3 images.
+      </li>
+      <li>
+      GET '/getaccess'
+      Returns: The access token for Spotify.
+      </li>
+    </ul>
   </body>
 </html>

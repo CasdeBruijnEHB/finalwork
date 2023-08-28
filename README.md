@@ -99,27 +99,58 @@ Follow these steps to run the project:
    npx lerna run dev
    ```
 
+## Endpoints backend
+
+- GET '/'
+  Returns: "Hello World" as a test response.
+
+- GET '/trackData'
+  Returns: User's top 10 tracks.
+
+- GET '/artistData'
+  Returns: User's top 10 artists.
+
+- GET '/login'
+  Description: Redirects to the Spotify login page for authentication.
+
+- GET '/callback'
+  Description: Handles the Spotify login callback and redirects the user back to the application.
+
+- GET '/refresh_token'
+  Description: Used to refresh the Spotify access token.
+
+- GET '/generateImage/:searchterm'
+  Parameters: searchterm - Search term for generating an OpenAI image.
+  Returns: An artwork generated using OpenAI.
+
+- GET '/scrape-images'
+  Description: Scrapes Google for images and returns 3 images.
+
+- GET '/getaccess'
+  Returns: The access token for Spotify.
+
 ## Sources
 
 Several sources were consulted to create this project.
-• husky | husky. (z.d.). https://typicode.github.io/husky/
-• Getting Started | Lerna. (z.d.). https://lerna.js.org/docs/getting-started
-• Authorization Code Flow | Spotify for Developers. (z.d.). https://developer.spotify.com/documentation/web-api/tutorials/code-flow
-• Express routing. (z.d.). https://expressjs.com/en/guide/routing.html
-• Rawat, R. (z.d.). Sessions vs Tokens: How to authenticate in Node.js. https://rrawat.com/blog/sessions-vs-tokens-authentication
-• npm: node-fetch. (z.d.). npm. https://www.npmjs.com/package/node-fetch
-• A Brief Timeline of Interior Design Movements | http://Supermodern.Bauhaus2Yourhouse.com. (2017, 29 december). https://supermodern.bauhaus2yourhouse.com/a-brief-timeline-of-interior-design-movements/
-• Metcalf, H. (2021). 10 of the biggest interior trends of the 2010s. Goodhomes Magazine. https://www.goodhomesmagazine.com/inspiration/interior-trends-last-decade/
-• Photographer Adrienne Salinger’s series of teenage bedrooms from the 90s. (2016, 12 april). https://www.itsnicethat.com/articles/adrienne-salinger-teenage-bedrooms-90s-120416
-• Three.js – JavaScript 3D library. (z.d.). https://threejs.org/
-• React Three Fiber Documentation. (z.d.). React Three Fiber Documentation. https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
-• Pmndrs. (z.d.). GitHub - pmndrs/drei: useful helpers for react-three-fiber. GitHub. https://github.com/pmndrs/drei
-• Pmndrs. (z.d.-b). GitHub - pmndrs/gltfjsx: Turns GLTFs into JSX components. GitHub. https://github.com/pmndrs/gltfjsx/tree/master
-• Mashkin, D. (2022). 2023 Graphic Design Trends That Will Bring the ’70s Back in a Big Way — Artcoast Studio. Artcoast Studio. https://artcoastdesign.com/blog/2023-graphic-design-trends-that-will-bring-the-70s-back-in-a-big-way
-• React Three Fiber - Importing Scenes With Actions From Blender - CodeSandbox. (2021, 3 maart). CodeSandbox. https://codesandbox.io/s/importing-scenes-with-actions-from-blender-s77fw?file=/src/Kick.js:297-359
-• npm: colorthief. (z.d.). npm. https://www.npmjs.com/package/colorthief
-• Counting the occurrences / frequency of array elements. (z.d.). Stack Overflow. https://stackoverflow.com/questions/5667888/counting-the-occurrences-frequency-of-array-elements
-• Overview. (z.d.). Google for Developers. https://developers.google.com/custom-search/docs/overview
-• Ganesh, M., & Ganesh, M. (2023, 27 april). Google custom search JSON API explained. Expertrec custom search engine. https://blog.expertrec.com/google-custom-search-json-api-simplified/
-• 3d interface website presentation mockup isolated Free PSD. (2022, 4 februari). Freepik. https://www.freepik.com/free-psd/3d-interface-website-presentation-mockup-isolated_23126632.htm#query=desktop%20mockup&position=39&from_view=keyword&track=ais
-• 3d interface website presentation mockup isolated Free PSD. (2022b, februari 4). Freepik. https://www.freepik.com/free-psd/3d-interface-website-presentation-mockup-isolated_23126615.htm#query=desktop%20mockup&position=5&from_view=keyword&track=ais
+
+- husky | husky. (z.d.). https://typicode.github.io/husky/
+- Getting Started | Lerna. (z.d.). https://lerna.js.org/docs/getting-started
+- Authorization Code Flow | Spotify for Developers. (z.d.). https://developer.spotify.com/documentation/web-api/tutorials/code-flow
+- Express routing. (z.d.). https://expressjs.com/en/guide/routing.html
+- Rawat, R. (z.d.). Sessions vs Tokens: How to authenticate in Node.js. https://rrawat.com/blog/sessions-vs-tokens-authentication
+- npm: node-fetch. (z.d.). npm. https://www.npmjs.com/package/node-fetch
+- A Brief Timeline of Interior Design Movements | http://Supermodern.Bauhaus2Yourhouse.com. (2017, 29 december). https://supermodern.bauhaus2yourhouse.com/a-brief-timeline-of-interior-design-movements/
+- Metcalf, H. (2021). 10 of the biggest interior trends of the 2010s. Goodhomes Magazine. https://www.goodhomesmagazine.com/inspiration/interior-trends-last-decade/
+- Photographer Adrienne Salinger’s series of teenage bedrooms from the 90s. (2016, 12 april). https://www.itsnicethat.com/articles/adrienne-salinger-teenage-bedrooms-90s-120416
+- Three.js – JavaScript 3D library. (z.d.). https://threejs.org/
+- React Three Fiber Documentation. (z.d.). React Three Fiber Documentation. https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
+- Pmndrs. (z.d.). GitHub - pmndrs/drei: useful helpers for react-three-fiber. GitHub. https://github.com/pmndrs/drei
+- Pmndrs. (z.d.-b). GitHub - pmndrs/gltfjsx: Turns GLTFs into JSX components. GitHub. https://github.com/pmndrs/gltfjsx/tree/master
+- Mashkin, D. (2022). 2023 Graphic Design Trends That Will Bring the ’70s Back in a Big Way — Artcoast Studio. Artcoast Studio. https://artcoastdesign.com/blog/2023-graphic-design-trends-that-will-bring-the-70s-back-in-a-big-way
+- React Three Fiber - Importing Scenes With Actions From Blender - CodeSandbox. (2021, 3 maart). CodeSandbox. https://codesandbox.io/s/importing-scenes-with-actions-from-blender-s77fw?file=/src/Kick.js:297-359
+- npm: colorthief. (z.d.). npm. https://www.npmjs.com/package/colorthief
+- Counting the occurrences / frequency of array elements. (z.d.). Stack Overflow. https://stackoverflow.com/questions/5667888/counting-the-occurrences-frequency-of-array-elements
+- Overview. (z.d.). Google for Developers. https://developers.google.com/custom-search/docs/overview
+- Ganesh, M., & Ganesh, M. (2023, 27 april). Google custom search JSON API explained. Expertrec custom search engine. https://blog.expertrec.com/google-custom-search-json-api-simplified/
+- 3d interface website presentation mockup isolated Free PSD. (2022, 4 februari). Freepik. https://www.freepik.com/free-psd/3d-interface-website-presentation-mockup-isolated_23126632.htm#query=desktop%20mockup&position=39&from_view=keyword&track=ais
+- 3d interface website presentation mockup isolated Free PSD. (2022b, februari 4). Freepik. https://www.freepik.com/free-psd/3d-interface-website-presentation-mockup-isolated_23126615.htm#query=desktop%20mockup&position=5&from_view=keyword&track=ais
