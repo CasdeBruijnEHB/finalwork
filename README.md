@@ -154,3 +154,12 @@ Several sources were consulted to create this project.
 - Ganesh, M., & Ganesh, M. (2023, 27 april). Google custom search JSON API explained. Expertrec custom search engine. https://blog.expertrec.com/google-custom-search-json-api-simplified/
 - 3d interface website presentation mockup isolated Free PSD. (2022, 4 februari). Freepik. https://www.freepik.com/free-psd/3d-interface-website-presentation-mockup-isolated_23126632.htm#query=desktop%20mockup&position=39&from_view=keyword&track=ais
 - 3d interface website presentation mockup isolated Free PSD. (2022b, februari 4). Freepik. https://www.freepik.com/free-psd/3d-interface-website-presentation-mockup-isolated_23126615.htm#query=desktop%20mockup&position=5&from_view=keyword&track=ais
+- P5-Wrapper. (z.d.). GitHub - P5-Wrapper/React: A wrapper component that allows you
+  to utilise P5 sketches within React apps. GitHub. https://github.com/P5-wrapper/react
+- P5.js as Three.js texture - CodeSandbox. (2021, 16 september). CodeSandbox. https://
+  codesandbox.io/s/p5-js-as-three-js-texture-t9rfg?file=/src/App.js:174-190
+- dev.yakuza@gmail.com. (2023, 29 mei). [Next.js] Prettier. dev-yakuza. https://dev-yakuza.posstree.com/en/react/nextjs/prettier/
+- React Three Fiber Shadow Reference - CodeSandbox. (2020b, september 24). CodeSandbox. https://codesandbox.io/s/react-three-fiber-shadow-reference-5ju4u?file=/src/App.
+  js:502-527
+- Web Audio API - Web APIs | MDN. (2023, 19 februari). https://developer.mozilla.org/enUS/docs/Web/API/Web_Audio_API
+- NPM: Next-Qrcode. (z.d.). npm. https://www.npmjs.com/package/next-qrcode

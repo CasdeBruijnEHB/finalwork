@@ -32,7 +32,7 @@ export function Dvd({ props, onClick, imagedata, genredata }) {
           material={materials.aiStandardSurface11SG}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[5].url)}
           />
         </mesh>
         <mesh
@@ -40,7 +40,7 @@ export function Dvd({ props, onClick, imagedata, genredata }) {
           material={materials.aiStandardSurface11SG}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[9].url)}
           />
         </mesh>
         <mesh
@@ -48,7 +48,7 @@ export function Dvd({ props, onClick, imagedata, genredata }) {
           material={materials.aiStandardSurface11SG}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[4].url)}
           />
         </mesh>
       </group>

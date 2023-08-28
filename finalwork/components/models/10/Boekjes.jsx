@@ -37,7 +37,7 @@ export function Boekjes({ props, onClick, imagedata, genredata }) {
           material={materials.aiStandardSurface9SG}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[8].url)}
           />
         </mesh>
         <mesh
@@ -47,7 +47,7 @@ export function Boekjes({ props, onClick, imagedata, genredata }) {
           material={materials.aiStandardSurface9SG}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[7].url)}
           />
         </mesh>
         <mesh
@@ -57,7 +57,7 @@ export function Boekjes({ props, onClick, imagedata, genredata }) {
           material={materials.aiStandardSurface9SG}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imagedata[0].url)}
+            map={useLoader(TextureLoader, imagedata[6].url)}
           />
         </mesh>
       </group>
