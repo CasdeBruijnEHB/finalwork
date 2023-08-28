@@ -15,6 +15,7 @@ export function ModelDesk({
   dominantColor,
   eraData,
   trackData,
+  googleimgs
 }) {
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
@@ -33,11 +34,13 @@ export function ModelDesk({
   const [clickType, setClickType] = useState() //Geef mee of het om 'era', 'track' of 'genre' gaat
   const [clickData, setClickData] = useState([]) //Geef de data die behandeld wordt
   const [colormaterials, setColormaterials] = useState([])
+  const [googledImgs,setGoogledImgs]=useState([]);
 
   //First load in the main mesh.
 
   useEffect(() => {
     setTextures(dominantColor)
+    setGoogledImgs(googleimgs)
     function setTextures(domcolor) {
       //We need HEX codes so let's use a transformer
       const rgbToHex = (r, g, b) => {
@@ -236,7 +239,7 @@ export function ModelDesk({
           scale={[-0.001, 0.05, -0.07]}
         >
           <meshStandardMaterial
-            map={useLoader(TextureLoader, imageData[0].url)}
+            map={useLoader(TextureLoader, googleimgs[0].image.contextlink)}
           />
         </mesh>
         <mesh

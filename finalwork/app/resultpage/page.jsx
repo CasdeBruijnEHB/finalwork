@@ -72,7 +72,7 @@ export default function SpotifyResultPage() {
               let scrapedata= dataScraper.items[0].genres[0];
               const resScrape = await fetch(`${fetchURL}/scrape-images/${scrapedata}`)
               const dataScrape = await resScrape.json()
-              setScrapedIMGS(dataScrape)
+              setScrapedIMGS(dataScrape.items)
               console.log('scrapedimgs: ', dataScrape)
           }
         /*
@@ -234,6 +234,7 @@ export default function SpotifyResultPage() {
                 artistData={artistData}
                 dominantColor={domcolors}
                 isplaying={isPlaying}
+                googleImgs={scrapedIMGS}
               />
             </>
           )}

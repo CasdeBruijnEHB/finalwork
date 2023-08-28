@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { ModelDesk } from '@/components/models/RoomDeskNew'
 import { Html } from '@react-three/drei'
 
-export function Room({ trackData, artistData, dominantColor }) {
+export function Room({ trackData, artistData, dominantColor, googleImgs }) {
   //Here we generate the room - we gather the data, and send it to the 3D model afterwards.
   const [genres, setGenres] = useState([])
   const [eraData, setEraData] = useState([])
   const [domcolors, setDomColors] = useState([dominantColor])
   const [loader, isLoading] = useState(true)
+  const [scrapedIMG, setScrapedIMGS]=useState([]);
   //http://localhost:3001
   //https://finalwork-26j6.onrender.com/
   let fetchURL = 'https://finalwork-26j6.onrender.com'
@@ -22,6 +23,7 @@ export function Room({ trackData, artistData, dominantColor }) {
       setEraData(trackEras)
     }
 
+    setScrapedIMGS(googleImgs);
     fetchData()
     isLoading(false)
   }, [artistData, trackData])
@@ -115,6 +117,7 @@ async function scrapeImages() {
             dominantColor={domcolors}
             eraData={eraData}
             trackData={trackData.items}
+            googleimgs={scrapedIMG}
           />
         )}
       </group>
