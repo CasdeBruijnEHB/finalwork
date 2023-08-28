@@ -7,8 +7,7 @@ export function Room({ trackData, artistData, dominantColor, googleImgs }) {
   const [genres, setGenres] = useState([])
   const [eraData, setEraData] = useState([])
   const [domcolors, setDomColors] = useState([dominantColor])
-  const [loader, isLoading] = useState(true)
-  const [scrapedIMG, setScrapedIMGS]=useState([]);
+  const [loader, isLoading] = useState(true);
   //http://localhost:3001
   //https://finalwork-26j6.onrender.com/
   let fetchURL = 'https://finalwork-26j6.onrender.com'
@@ -23,7 +22,6 @@ export function Room({ trackData, artistData, dominantColor, googleImgs }) {
       setEraData(trackEras)
     }
 
-    setScrapedIMGS(googleImgs);
     fetchData()
     isLoading(false)
   }, [artistData, trackData])
@@ -117,7 +115,6 @@ async function scrapeImages() {
             dominantColor={domcolors}
             eraData={eraData}
             trackData={trackData.items}
-            googleimgs={scrapedIMG}
           />
         )}
       </group>

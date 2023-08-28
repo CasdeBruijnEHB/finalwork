@@ -66,6 +66,7 @@ export default function SpotifyResultPage() {
             activateScraper(data);
           })
 
+          /*
           async function activateScraper(dataScraper){
               console.log("scraper activated...")
               console.log(dataScraper.items[0].genres[0])
@@ -75,6 +76,7 @@ export default function SpotifyResultPage() {
               setScrapedIMGS(dataScrape.items)
               console.log('scrapedimgs: ', dataScrape)
           }
+          */
         /*
         const resScrape = await fetch(`${fetchURL}/scrape-images/hiphop`)
         const dataScrape = await resScrape.json()
@@ -234,7 +236,7 @@ export default function SpotifyResultPage() {
                 artistData={artistData}
                 dominantColor={domcolors}
                 isplaying={isPlaying}
-                googleImgs={scrapedIMGS}
+                
               />
             </>
           )}
