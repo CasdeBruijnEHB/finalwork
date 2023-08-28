@@ -11,9 +11,11 @@ export function Navbar({ color = 'light' }) {
 
   const handleAboutClick = () => {
     setIsAboutOpen(!isAboutOpen)
+    setIsPrivacyOpen(false);
   }
   const handlePrivacyClick = () => {
     setIsPrivacyOpen(!isPrivacyOpen)
+    setIsAboutOpen(false);
   }
 
   let colorstyling = classNames({
@@ -54,7 +56,7 @@ export function Navbar({ color = 'light' }) {
         </div>
       </nav>
       {isAboutOpen && (
-        <div className="flex justify-center h-screen">
+        <div className="absolute flex justify-center  h-full w-full">
           <div className="rounded-xl absolute z-20 bg-[#445e38be] text-white w-6/12 p-4">
             {/* Content for the About popup */}
             <div className="flex justify-between">
@@ -112,7 +114,7 @@ export function Navbar({ color = 'light' }) {
       )}
 
       {isPrivacyOpen && (
-        <div className="flex justify-center h-screen">
+        <div className="absolute flex justify-center  h-full w-full">
           <div className="rounded-xl absolute z-20 bg-[#445e38be] text-white w-6/12 p-4">
             {/* Content for the About popup */}
             <div className="flex justify-between">
@@ -180,18 +182,7 @@ export function Navbar({ color = 'light' }) {
                   immediately discarded and not stored or retained in any way.
                 </p>
               </div>
-              <div className="pb-1">
-                <h3 className="font-semibold pb-b1">
-                  Your Control and Consent
-                </h3>
-                <p>
-                  Your privacy matters to us. We seek your consent to access and
-                  use the specific data required to create the personalized 3D
-                  meshes. By connecting your Spotify account and using our
-                  website, you agree to the collection and usage of this data as
-                  outlined in this Privacy Statement.
-                </p>
-              </div>
+              
             </div>
           </div>
         </div>
